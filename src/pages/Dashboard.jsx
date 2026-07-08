@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import CourseCard from '../components/CourseCard';
-import { Terminal, Code2, Database } from 'lucide-react';
+import { Terminal, Code2, Database, BookOpen, GitBranch, FileCode2, Atom, Palette, Server } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 
@@ -86,6 +86,55 @@ export default function Dashboard() {
           icon={Database} 
           to="/sql"
           progress={progress.sql}
+        />
+        <CourseCard 
+          title="Fundamentos de Programación" 
+          description="Lógica, algoritmos y estructuras básicas para empezar en el mundo del código." 
+          icon={BookOpen} 
+          to="/fundamentos"
+          isAvailable={false}
+        />
+        <CourseCard 
+          title="Git/GitHub" 
+          description="Control de versiones, trabajo colaborativo y buenas prácticas." 
+          icon={GitBranch} 
+          to="/git"
+          isAvailable={false}
+        />
+        <CourseCard 
+          title="TypeScript" 
+          description="JavaScript con superpoderes: tipado estático, interfaces y más seguridad." 
+          icon={FileCode2} 
+          to="/typescript"
+          isAvailable={false}
+        />
+        <CourseCard 
+          title="React" 
+          description="Crea interfaces de usuario interactivas y dinámicas basadas en componentes." 
+          icon={Atom} 
+          to="/react"
+          isAvailable={false}
+        />
+        <CourseCard 
+          title="Tailwind + shadcn" 
+          description="Estilos rápidos y componentes accesibles para un diseño moderno." 
+          icon={Palette} 
+          to="/tailwind"
+          isAvailable={false}
+        />
+        <CourseCard 
+          title="Supabase" 
+          description="Backend as a Service: bases de datos, autenticación y storage." 
+          icon={Database} 
+          to="/supabase"
+          isAvailable={false}
+        />
+        <CourseCard 
+          title="Node/npm/vite" 
+          description="Entorno de ejecución, gestión de paquetes y bundlers modernos." 
+          icon={Server} 
+          to="/node"
+          isAvailable={false}
         />
       </section>
     </div>
