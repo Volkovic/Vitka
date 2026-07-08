@@ -1,21 +1,5 @@
 # Desafío de programación Python: Día 15 - Errores (excepciones) en Python
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Tipos de error en Python
 
 Al escribir código, con frecuencia cometemos errores tipográficos u otros errores comunes. Si nuestro código falla, el intérprete de Python muestra un mensaje que nos da retroalimentación sobre dónde ocurrió el problema y cuál es el tipo de error. A veces incluso sugiere posibles soluciones. Conocer los distintos tipos de errores en el lenguaje nos ayudará a depurar más rápido y a mejorar nuestras habilidades de programación.

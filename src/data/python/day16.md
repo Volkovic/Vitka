@@ -1,18 +1,5 @@
 # Día 16 - datetime en Python
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Python *datetime*
 
 Python tiene un módulo _datetime_ para trabajar con fechas y horas.

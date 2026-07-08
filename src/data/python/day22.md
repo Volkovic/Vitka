@@ -1,12 +1,5 @@
 # Día 22 - Web scraping
 
-
-
-
-
-
-
-
 ## Web scraping con Python
 
 ### ¿Qué es el web scraping?

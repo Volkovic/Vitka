@@ -1,23 +1,5 @@
 # Día 10 - Bucles
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Bucles
 
 La vida está llena de ciclos. En programación realizamos muchas tareas repetitivas. Los lenguajes de programación usan bucles para gestionar tareas repetitivas; en Python hay principalmente dos tipos de bucles:

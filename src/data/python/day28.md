@@ -1,20 +1,5 @@
 # Reto de 30 días de Python: Día 28 - API
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Interfaz de Programación de Aplicaciones (API)
 
 ## API

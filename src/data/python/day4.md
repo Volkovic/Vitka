@@ -2,28 +2,6 @@
 
 _Lectura aproximada: 20 min_
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Día 4
-
-## Cadenas
-
 El texto es un tipo de dato de cadena. Cualquier dato escrito como texto es una cadena. Todo lo que esté entre comillas simples, dobles o triples se considera una cadena. Existen muchos métodos y funciones integradas para trabajar con cadenas. Use la función `len()` para obtener la longitud de una cadena.
 
 

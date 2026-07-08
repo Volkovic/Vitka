@@ -1,28 +1,5 @@
 # 30 días de desafío de programación en Python: Día 25 - Pandas
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
 
 

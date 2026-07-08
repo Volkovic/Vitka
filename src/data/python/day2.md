@@ -1,3 +1,5 @@
+# Día 2 - Variables y Funciones
+
 _Lectura aproximada: 12 min_
 
 En este día, aprenderemos sobre las funciones integradas en Python y cómo declarar variables para almacenar datos en la memoria. 

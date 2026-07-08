@@ -1,23 +1,5 @@
 # Día 6 - Tuplas
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Día 6
-
-## Tuplas
-
 Una tupla es una colección ordenada e inmutable que puede contener distintos tipos de datos. Una vez creada una tupla, no podemos cambiar sus valores. No podemos usar métodos como add, insert o remove en una tupla porque no es modificable (es inmutable). A diferencia de las listas, las tuplas tienen menos métodos. Los métodos asociados a tuplas son:
 
 - tuple(): crea una tupla vacía
@@ -49,8 +31,6 @@ Una tupla es una colección ordenada e inmutable que puede contener distintos ti
   ```py
   fruits = ('banana', 'orange', 'mango', 'lemon')
   ```
-
-
 
 ---
 

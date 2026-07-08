@@ -1,24 +1,5 @@
 # Día 8 - Diccionarios
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Diccionarios
 
 Un diccionario es un tipo de datos compuesto por pares clave-valor desordenados y modificables (mutables).

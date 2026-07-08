@@ -1,34 +1,5 @@
 # Día 5 - Listas
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Día 5
-
-## Listas
-
 En Python hay cuatro tipos de colecciones:
 
 - List: colección ordenada y mutable. Permite elementos duplicados.

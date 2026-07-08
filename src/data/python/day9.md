@@ -1,19 +1,5 @@
 # Día 9 - Sentencias condicionales
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Sentencias condicionales
 
 Por defecto, las sentencias en un script de Python se ejecutan secuencialmente de arriba hacia abajo. Si la lógica lo requiere, podemos cambiar el orden de dos maneras:

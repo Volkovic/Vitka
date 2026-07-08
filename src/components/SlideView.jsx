@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -38,6 +38,14 @@ export default function SlideView({ content, dayQuiz, dayId, courseId }) {
   const totalSlides = dayQuiz ? slides.length + 1 : slides.length;
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentSlide]);
 
   const handleNext = () => {
     if (currentSlide < totalSlides - 1) {
@@ -86,7 +94,7 @@ export default function SlideView({ content, dayQuiz, dayId, courseId }) {
       </div>
 
       {/* Slide Content Area */}
-      <div className="flex-1 flex flex-col justify-center p-8 lg:p-12 relative overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-background-dark/30">
+      <div ref={scrollRef} className="flex-1 flex flex-col justify-center p-8 lg:p-12 relative overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-background-dark/30">
         {isQuizSlide ? (
           <div id="quiz-container" className="h-full flex items-center justify-center">
             <Quiz questions={dayQuiz} dayId={dayId} courseId={courseId} />

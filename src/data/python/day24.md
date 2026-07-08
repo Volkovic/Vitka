@@ -1,27 +1,5 @@
 # Día 24 - Estadística
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Análisis estadístico con Python
 
 ## Estadística

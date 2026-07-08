@@ -1,22 +1,5 @@
 # Día 21 - Clases y Objetos
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Clases y objetos
 
 Python es un lenguaje orientado a objetos. En Python todo es un objeto con atributos y métodos. Los números, cadenas, listas, diccionarios, tuplas, conjuntos, etc. que usamos en programas son instancias de las clases incorporadas correspondientes. Creamos clases para definir objetos. Una clase es como un constructor de objetos o un "molde" para crear objetos. Instanciamos una clase para crear un objeto. La clase define las propiedades y el comportamiento, mientras que el objeto representa la instancia.

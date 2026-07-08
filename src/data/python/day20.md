@@ -1,21 +1,5 @@
 # Día 20 - PIP
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Python PIP - Gestor de paquetes de Python
 
 ### ¿Qué es PIP?

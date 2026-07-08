@@ -1,11 +1,5 @@
 # Día 23 - Entornos virtuales
 
-
-
-
-
-
-
 ## Configurar un entorno virtual
 
 Al comenzar un proyecto es recomendable usar un entorno virtual. Un entorno virtual nos permite crear un entorno aislado o independiente, evitando conflictos de dependencias entre proyectos. Si ejecutas pip freeze en la terminal verás todos los paquetes instalados en la máquina. Con virtualenv solo tendrás acceso a los paquetes instalados en ese entorno específico. Abre tu terminal e instala virtualenv:

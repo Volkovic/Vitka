@@ -1,25 +1,5 @@
 # Día 11 - Funciones
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Funciones
 
 Hasta ahora hemos aprendido muchas funciones integradas de Python. En esta sección nos centraremos en funciones definidas por el usuario. ¿Qué es una función? Antes de crear funciones, entendamos qué es y por qué las necesitamos.

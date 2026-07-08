@@ -1,26 +1,5 @@
 # Día 19 - Manejo de archivos
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Manejo de archivos
 
 Hasta ahora hemos visto distintos tipos de datos en Python. Normalmente almacenamos datos en distintos formatos de archivo. Además de manejar archivos, en esta sección veremos diferentes formatos (.txt, .json, .xml, .csv, .tsv, .excel). Primero, familiaricémonos con el manejo de archivos usando un formato común (.txt).

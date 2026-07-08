@@ -1,26 +1,5 @@
 # Día 12 - Módulos
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Módulos
 
 ### ¿Qué es un módulo?

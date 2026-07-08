@@ -1,29 +1,5 @@
 # Día 7 - Conjuntos
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Conjuntos
 
 Un conjunto es una colección de elementos. Volvamos a las clases de matemáticas de primaria o secundaria: la definición matemática de conjuntos aplica también en Python. Un conjunto es una colección desordenada y no indexada de elementos distintos. En Python, los conjuntos almacenan elementos únicos y se pueden encontrar la _unión_, la _intersección_, la _diferencia_, la _diferencia simétrica_, los _subconjuntos_, los _superconjuntos_ y los _conjuntos disjuntos_ entre conjuntos.

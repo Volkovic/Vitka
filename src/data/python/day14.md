@@ -1,25 +1,5 @@
 # Día 14 - Funciones de orden superior
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Funciones de orden superior
 
 En Python, las funciones son tratadas como ciudadanos de primera clase; se pueden hacer las siguientes operaciones con funciones:

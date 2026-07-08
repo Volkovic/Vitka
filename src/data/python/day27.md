@@ -1,25 +1,5 @@
 # Reto de 30 días de Python: Día 27 - Python y MongoDB
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Python y MongoDB
 
 Python es una tecnología backend que puede conectarse a distintas bases de datos. Puede conectarse a bases de datos SQL y NoSQL. En esta sección conectaremos Python con la base de datos MongoDB, que es una base de datos NoSQL.

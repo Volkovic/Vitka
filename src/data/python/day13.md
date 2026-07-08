@@ -1,14 +1,5 @@
 # Día 13 - Comprensiones de listas
 
-
-
-
-
-
-
-
-
-
 ## Comprensiones de listas
 
 En Python, las comprensiones de listas son una forma concisa de crear listas a partir de secuencias. Es una manera corta de crear nuevas listas a partir de secuencias. Las comprensiones de listas son más rápidas que iterar sobre listas con un bucle for.

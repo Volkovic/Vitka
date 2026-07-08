@@ -1,30 +1,5 @@
 # Día 18 - Expresiones regulares
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Expresiones regulares
 
 Las expresiones regulares (RegEx) son cadenas de texto especiales que ayudan a encontrar patrones en los datos. RegEx se puede usar para comprobar la existencia de ciertos patrones en diferentes tipos de datos. Para usar RegEx en Python debemos importar el módulo llamado *re*.

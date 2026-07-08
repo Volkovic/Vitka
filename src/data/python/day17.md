@@ -1,21 +1,5 @@
 # Día 17 - Manejo de excepciones
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Manejo de excepciones
 
 Python utiliza _try_ y _except_ para manejar errores de forma elegante. Salir de forma controlada (o manejar errores con elegancia) es una buena práctica: el programa detecta una condición de error y la maneja adecuadamente, normalmente mostrando un mensaje descriptivo en la terminal o en un registro. Las excepciones suelen deberse a factores externos al programa (entrada errónea, nombre de archivo incorrecto, archivo no encontrado, fallos de I/O, etc.). El manejo adecuado de excepciones evita que las aplicaciones se bloqueen.

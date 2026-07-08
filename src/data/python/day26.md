@@ -1,25 +1,5 @@
 # 30 días de desafío de programación en Python: Día 26 - Programación web con Python
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Programación web con Python
 
 Python es un lenguaje de programación versátil que se puede utilizar para una variedad de propósitos. En esta sección, veremos cómo usar Python para el desarrollo web. Python tiene muchos marcos web disponibles. Django y Flask son los más populares. Hoy, aprenderemos a usar Flask para el desarrollo web.

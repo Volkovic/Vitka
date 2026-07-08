@@ -2,16 +2,6 @@
 
 _Lectura aproximada: 12 min_
 
-
-
-
-
-
-
-
-
-
-
 ## Boolean
 
 El tipo booleano representa uno de dos valores: _True_ o _False_. Cuando comencemos a usar operadores de comparación su uso quedará claro. La primera letra **T** representa True y **F** representa False; a diferencia de JavaScript, en Python las palabras booleanas deben escribirse con la primera letra en mayúscula.
