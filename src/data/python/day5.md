@@ -549,39 +549,6 @@ Para ordenar una lista podemos usar el método *sort()* o la función incorporad
 
 ---
 
-## 
-
-**Consigna 1:** Crea una lista vacía llamada `my_list` y otra lista con 5 comidas favoritas. Imprime la longitud de la lista de comidas.
-**[Solución]**
-```python
-my_list = []
-comidas = ['Pizza', 'Sushi', 'Hamburguesa', 'Tacos', 'Pasta']
-print(len(comidas)) # 5
-```
-
-**Consigna 2:** De tu lista de comidas, imprime el primer elemento, el elemento central y el último elemento.
-**[Solución]**
-```python
-primer_elemento = comidas[0]
-elemento_central = comidas[len(comidas) // 2]
-ultimo_elemento = comidas[-1]
-
-print("Primero:", primer_elemento)
-print("Medio:", elemento_central)
-print("Último:", ultimo_elemento)
-```
-
-**Consigna 3:** Tienes la lista de edades `ages = [19, 22, 19, 24, 20, 25]`. Ordena la lista de menor a mayor (`sort`) y agrega la edad `21` al final (`append`).
-**[Solución]**
-```python
-ages = [19, 22, 19, 24, 20, 25]
-ages.sort()
-ages.append(21)
-print(ages) # [19, 19, 20, 22, 24, 25, 21]
-```
-
----
-
 ## 💻 Ejercicios Prácticos (Listas)
 
 **Consigna 1:** Crea una lista vacía llamada `my_list` y otra lista con 5 comidas favoritas. Imprime la longitud de la lista de comidas.

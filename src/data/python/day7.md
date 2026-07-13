@@ -400,39 +400,6 @@ python.isdisjoint(dragon)  # Falso, comparten {'o', 'n'}
 
 ---
 
-## 
-
-**Consigna 1:** Crea un set vacío y luego un set con los lenguajes de programación `{'Python', 'Java', 'C++'}`. Imprime la longitud del set.
-**[Solución]**
-```python
-empty_set = set()
-languages = {'Python', 'Java', 'C++'}
-print(len(languages)) # 3
-```
-
-**Consigna 2:** Agrega el lenguaje `'JavaScript'` al set de lenguajes usando el método `.add()`. Luego intenta agregar `'Python'` nuevamente. ¿Qué sucede?
-**[Solución]**
-```python
-languages.add('JavaScript')
-languages.add('Python') # Como ya existe, no se duplicará
-print(languages) # {'JavaScript', 'Java', 'Python', 'C++'}
-```
-
-**Consigna 3:** Tienes dos sets: `A = {1, 2, 3, 4}` y `B = {3, 4, 5, 6}`. Encuentra la intersección de ambos sets (los elementos en común) y la unión de ambos.
-**[Solución]**
-```python
-A = {1, 2, 3, 4}
-B = {3, 4, 5, 6}
-
-interseccion = A.intersection(B)
-union = A.union(B)
-
-print("Intersección:", interseccion) # {3, 4}
-print("Unión:", union) # {1, 2, 3, 4, 5, 6}
-```
-
----
-
 ## 💻 Ejercicios Prácticos (Sets)
 
 **Consigna 1:** Crea un set vacío y luego un set con los lenguajes de programación `{'Python', 'Java', 'C++'}`. Imprime la longitud del set.

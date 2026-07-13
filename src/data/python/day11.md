@@ -372,45 +372,6 @@ print(do_something(square_number, 3)) # 27
 
 ---
 
-## 
-
-**Consigna 1:** Escribe una función `area_of_circle` que reciba un radio y retorne el área del círculo (usa `math.pi`).
-**[Solución]**
-```python
-import math
-
-def area_of_circle(r):
-    return math.pi * r * r
-
-print(area_of_circle(10)) # 314.159...
-```
-
-**Consigna 2:** Crea una función llamada `add_all_nums` que reciba un número arbitrario de argumentos usando `*args` y retorne la suma de todos ellos.
-**[Solución]**
-```python
-def add_all_nums(*nums):
-    total = 0
-    for num in nums:
-        total += num
-    return total
-
-print(add_all_nums(1, 2, 3, 4, 5)) # 15
-```
-
-**Consigna 3:** Crea una función llamada `capitalize_list_items` que reciba una lista de strings y retorne una nueva lista con cada elemento en mayúscula.
-**[Solución]**
-```python
-def capitalize_list_items(items):
-    capitalized = []
-    for item in items:
-        capitalized.append(item.upper())
-    return capitalized
-
-print(capitalize_list_items(['manzana', 'banana'])) # ['MANZANA', 'BANANA']
-```
-
----
-
 ## 💻 Ejercicios Prácticos (Funciones)
 
 **Consigna 1:** Escribe una función `area_of_circle` que reciba un radio y retorne el área del círculo (usa `math.pi`).

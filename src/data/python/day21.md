@@ -313,51 +313,6 @@ Como se mostró, podemos sobrescribir un método del padre definiendo en la subc
 
 ---
 
-## 
-
-**Consigna 1:** Crea una clase `Animal` con un método `__init__` que inicialice `name`, `age` y `color`. Crea un objeto a partir de ella e imprime su nombre.
-**[Solución]**
-```python
-class Animal:
-    def __init__(self, name, age, color):
-        self.name = name
-        self.age = age
-        self.color = color
-
-mi_animal = Animal("Pelusa", 2, "Blanco")
-print(mi_animal.name) # Pelusa
-```
-
-**Consigna 2:** Agrega un método regular llamado `animal_info` a la clase `Animal` que retorne un string descriptivo.
-**[Solución]**
-```python
-class AnimalV2:
-    def __init__(self, name, age, color):
-        self.name = name
-        self.age = age
-        self.color = color
-        
-    def animal_info(self):
-        return f"{self.name} tiene {self.age} años y es de color {self.color}."
-
-rex = AnimalV2("Rex", 5, "Marrón")
-print(rex.animal_info()) # Rex tiene 5 años y es de color Marrón.
-```
-
-**Consigna 3:** Crea una clase `Dog` que herede de la clase `Animal`. Sobrescribe el método `animal_info` o añade un método nuevo como `bark()`.
-**[Solución]**
-```python
-class Dog(AnimalV2):
-    def bark(self):
-        return "¡Guau guau!"
-        
-perrito = Dog("Firulais", 1, "Negro")
-print(perrito.animal_info()) # Utiliza el método heredado
-print(perrito.bark())        # ¡Guau guau!
-```
-
----
-
 ## 💻 Ejercicios Prácticos (Clases y Objetos)
 
 **Consigna 1:** Crea una clase `Animal` con un método `__init__` que inicialice `name`, `age` y `color`. Crea un objeto a partir de ella e imprime su nombre.

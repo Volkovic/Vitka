@@ -171,36 +171,6 @@ Diferentes tipos numéricos en Python:
 
 ---
 
-## 
-
-**Consigna 1:** Declara una variable llamada `full_name` y asígnale un nombre completo. Imprime el valor y el tipo de dato utilizando la función `type()`.
-**[Solución]**
-```python
-full_name = "Asabeneh Yetayeh"
-print("Nombre:", full_name)
-print("Tipo:", type(full_name))
-```
-
-**Consigna 2:** Declara dos variables, `num_one = 5` y `num_two = 4`. Suma ambas variables y asigna el resultado a una variable `total`, luego imprímela.
-**[Solución]**
-```python
-num_one = 5
-num_two = 4
-total = num_one + num_two
-print("La suma es:", total) # 9
-```
-
-**Consigna 3:** Solicita al usuario su edad utilizando la función `input()`, conviértela a entero y muestra cuántos años tendrá en 10 años.
-**[Solución]**
-```python
-# age_input = input("Ingresa tu edad: ")
-# age = int(age_input)
-age = 20 # Valor simulado para el ejemplo
-print("En 10 años tendrás:", age + 10)
-```
-
----
-
 ## 💻 Ejercicios Prácticos (Variables y Funciones Integradas)
 
 **Consigna 1:** Declara una variable llamada `full_name` y asígnale un nombre completo. Imprime el valor y el tipo de dato utilizando la función `type()`.

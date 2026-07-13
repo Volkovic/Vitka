@@ -218,36 +218,6 @@ del fruits
 
 ---
 
-## 
-
-**Consigna 1:** Crea una tupla vacía y luego otra tupla conteniendo los nombres de tus 3 hermanos o amigos.
-**[Solución]**
-```python
-empty_tuple = ()
-siblings = ('Juan', 'María', 'Pedro')
-print(siblings)
-```
-
-**Consigna 2:** Intenta modificar el primer elemento de la tupla de tus hermanos (ej. `siblings[0] = 'Carlos'`). ¿Qué sucede? Observa el error para entender la inmutabilidad.
-**[Solución]**
-```python
-# siblings[0] = 'Carlos' 
-# Esto lanzará un TypeError: 'tuple' object does not support item assignment
-print("Las tuplas son inmutables, no se pueden modificar una vez creadas.")
-```
-
-**Consigna 3:** Tienes la tupla `fruits = ('manzana', 'banana', 'naranja')`. Desempaqueta la tupla en 3 variables individuales e imprímelas.
-**[Solución]**
-```python
-fruits = ('manzana', 'banana', 'naranja')
-f1, f2, f3 = fruits
-print("Fruta 1:", f1)
-print("Fruta 2:", f2)
-print("Fruta 3:", f3)
-```
-
----
-
 ## 💻 Ejercicios Prácticos (Tuplas)
 
 **Consigna 1:** Crea una tupla vacía y luego otra tupla conteniendo los nombres de tus 3 hermanos o amigos.

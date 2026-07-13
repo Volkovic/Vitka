@@ -327,40 +327,6 @@ print(values) # dict_values(['value1', 'value2', 'value3', 'value4'])
 
 ---
 
-## 
-
-**Consigna 1:** Crea un diccionario vacío llamado `dog` y agrégale las claves `name`, `color`, `breed`, `legs` y `age` con sus respectivos valores.
-**[Solución]**
-```python
-dog = {}
-dog['name'] = 'Firulais'
-dog['color'] = 'Marrón'
-dog['breed'] = 'Labrador'
-dog['legs'] = 4
-dog['age'] = 3
-print(dog)
-```
-
-**Consigna 2:** Tienes el diccionario `student = {'first_name':'John', 'age':22, 'country':'Finland'}`. Obtén el valor de `country` utilizando el método `.get()`.
-**[Solución]**
-```python
-student = {'first_name':'John', 'age':22, 'country':'Finland'}
-pais = student.get('country')
-print("País:", pais) # Finland
-```
-
-**Consigna 3:** Utiliza los métodos `.keys()` y `.values()` para obtener listas de todas las claves y valores del diccionario `student`.
-**[Solución]**
-```python
-claves = list(student.keys())
-valores = list(student.values())
-
-print("Claves:", claves) # ['first_name', 'age', 'country']
-print("Valores:", valores) # ['John', 22, 'Finland']
-```
-
----
-
 ## 💻 Ejercicios Prácticos (Diccionarios)
 
 **Consigna 1:** Crea un diccionario vacío llamado `dog` y agrégale las claves `name`, `color`, `breed`, `legs` y `age` con sus respectivos valores.

@@ -134,33 +134,6 @@ print(two_power_of_five)  # 32
 
 ---
 
-## 
-
-**Consigna 1:** Tienes la lista `numbers = [1, 2, 3, 4, 5]`. Utiliza List Comprehension para crear una nueva lista con todos los números elevados al cuadrado.
-**[Solución]**
-```python
-numbers = [1, 2, 3, 4, 5]
-squares = [num ** 2 for num in numbers]
-print(squares) # [1, 4, 9, 16, 25]
-```
-
-**Consigna 2:** Tienes la lista de tuplas `list_of_tuples = [(1, 1, 1), (2, 4, 8), (3, 9, 27)]`. Utiliza List Comprehension para aplanarla en una lista 1D.
-**[Solución]**
-```python
-list_of_tuples = [(1, 1, 1), (2, 4, 8), (3, 9, 27)]
-flattened = [num for row in list_of_tuples for num in row]
-print(flattened) # [1, 1, 1, 2, 4, 8, 3, 9, 27]
-```
-
-**Consigna 3:** Crea una lista de números pares del 0 al 10 utilizando List Comprehension con una condición `if`.
-**[Solución]**
-```python
-pares = [i for i in range(11) if i % 2 == 0]
-print(pares) # [0, 2, 4, 6, 8, 10]
-```
-
----
-
 ## 💻 Ejercicios Prácticos (List Comprehension)
 
 **Consigna 1:** Tienes la lista `numbers = [1, 2, 3, 4, 5]`. Utiliza List Comprehension para crear una nueva lista con todos los números elevados al cuadrado.
