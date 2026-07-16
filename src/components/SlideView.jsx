@@ -29,7 +29,7 @@ function preprocessSolutions(markdown) {
   );
 }
 
-export default function SlideView({ content, dayQuiz, dayId, courseId }) {
+export default function SlideView({ content, dayQuiz, dayId, courseId, onSlideChange }) {
   // Split markdown by horizontal rule (---)
   // We use regex to match lines that are exactly '---'
   const slides = content.split(/^---\s*$/m).filter(s => s.trim().length > 0);
@@ -71,6 +71,13 @@ export default function SlideView({ content, dayQuiz, dayId, courseId }) {
 
   const isQuizSlide = dayQuiz && currentSlide === totalSlides - 1;
 
+  // Notify parent of slide changes for AI chat context
+  useEffect(() => {
+    if (onSlideChange) {
+      onSlideChange(isQuizSlide ? '' : slides[currentSlide] || '', isQuizSlide);
+    }
+  }, [currentSlide, totalSlides]);
+
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col bg-gray-900 border border-gray-800 shadow-2xl rounded-2xl overflow-hidden" style={{ minHeight: '65vh' }}>
       
@@ -81,7 +88,7 @@ export default function SlideView({ content, dayQuiz, dayId, courseId }) {
             <ArrowLeft size={16} /> <span className="hidden sm:inline">Volver</span>
           </Link>
           <span className="text-sm font-bold text-gray-300">
-            {isQuizSlide ? 'Evaluación' : `Diapositiva ${currentSlide + 1} de ${totalSlides}`}
+            {isQuizSlide ? 'Evaluación' : `Diapositiva ${currentSlide + 1} de ${slides.length}`}
           </span>
           <div className="w-16"></div>
         </div>

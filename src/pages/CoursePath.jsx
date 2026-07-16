@@ -10,7 +10,7 @@ export default function CoursePath() {
     'Introducción', 'Variables y Funciones', 'Operadores', 'Cadenas (Strings)', 
     'Listas', 'Tuplas', 'Sets', 'Diccionarios', 'Condicionales', 
     'Bucles (Loops)', 'Funciones', 'Módulos', 'List Comprehension', 
-    'Funciones de Orden Superior', 'Errores de Tipo', 'Módulo Datetime', 
+    'Funciones de Orden Superior, Closures y Decoradores', 'Tipos de Errores', 'Módulo Datetime', 
     'Manejo de Excepciones', 'Expresiones Regulares', 'Manejo de Archivos', 
     'Gestor de Paquetes (PIP)', 'Clases y Objetos', 'Web Scraping', 
     'Entornos Virtuales', 'Estadísticas', 'Pandas', 'Web con Python', 

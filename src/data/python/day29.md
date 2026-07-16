@@ -1,4 +1,4 @@
-# Reto de 30 días de Python: Día 29 - Construyendo una API
+# Día 29 - Construyendo una API
 
 ## Día 29
 

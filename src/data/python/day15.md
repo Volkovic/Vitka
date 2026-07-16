@@ -1,4 +1,4 @@
-# Desafío de programación Python: Día 15 - Errores (excepciones) en Python
+# Día 15 - Tipos de Errores en Python
 
 ## Tipos de error en Python
 

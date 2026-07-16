@@ -1,4 +1,4 @@
-# 30 días de desafío de programación en Python: Día 26 - Programación web con Python
+# Día 26 - Programación Web con Python
 
 ## Programación web con Python
 

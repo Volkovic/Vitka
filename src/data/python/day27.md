@@ -1,4 +1,4 @@
-# Reto de 30 días de Python: Día 27 - Python y MongoDB
+# Día 27 - Python y MongoDB
 
 # Python y MongoDB
 
