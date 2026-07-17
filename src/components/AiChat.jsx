@@ -104,7 +104,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
   // Focus input when chat opens
   useEffect(() => {
     if (isOpen && hasConfig) {
-      setTimeout(() => inputRef.current?.focus(), 300);
+      setTimeout(() => desktopInputRef.current?.focus(), 300);
     }
   }, [isOpen, hasConfig]);
 
