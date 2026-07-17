@@ -244,7 +244,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
       setStreamingText('');
       abortRef.current = null;
     }
-  }, [messages, isLoading, hasConfig, slideContent, provider, apiKey, user, courseId, dayId, slideIndex]);
+  }, [messages, isLoading, hasConfig, slideContent, provider, apiKey, user, courseId, moduleId, slideIndex]);
 
   const handleSubmit = (e) => {
     if (e) e.preventDefault();

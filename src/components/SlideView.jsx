@@ -5,8 +5,9 @@ import rehypeRaw from 'rehype-raw';
 import { ArrowLeft, ArrowRight, ChevronRight } from 'lucide-react';
 import Quiz from './Quiz';
 
-// Converts **[Solución]** followed by a ```code block``` into a collapsible <details> toggle
 function preprocessSolutions(markdown) {
+  if (!markdown) return '';
+  
   // Match **[Solución]** followed by a fenced code block (```...```)
   return markdown.replace(
     /\*\*\[Solución\]\*\*\s*\n(```[\s\S]*?```)/g,

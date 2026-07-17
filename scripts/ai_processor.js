@@ -17,96 +17,128 @@ if (!apiKey) {
 
 const ai = new GoogleGenAI({ apiKey });
 
-const SYSTEM_PROMPT = `
-Eres un educador técnico experto de élite. Tu objetivo es reescribir módulos educativos (teoría en Markdown) y sus evaluaciones (Quizzes en JSON) siguiendo REGLAS ESTRICTAS de calidad.
-Recibirás la teoría actual y los quizzes actuales de un módulo específico.
+const SYSTEM_PROMPT_MD = `Eres un experto desarrollador de software y pedagogo técnico Senior.
+Tu tarea es REESTRUCTURAR y MEJORAR la teoría de un módulo de programación para que alcance un nivel de excelencia académica, pero manteniéndose altamente comprensible.
 
 REGLAS OBLIGATORIAS:
-1. **Respetar temario:** No elimines ningún concepto que ya esté presente.
-2. **Estructura Slide (Diapositivas):** Cada slide se separa exactamente por \`---\`. Nunca dejes un slide que contenga SOLO un ejemplo aislado. Un slide siempre debe contener el concepto teórico + su respectivo ejemplo. Puedes agregar o quitar slides según convenga.
-3. **Agrupación lógica:** Agrupa conceptos fuertemente relacionados en el mismo slide o de manera contigua (ej. agrupar map, filter, reduce).
-4. **Analogías mundanas:** Usa ejemplos de la vida real (ej. un restaurante, una biblioteca, un estacionamiento) para explicar conceptos abstractos. Sé consistente con el hilo conductor dentro del módulo.
-5. **Profundidad:** Expande las explicaciones vagas. El alumno NUNCA debería tener que buscar en Google para entender algo básico que se mencionó por encima.
-6. **Cobertura Total:** La teoría resultante DEBE contener toda la información técnica necesaria para responder exitosamente el 100% de las preguntas del quiz. Si una pregunta del quiz trata un tema que no estaba en la teoría, ¡agrégalo a la teoría!
-7. **Quizzes Balanceados (CRÍTICO):** Las opciones incorrectas (distractores) DEBEN tener una longitud de texto similar a la respuesta correcta y estar redactadas con lenguaje técnico verosímil. No hagas que la correcta sea un párrafo obvio y las falsas frases cortas. Que todas requieran razonamiento real.
+1. **Respetar temario (CRÍTICO):** NO ELIMINES NINGÚN concepto técnico, sintaxis, biblioteca o detalle (por ejemplo, si el original menciona \`@wraps\` de \`functools\`, DEBES incluirlo y explicar su propósito exhaustivamente). Mejora, no recortes.
+2. **Estructura Slide:** Cada slide se separa exactamente por \`---\`. Un slide siempre debe contener teoría detallada + ejemplo desglosado.
+3. **Agrupación lógica:** Map, Filter y Reduce DEBEN ir juntos obligatoriamente en un solo slide (no los separes con \`---\`).
+4. **Estructura Didáctica (Jerárquica y Sobria):**
+   Usa una jerarquía estricta de encabezados Markdown (###) y un tono profesional (elimina palabras como "magia" o "truco", usa "mecánica" o "implementación").
+   
+   REPLICA EXACTAMENTE ESTA ESTRUCTURA DE ENCABEZADOS POR CADA TEMA:
+
+   ## [Nombre del Tema Principal]
+   
+   ### 1. El Concepto en la Vida Real
+   Imagina que... [Usa una analogía clara y profesional].
+   \`\`\`python
+   # Estado base sin aplicar el concepto
+   def enviar_mensaje():
+       print("Mensaje enviado")
+   \`\`\`
+   El problema con este enfoque es que... [Explica la limitación]. Aquí es donde interviene **[CONCEPTO]** para resolverlo mediante...
+   
+   ### 2. Anatomía del Código Paso a Paso
+   Esta es la estructura interna detallada de la implementación:
+   \`\`\`python
+   from functools import wraps # 0. Importamos la utilidad para preservar los metadatos de la función original
+   
+   def mi_decorador(funcion_original): # 1. La función superior recibe la función objetivo
+       @wraps(funcion_original) # <-- Paso A: Protege la identidad (nombre y docstring) de la función original
+       def wrapper():
+           print("Ejecución previa") # <-- Paso B: Lógica antes de la función
+           funcion_original() # <-- Paso C: Invocación de la función original
+           print("Ejecución posterior") # <-- Paso D: Lógica después de la función
+       return wrapper
+   \`\`\`
+   
+   ### 3. Implementación Práctica y Resultado
+   Al aplicar la sintaxis \`[SINTAXIS]\`, el intérprete ejecuta la lógica envolvente de forma transparente:
+   \`\`\`python
+   @mi_decorador
+   def saludar():
+       print("¡Hola Mundo!")
+   \`\`\`
+   **Resultado en consola:**
+   \`\`\`text
+   Ejecución previa
+   ¡Hola Mundo!
+   Ejecución posterior
+   \`\`\`
+   **Conclusión:** Hemos logrado extender el comportamiento de la función original de forma modular y mantenible.
 
 FORMATO DE SALIDA:
-Debes responder ÚNICA Y EXCLUSIVAMENTE con un objeto JSON válido (sin formato markdown de bloques de código \`\`\`json) que coincida con esta estructura:
-{
-  "updatedMarkdown": "String completo del Markdown reescrito, usando --- para separar slides.",
-  "updatedQuizzes": [
-    {
-      "id": 123,
-      "question": "Pregunta...",
-      "options": ["Distractor largo y técnico", "Respuesta correcta larga y técnica", "Distractor largo y técnico", "Distractor largo y técnico"],
-      "correctAnswer": 1,
-      "justification": "Por qué es correcto..."
-    }
-  ]
-}
-`;
+Entrega ÚNICA Y EXCLUSIVAMENTE el string completo del Markdown reescrito. No uses bloques \`\`\`markdown, devuelve el texto plano.`;
+
+const SYSTEM_PROMPT_QUIZ = `Eres un experto pedagogo creando quizzes técnicos.
+Tu tarea es tomar un Markdown de teoría y crear/mejorar los quizzes para que cubran el 100% de la teoría.
+
+REGLAS OBLIGATORIAS:
+1. **Quizzes Balanceados (CRÍTICO):** Las opciones incorrectas (distractores) DEBEN tener una longitud de texto similar a la respuesta correcta y estar redactadas con lenguaje técnico verosímil.
+2. Formato: Entrega ÚNICA Y EXCLUSIVAMENTE un JSON Array válido, MINIFICADO EN UNA SOLA LÍNEA, sin bloques \`\`\`json.`;
 
 async function processModule(lang, moduleId) {
-  console.log(`\n======================================`);
-  console.log(`Procesando ${lang} - Módulo ${moduleId}...`);
-  
-  const langDir = path.join(dataDir, lang);
-  const mdPath = path.join(langDir, `module${moduleId}.md`);
-  const quizPath = path.join(langDir, 'quizzes.json');
+  const mdPath = path.join(dataDir, lang, `module${moduleId}.md`);
+  const quizPath = path.join(dataDir, lang, 'quizzes.json');
 
-  let markdownContent = '';
+  let originalMarkdown = '';
   try {
-    markdownContent = await fs.readFile(mdPath, 'utf8');
-  } catch (e) {
+    originalMarkdown = await fs.readFile(mdPath, 'utf8');
+  } catch(e) {
     console.log(`No se encontró ${mdPath}. Saltando.`);
     return;
   }
-
-  let allQuizzes = {};
-  let moduleQuizzes = [];
-  try {
-    const quizData = await fs.readFile(quizPath, 'utf8');
-    allQuizzes = JSON.parse(quizData);
-    moduleQuizzes = allQuizzes[`module${moduleId}`] || [];
-  } catch (e) {
-    console.log(`Error leyendo quizzes.json de ${lang}.`);
-  }
-
-  const prompt = `
-=== TEORÍA ACTUAL ===
-${markdownContent}
-
-=== QUIZZES ACTUALES ===
-${JSON.stringify(moduleQuizzes, null, 2)}
-  `;
-
-  console.log(`Enviando a Gemini 3.1 Pro...`);
   
+  let allQuizzes = {};
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.1-pro',
-      contents: prompt,
-      config: {
-        systemInstruction: SYSTEM_PROMPT,
-        temperature: 0.2,
-        responseMimeType: "application/json"
-      }
+    const rawData = await fs.readFile(quizPath, 'utf8');
+    allQuizzes = JSON.parse(rawData);
+  } catch(e) {
+    console.log(`No se encontró quizzes.json o está vacío. Se creará uno nuevo.`);
+  }
+  const originalQuizzes = allQuizzes[`module${moduleId}`] || [];
+
+  const promptMd = `TEORÍA ORIGINAL:\n\n${originalMarkdown}\n\nReescribe esta teoría siguiendo tus reglas.`;
+
+  console.log(`Generando Markdown para módulo ${moduleId}...`);
+  try {
+    const responseMd = await ai.models.generateContent({
+      model: 'gemini-3.1-pro-preview',
+      contents: promptMd,
+      config: { systemInstruction: SYSTEM_PROMPT_MD, temperature: 0.2, maxOutputTokens: 8192 }
     });
+    
+    let updatedMarkdown = responseMd.text.trim();
+    if (updatedMarkdown.startsWith('```markdown')) updatedMarkdown = updatedMarkdown.replace(/^```markdown/, '').replace(/```$/, '').trim();
+    else if (updatedMarkdown.startsWith('```')) updatedMarkdown = updatedMarkdown.replace(/^```/, '').replace(/```$/, '').trim();
 
-    const resultText = response.text;
-    const resultJson = JSON.parse(resultText);
-
-    // Guardar Markdown
-    await fs.writeFile(mdPath, resultJson.updatedMarkdown, 'utf8');
+    await fs.writeFile(mdPath, updatedMarkdown, 'utf8');
     console.log(`✅ Markdown actualizado guardado.`);
 
-    // Guardar Quizzes
-    if (resultJson.updatedQuizzes && Array.isArray(resultJson.updatedQuizzes)) {
-      allQuizzes[`module${moduleId}`] = resultJson.updatedQuizzes;
+    const promptQuiz = `TEORÍA ACTUALIZADA:\n\n${updatedMarkdown}\n\nQUIZZES ORIGINALES:\n\n${JSON.stringify(originalQuizzes, null, 2)}\n\nGenera los quizzes actualizados.`;
+    
+    console.log(`Generando Quizzes para módulo ${moduleId}...`);
+    const responseQuiz = await ai.models.generateContent({
+      model: 'gemini-3.1-pro-preview',
+      contents: promptQuiz,
+      config: { systemInstruction: SYSTEM_PROMPT_QUIZ, temperature: 0.2, maxOutputTokens: 8192 }
+    });
+
+    let quizzesJsonText = responseQuiz.text.trim();
+    if (quizzesJsonText.startsWith('```json')) quizzesJsonText = quizzesJsonText.replace(/^```json/, '').replace(/```$/, '').trim();
+    else if (quizzesJsonText.startsWith('```')) quizzesJsonText = quizzesJsonText.replace(/^```/, '').replace(/```$/, '').trim();
+
+    // Clean raw newlines that break parse
+    quizzesJsonText = quizzesJsonText.replace(/\n/g, "\\n").replace(/\r/g, "");
+
+    const updatedQuizzes = JSON.parse(quizzesJsonText);
+    if (updatedQuizzes && Array.isArray(updatedQuizzes)) {
+      allQuizzes[`module${moduleId}`] = updatedQuizzes;
       await fs.writeFile(quizPath, JSON.stringify(allQuizzes, null, 2), 'utf8');
       console.log(`✅ Quizzes actualizados guardados.`);
     }
-
   } catch (error) {
     console.error(`❌ Error procesando el módulo ${moduleId} de ${lang}:`, error.message);
   }

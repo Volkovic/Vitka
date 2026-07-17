@@ -1,266 +1,328 @@
-# Día 14 - Funciones Avanzadas (El Restaurante de Python)
+## Funciones de Orden Superior: Inyección de Dependencias Funcionales
 
-A partir de hoy, vamos a pensar en las funciones como **ingredientes o herramientas de cocina**. En Python, las funciones son "ciudadanos de primera clase", lo que significa que puedes tratarlas exactamente igual que a un número o una cadena de texto: puedes guardarlas en variables, pasarlas como argumentos o hacer que otra función las devuelva.
-
-Para entender estos conceptos avanzados (Funciones de orden superior, Closures y Decoradores), usaremos el hilo conductor de **"El Restaurante de Python"**.
-
-En esta sección dominaremos:
-1. Funciones de orden superior (Pasar y devolver funciones)
-2. Closures (Funciones con memoria)
-3. Decoradores (Envoltorios mágicos)
-4. Map, Filter y Reduce (Procesamiento de pedidos)
-
----
-
-## 1. Funciones de Orden Superior: Pasando herramientas al Chef
-
-Imagina que tienes un Chef (una función) que sabe preparar ingredientes, pero necesita que le digas **cómo** cocinarlos. Para esto, le pasamos "el método de cocción" (otra función) como parámetro.
-
-Una función que recibe a otra función como parámetro se llama **Función de Orden Superior**.
-
+### 1. El Concepto en la Vida Real
+Imagina que administras la cocina de un restaurante. Tienes un chef altamente capacitado para procesar alimentos, pero el método exacto de cocción varía según el pedido. 
 ```python
-# Nuestras funciones "herramienta" (métodos de cocción)
+# Estado base sin aplicar el concepto
+def chef_prepara_horneado(ingrediente):
+    resultado = f"{ingrediente} horneado a la perfección"
+    print(f"Chef: ¡Listo! Tenemos un {resultado}")
+
+def chef_prepara_frito(ingrediente):
+    resultado = f"{ingrediente} frito y muy crujiente"
+    print(f"Chef: ¡Listo! Tenemos un {resultado}")
+```
+El problema con este enfoque es que genera redundancia de código; debes crear una función completa para cada método de cocción. Aquí es donde interviene el concepto de **Funciones de Orden Superior** para resolverlo mediante la inyección de la función de cocción como un parámetro, tratando a las funciones como ciudadanos de primera clase.
+
+### 2. Anatomía del Código Paso a Paso
+Esta es la estructura interna detallada de la implementación:
+```python
+# 1. Definimos las funciones de utilidad (comportamientos modulares)
 def hornear(ingrediente):
     return f"{ingrediente} horneado a la perfección"
 
 def freir(ingrediente):
     return f"{ingrediente} frito y muy crujiente"
 
-# Nuestra Función de Orden Superior (El Chef)
+# 2. Definimos la Función de Orden Superior que recibe otra función como argumento
 def chef_prepara(metodo_de_coccion, ingrediente):
     print("Chef: Preparando el ingrediente...")
-    # Aquí el chef USA la función que le pasamos
-    resultado = metodo_de_coccion(ingrediente)
+    # <-- Paso A: Se invoca la función recibida por parámetro dinámicamente
+    resultado = metodo_de_coccion(ingrediente) 
     print(f"Chef: ¡Listo! Tenemos un {resultado}")
-
-# Usando el código
-chef_prepara(hornear, "Pollo") 
-# Output: Chef: ¡Listo! Tenemos un Pollo horneado a la perfección
-
-chef_prepara(freir, "Pescado")
-# Output: Chef: ¡Listo! Tenemos un Pescado frito y muy crujiente
 ```
 
-Fíjate que pasamos `hornear` y `freir` **sin paréntesis**. No las estamos ejecutando nosotros, se las estamos entregando al Chef para que él las ejecute cuando sea el momento adecuado.
+### 3. Implementación Práctica y Resultado
+Al aplicar la sintaxis de paso de funciones (sin paréntesis, pasando la referencia en memoria), el intérprete ejecuta la lógica delegada de forma transparente:
+```python
+# Pasamos la referencia de la función 'hornear' y 'freir'
+chef_prepara(hornear, "Pollo") 
+chef_prepara(freir, "Pescado")
+```
+**Resultado en consola:**
+```text
+Chef: Preparando el ingrediente...
+Chef: ¡Listo! Tenemos un Pollo horneado a la perfección
+Chef: Preparando el ingrediente...
+Chef: ¡Listo! Tenemos un Pescado frito y muy crujiente
+```
+**Conclusión:** Hemos logrado abstraer el comportamiento del chef, permitiendo inyectar cualquier método de cocción sin modificar la lógica principal de preparación.
 
 ---
 
-## 2. Funciones de Orden Superior: La fábrica de máquinas
+## Funciones de Orden Superior: Factorías de Funciones
 
-Otra característica de las funciones de orden superior es que pueden **devolver (retornar) funciones**. 
-
-Imagina una fábrica de máquinas de restaurante. Tú le dices qué tipo de comida quieres vender, y la fábrica construye y te entrega una máquina (función) especializada para eso.
-
+### 1. El Concepto en la Vida Real
+Imagina una planta industrial que fabrica maquinaria para restaurantes. En lugar de construir máquinas genéricas, la planta recibe especificaciones y construye una máquina especializada (una función) que el cliente puede llevarse y operar posteriormente.
 ```python
-def fabrica_de_maquinas(tipo_comida):
+# Estado base sin aplicar el concepto
+def operar_maquina_pizza(cantidad):
+    return f"🍕 Saliendo {cantidad} pizzas calientes!"
+
+def operar_maquina_helado(cantidad):
+    return f"🍦 Sirviendo {cantidad} helados fríos!"
+```
+El problema con este enfoque es que el cliente debe conocer y gestionar todas las funciones disponibles globalmente. Aquí es donde interviene el **Retorno de Funciones** para resolverlo mediante una función constructora que encapsula y devuelve la herramienta específica solicitada.
+
+### 2. Anatomía del Código Paso a Paso
+Esta es la estructura interna detallada de la implementación:
+```python
+def fabrica_de_maquinas(tipo_comida): # 1. Función constructora (Factoría)
     
-    # La fábrica tiene planos para construir diferentes máquinas
+    # <-- Paso A: Definición de funciones internas (planos de las máquinas)
     def maquina_pizzas(cantidad):
         return f"🍕 Saliendo {cantidad} pizzas calientes!"
         
     def maquina_helados(cantidad):
         return f"🍦 Sirviendo {cantidad} helados fríos!"
         
-    # Dependiendo de lo que pidas, te devuelve la máquina correcta (SIN EJECUTARLA)
+    # <-- Paso B: Retorno de la referencia a la función interna (SIN ejecutarla)
     if tipo_comida == "pizza":
         return maquina_pizzas
     elif tipo_comida == "helado":
         return maquina_helados
+```
 
-# 1. Compramos la máquina (guardamos la función retornada en una variable)
+### 3. Implementación Práctica y Resultado
+Al aplicar la sintaxis de asignación, el intérprete guarda la función retornada en una variable para su ejecución diferida:
+```python
+# 1. Instanciamos las funciones especializadas
 mi_pizzeria = fabrica_de_maquinas("pizza")
 mi_heladeria = fabrica_de_maquinas("helado")
 
-# 2. Ahora usamos nuestras máquinas
-print(mi_pizzeria(5))   # 🍕 Saliendo 5 pizzas calientes!
-print(mi_heladeria(3))  # 🍦 Sirviendo 3 helados fríos!
+# 2. Ejecutamos las funciones retornadas
+print(mi_pizzeria(5))
+print(mi_heladeria(3))
 ```
+**Resultado en consola:**
+```text
+🍕 Saliendo 5 pizzas calientes!
+🍦 Sirviendo 3 helados fríos!
+```
+**Conclusión:** Hemos logrado crear un sistema generador de funciones, permitiendo instanciar comportamientos específicos bajo demanda.
 
 ---
 
-## 3. Closures: Funciones con Memoria (La tarjeta VIP)
+## Closures: Encapsulamiento de Estado y Memoria Funcional
 
-Un **Closure** es simplemente una función interna que "recuerda" las variables de su entorno, incluso después de que la función externa haya terminado de ejecutarse. 
+### 1. El Concepto en la Vida Real
+Imagina un sistema de tarjetas VIP para clientes. Cuando se emite la tarjeta, esta debe retener permanentemente los datos del cliente y su nivel de descuento, sin necesidad de consultar una base de datos externa en cada compra.
+```python
+# Estado base sin aplicar el concepto
+descuento_global = 20
+nombre_global = "Dano"
 
-Piénsalo como una **Tarjeta VIP de cliente**. Cuando creas la tarjeta, le asignas un nombre de cliente y un descuento fijo. Cada vez que el cliente usa su tarjeta para comprar, la tarjeta *recuerda* quién es y qué descuento tiene.
+def comprar_sin_memoria(monto_factura):
+    descuento = monto_factura * (descuento_global / 100)
+    return f"Hola {nombre_global}, tu total es ${monto_factura - descuento}"
+```
+El problema con este enfoque es que depende de variables globales, lo que impide manejar múltiples clientes simultáneamente sin sobrescribir datos. Aquí es donde interviene el **Closure** para resolverlo mediante la retención del ámbito léxico (las variables locales) en la memoria de la función interna, incluso después de que la función externa haya finalizado.
 
+### 2. Anatomía del Código Paso a Paso
+Esta es la estructura interna detallada de la implementación:
 ```python
 def crear_tarjeta_vip(nombre_cliente, porcentaje_descuento):
-    # Estas variables son la "memoria" del closure
+    # <-- Paso A: Estas variables locales forman el "estado" que será encapsulado
     
     def comprar(monto_factura):
-        # Esta función interna RECUERDA a 'nombre_cliente' y 'porcentaje_descuento'
+        # <-- Paso B: La función interna accede y RECUERDA las variables del ámbito superior
         descuento = monto_factura * (porcentaje_descuento / 100)
         total = monto_factura - descuento
         return f"Hola {nombre_cliente}, tu total con {porcentaje_descuento}% de descuento es ${total}"
         
-    # Devolvemos la función interna (la tarjeta lista para usar)
+    # <-- Paso C: Se retorna el closure (la función interna con su estado adjunto)
     return comprar
+```
 
-# Creamos dos closures distintos (dos tarjetas VIP con memorias distintas)
+### 3. Implementación Práctica y Resultado
+Al aplicar la sintaxis de instanciación de closures, el intérprete crea entornos aislados para cada ejecución:
+```python
+# Creamos dos closures con estados independientes
 tarjeta_dano = crear_tarjeta_vip("Dano", 20)
 tarjeta_ana = crear_tarjeta_vip("Ana", 50)
 
-# Al usarlas, mágicamente recuerdan de quién son
-print(tarjeta_dano(100))  # Hola Dano, tu total con 20% de descuento es $80.0
-print(tarjeta_ana(100))   # Hola Ana, tu total con 50% de descuento es $50.0
+# Ejecutamos las funciones; cada una retiene su propio estado
+print(tarjeta_dano(100))
+print(tarjeta_ana(100))
 ```
-
-¡El closure encierra (encapsula) datos locales para que vivan dentro de la función!
+**Resultado en consola:**
+```text
+Hola Dano, tu total con 20% de descuento es $80.0
+Hola Ana, tu total con 50% de descuento es $50.0
+```
+**Conclusión:** Hemos logrado encapsular datos dentro de una función, creando instancias funcionales con memoria persistente y aislada.
 
 ---
 
-## 4. Decoradores: Empaquetando para Regalo (Wrappers)
+## Decoradores: Extensión de Comportamiento mediante Envoltorios
 
-Un **Decorador** (`@decorador`) usa todo lo que aprendimos antes para **añadir funcionalidad a una función sin modificar su código original**. 
-
-Imagina que tienes un cocinero que hace hamburguesas (tu función original). Quieres empezar a ofrecer "Empaquetado para Regalo". En lugar de enseñarle al cocinero a hacer cajas de regalo (modificar la función), contratas a un empaquetador (el decorador) que se pone al final de la línea. El cocinero hace la hamburguesa, se la pasa al empaquetador, y este le pone un lazo.
-
+### 1. El Concepto en la Vida Real
+Imagina una línea de ensamblaje donde un cocinero prepara hamburguesas. Si el restaurante decide ofrecer un servicio de "empaquetado para regalo", podrías obligar al cocinero a aprender a envolver regalos.
 ```python
-# 1. Creamos al decorador (el Empaquetador)
-def empaquetado_regalo(funcion_cocinero):
+# Estado base sin aplicar el concepto
+def preparar_hamburguesa():
+    print("🍔 Cocinando carne, poniendo queso y pan...")
+    print("🎁 Preparando caja de regalo...") # Lógica intrusiva
+    print("🎀 Poniendo un lazo rojo y tarjeta de felicidades!") # Lógica intrusiva
+    return "Hamburguesa lista"
+```
+El problema con este enfoque es que viola el principio de responsabilidad única; modifica el código original para añadir una funcionalidad secundaria. Aquí es donde interviene el **Decorador** para resolverlo mediante un patrón de diseño estructural que envuelve la función original, añadiendo comportamiento antes y/o después sin alterar su código fuente.
+
+### 2. Anatomía del Código Paso a Paso
+Esta es la estructura interna detallada de la implementación:
+```python
+def empaquetado_regalo(funcion_cocinero): # 1. La función superior recibe la función objetivo
     
-    def wrapper(): # Wrapper significa "Envoltorio"
-        print("🎁 Preparando caja de regalo...")
-        # El empaquetador llama al cocinero para que haga su trabajo
-        comida = funcion_cocinero() 
-        print("🎀 Poniendo un lazo rojo y tarjeta de felicidades!")
+    def wrapper(): # <-- Paso A: Se define la función envoltorio (wrapper)
+        print("🎁 Preparando caja de regalo...") # <-- Paso B: Lógica previa
+        
+        comida = funcion_cocinero() # <-- Paso C: Invocación de la función original
+        
+        print("🎀 Poniendo un lazo rojo y tarjeta de felicidades!") # <-- Paso D: Lógica posterior
         return comida
         
-    return wrapper
+    return wrapper # <-- Paso E: Retorno del envoltorio
+```
 
-# 2. Aplicamos el decorador usando la sintaxis @
+### 3. Implementación Práctica y Resultado
+Al aplicar la sintaxis `@decorador` (azúcar sintáctico), el intérprete ejecuta la lógica envolvente de forma transparente:
+```python
 @empaquetado_regalo
 def preparar_hamburguesa():
     print("🍔 Cocinando carne, poniendo queso y pan...")
     return "Hamburguesa lista"
 
-# Cuando llamamos a la función, el envoltorio actúa automáticamente
+# La invocación parece normal, pero ejecuta el flujo decorado
 resultado = preparar_hamburguesa()
 ```
-
-**Output:**
+**Resultado en consola:**
 ```text
 🎁 Preparando caja de regalo...
 🍔 Cocinando carne, poniendo queso y pan...
 🎀 Poniendo un lazo rojo y tarjeta de felicidades!
 ```
-
-Como ves, ¡añadimos funcionalidad "alrededor" de la hamburguesa sin tocar la receta!
+**Conclusión:** Hemos logrado extender el comportamiento de la función original de forma modular, mantenible y no intrusiva.
 
 ---
 
-## 5. Decoradores que reciben parámetros (El Cajero)
+## Decoradores Avanzados: Parámetros, Apilamiento y Preservación de Identidad
 
-¿Qué pasa si la función que queremos decorar recibe argumentos? (Por ejemplo, pedir una hamburguesa con ingredientes específicos). En ese caso, nuestro `wrapper` (envoltorio) también debe aceptar esos argumentos `(*args, **kwargs)`.
-
+### 1. El Concepto en la Vida Real
+Imagina que ahora el sistema de pedidos requiere verificar el pago antes de cocinar, pero los pedidos varían en cantidad de detalles (plato, mesa, extras). Además, al auditar el sistema, necesitas saber exactamente qué función se ejecutó, pero los decoradores básicos enmascaran el nombre de la función original bajo el nombre genérico `wrapper`.
 ```python
-# El decorador del cajero (Revisa si pagaste antes de cocinar)
+# Estado base sin aplicar el concepto
+def verificar_pago_basico(funcion):
+    def wrapper(): # Falla si la función original requiere argumentos
+        print("Verificando pago...")
+        return funcion() # No pasa argumentos
+    return wrapper
+```
+El problema con este enfoque es la rigidez ante firmas de funciones dinámicas y la pérdida de metadatos (nombre y docstring). Aquí es donde intervienen los **Decoradores Avanzados** para resolverlo mediante el uso de empaquetado de argumentos (`*args`, `**kwargs`) y la utilidad `@wraps` de la biblioteca estándar.
+
+### 2. Anatomía del Código Paso a Paso
+Esta es la estructura interna detallada de la implementación:
+```python
+from functools import wraps # 0. Importamos la utilidad para preservar los metadatos
+
 def verificar_pago(funcion_cocinero):
-    
-    # El wrapper recibe *args (cualquier cantidad de argumentos posicionales)
-    # y **kwargs (cualquier cantidad de argumentos nombrados)
-    def wrapper(*args, **kwargs):
+    @wraps(funcion_cocinero) # <-- Paso A: Protege la identidad (nombre y docstring) de la función original
+    def wrapper(*args, **kwargs): # <-- Paso B: Acepta cualquier combinación de argumentos posicionales y nombrados
         print("💳 Cajero: Verificando pago...")
         print("✅ Pago aprobado. Enviando orden a la cocina.")
         
-        # Le pasamos los argumentos intactos a la función original
-        return funcion_cocinero(*args, **kwargs)
-        
+        # <-- Paso C: Desempaqueta y transfiere los argumentos intactos a la función original
+        return funcion_cocinero(*args, **kwargs) 
     return wrapper
 
-@verificar_pago
+# Decorador secundario para demostrar apilamiento
+def empaquetado_regalo(funcion):
+    @wraps(funcion)
+    def wrapper(*args, **kwargs):
+        resultado = funcion(*args, **kwargs)
+        return f"{resultado} + 🎁 Empaque de regalo"
+    return wrapper
+```
+
+### 3. Implementación Práctica y Resultado
+Al aplicar la sintaxis de apilamiento múltiple, el intérprete evalúa los decoradores de abajo hacia arriba (Bottom-up):
+```python
+@verificar_pago      # 2° Se ejecuta el decorador exterior
+@empaquetado_regalo  # 1° Se ejecuta el decorador más cercano a la función
 def preparar_orden(plato, mesa, extra=None):
     if extra:
         return f"Cocinando {plato} con {extra} para la mesa {mesa}"
     return f"Cocinando {plato} para la mesa {mesa}"
 
-# Usamos la función normalmente
+# Invocación con argumentos posicionales y nombrados
 print(preparar_orden("Ravioles", mesa=4, extra="Queso extra"))
+print(f"Nombre interno de la función: {preparar_orden.__name__}")
 ```
-
-Al usar `*args` y `**kwargs`, nos aseguramos de que el decorador funcione con **cualquier** función, sin importar cuántos parámetros tenga.
-
-### Apilar Decoradores (Múltiples Envoltorios)
-Puedes aplicar más de un decorador a una función simplemente poniéndolos uno debajo del otro. Se ejecutan "de abajo hacia arriba" (Bottom-up). El decorador más cercano a la función original la envuelve primero.
-
-```python
-@verificar_pago
-@empaquetado_regalo
-def preparar_postre():
-    return "Torta de chocolate"
-# 1° se empaqueta, 2° se verifica el pago.
+**Resultado en consola:**
+```text
+💳 Cajero: Verificando pago...
+✅ Pago aprobado. Enviando orden a la cocina.
+Cocinando Ravioles con Queso extra para la mesa 4 + 🎁 Empaque de regalo
+Nombre interno de la función: preparar_orden
 ```
-
-### El problema de la identidad: @functools.wraps
-Cuando envuelves una función, la función original "pierde" su nombre interno (pasa a llamarse genéricamente `wrapper`), lo cual dificulta encontrar errores (debugging). Para evitar esto, usamos un decorador especial de Python llamado `@wraps`.
-
-```python
-from functools import wraps
-
-def mi_decorador(funcion_original):
-    @wraps(funcion_original)  # <-- Esto copia la identidad original al wrapper
-    def wrapper(*args, **kwargs):
-        return funcion_original(*args, **kwargs)
-    return wrapper
-```
+**Conclusión:** Hemos logrado crear decoradores universales que soportan cualquier firma de función, permiten composición múltiple y mantienen intacta la trazabilidad del código.
 
 ---
 
-## 6. Funciones integradas (Procesando el inventario)
+## Map, Filter y Reduce: Procesamiento Funcional de Colecciones
 
-Python ya trae de fábrica algunas funciones de orden superior muy útiles que operan sobre listas. Son las famosas `map`, `filter` y `reduce`.
-
-Imagina que estamos revisando el inventario y los pedidos de nuestro restaurante. Las funciones `map` y `filter` se usan casi siempre junto a **lambdas** (funciones anónimas). 
-*Nota: Por diseño en Python, una función lambda está rígidamente limitada a **una ÚNICA expresión** (no puedes usar múltiples líneas, ifs complejos o asignaciones dentro de ella).*
-
-### MAP (Transformar todo)
-Aplica una función a **cada elemento** de una lista y devuelve un nuevo objeto transformado.
-*Dato clave:* En Python 3, `map` (y `filter`) devuelven un "Iterador perezoso" (Lazy Object) para ahorrar memoria, no una lista. Si lo imprimes directo verás `<map object>`. Debes forzar su conversión usando `list()`.
-
-*Ejemplo: Convertir precios en dólares a moneda local.*
-
+### 1. El Concepto en la Vida Real
+Imagina el cierre de caja de un restaurante: necesitas convertir los precios del inventario a moneda local, descartar los pedidos cancelados o erróneos, y finalmente sumar todas las ganancias para obtener el balance del día.
 ```python
+# Estado base sin aplicar el concepto
 precios_usd = [10, 15, 20]
-
-# Multiplicamos cada precio por 1000 usando map y lambda
-precios_locales = map(lambda precio: precio * 1000, precios_usd)
-
-print(list(precios_locales))  # [10000, 15000, 20000]
+precios_locales = []
+for precio in precios_usd: # Iteración imperativa para transformar
+    precios_locales.append(precio * 1000)
 ```
+El problema con este enfoque es que requiere múltiples bucles `for` y variables de estado temporales, lo que hace el código verboso. Aquí es donde intervienen **Map, Filter y Reduce** para resolverlo mediante paradigmas de programación funcional, apoyándose en funciones anónimas (`lambda`) limitadas estrictamente a una única expresión, y utilizando evaluación perezosa (Lazy Objects) para optimizar la memoria.
 
-### FILTER (Filtrar lo que sirve)
-Filtra una lista, manteniendo solo los elementos que devuelven `True` en la condición.
-*Ejemplo: El mesero anota pedidos, pero el chef rechaza los que tienen "piña" (ananá).*
-
+### 2. Anatomía del Código Paso a Paso
+Esta es la estructura interna detallada de la implementación:
 ```python
+from functools import reduce # 0. Importamos reduce (requerido en Python 3)
+
+# Colecciones de datos iniciales
+precios_usd = [10, 15, 20]
 pedidos = ["Pizza Pepperoni", "Pizza con Piña", "Hamburguesa", "Tacos con Piña"]
-
-# Filtramos usando una función que revisa si 'Piña' NO está en el texto
-pedidos_aceptados = filter(lambda p: "Piña" not in p, pedidos)
-
-print(list(pedidos_aceptados))  # ['Pizza Pepperoni', 'Hamburguesa']
-```
-
----
-
-## 7. REDUCE (Acumular un resultado)
-
-### REDUCE (El cajero haciendo el cierre)
-A diferencia de `map` o `filter` que devuelven listas, `reduce` agarra la lista entera y la "reduce" a **un solo valor final** acumulando los resultados. Se debe importar del módulo `functools`.
-
-*Ejemplo: Sumar toda la ganancia del día.*
-
-```python
-from functools import reduce
-
 ganancias_por_mesa = [1500, 3200, 800, 4100]
 
-# reduce toma los 2 primeros valores (1500, 3200), los suma.
-# luego toma el resultado y lo suma con el siguiente (800)...
-total_dia = reduce(lambda acumulador, valor_actual: acumulador + valor_actual, ganancias_por_mesa)
+# <-- Paso A: MAP aplica una transformación a cada elemento. 
+# Devuelve un iterador perezoso (<map object>), requiere list() para materializarse.
+iterador_map = map(lambda precio: precio * 1000, precios_usd)
 
-print(total_dia)  # 9600
+# <-- Paso B: FILTER evalúa una condición booleana por elemento y descarta los False.
+# También devuelve un iterador perezoso (<filter object>).
+iterador_filter = filter(lambda p: "Piña" not in p, pedidos)
+
+# <-- Paso C: REDUCE aplica una función acumulativa de izquierda a derecha.
+# Toma el acumulador y el valor actual, reduciendo la lista a un único valor final.
+valor_reducido = reduce(lambda acumulador, valor_actual: acumulador + valor_actual, ganancias_por_mesa)
 ```
 
-Con estas herramientas, tienes el poder de crear código altamente reutilizable y elegante. Los decoradores en particular los verás muchísimo cuando empieces a usar frameworks web como Flask o Django (por ejemplo, `@login_required` para verificar si un usuario inició sesión antes de mostrarle una página).
+### 3. Implementación Práctica y Resultado
+Al aplicar la sintaxis funcional, el intérprete procesa las colecciones de forma declarativa y altamente optimizada:
+```python
+# 1. Transformación (Map)
+precios_locales = list(map(lambda precio: precio * 1000, precios_usd))
+print(f"Precios transformados: {precios_locales}")
+
+# 2. Filtrado (Filter)
+pedidos_aceptados = list(filter(lambda p: "Piña" not in p, pedidos))
+print(f"Pedidos válidos: {pedidos_aceptados}")
+
+# 3. Acumulación (Reduce)
+total_dia = reduce(lambda acc, val: acc + val, ganancias_por_mesa)
+print(f"Ganancia total acumulada: {total_dia}")
+```
+**Resultado en consola:**
+```text
+Precios transformados: [10000, 15000, 20000]
+Pedidos válidos: ['Pizza Pepperoni', 'Hamburguesa']
+Ganancia total acumulada: 9600
+```
+**Conclusión:** Hemos logrado procesar, depurar y consolidar estructuras de datos complejas utilizando un enfoque funcional, eliminando bucles explícitos y mejorando la expresividad del código.

@@ -110,7 +110,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
   if (!isStarted && !isFinished) {
     return (
       <div className="p-8 rounded-2xl bg-gray-900 border border-gray-800 text-center space-y-6">
-        <h3 className="text-2xl font-bold">Evaluación del Día {dayId}</h3>
+        <h3 className="text-2xl font-bold">Evaluación del Módulo {moduleId}</h3>
         <p className="text-gray-400">
           Demuestra lo que has aprendido. Tienes <strong className="text-white">{Math.floor(initialTime / 60)} minutos</strong> para completar {totalQuestions} preguntas. 
           Una vez iniciado, no podrás volver atrás sin perder tu progreso.
@@ -171,7 +171,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
 
       {isFinished ? (
         <div className="w-full max-w-2xl p-10 rounded-2xl bg-gray-900 border border-gray-800 text-center space-y-6 shadow-2xl animate-in zoom-in-95">
-          <h3 className="text-3xl font-bold">Resultados del Día {dayId}</h3>
+          <h3 className="text-3xl font-bold">Resultados del Módulo {moduleId}</h3>
           
           {timeLeft === 0 && (
             <div className="flex items-center justify-center gap-2 text-yellow-500 bg-yellow-500/10 p-3 rounded-lg border border-yellow-500/20 mx-auto max-w-sm mb-4">
@@ -211,7 +211,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
                   Volver a la Ruta
                 </button>
                 <button 
-                  onClick={() => { resetQuiz(); navigate(isFinalExam ? `/${courseId}` : `/${courseId}/day/${parseInt(dayId) + 1}`); }}
+                  onClick={() => { resetQuiz(); navigate(isFinalExam ? `/${courseId}` : `/${courseId}/module/${parseInt(moduleId) + 1}`); }}
                   className="px-6 py-2.5 bg-primary text-background-dark font-bold rounded-lg hover:bg-primary/90 transition-colors"
                 >
                   {isFinalExam ? 'Finalizar Curso' : 'Siguiente Lección'}
