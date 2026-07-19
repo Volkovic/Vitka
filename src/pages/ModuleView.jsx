@@ -42,7 +42,8 @@ export default function ModuleView() {
         }
       } catch (err) {
         console.error("Error loading data:", err);
-        setContent('# Error cargando el contenido del módulo.');
+        const keys = Object.keys(markdownFiles).join(', ');
+        setContent(`# Error cargando el contenido del módulo.\n\n${err.message || err.toString()}\n\nKeys: ${keys}\n\nmdPath: ${mdPath}`);
       } finally {
         setLoading(false);
       }
