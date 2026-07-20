@@ -149,13 +149,13 @@ export default function SlideView({ content, moduleQuiz, moduleId, courseId, onS
       </div>
 
       {/* Slide Content Area */}
-      <div ref={scrollRef} className="flex-1 flex flex-col justify-center p-8 lg:p-12 relative overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-background-dark/30">
+      <div ref={scrollRef} className="flex-1 flex flex-col p-8 lg:p-12 relative overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-background-dark/30">
         {isQuizSlide ? (
           <div id="quiz-container" className="h-full flex items-center justify-center">
             <Quiz questions={moduleQuiz} moduleId={moduleId} courseId={courseId} />
           </div>
         ) : (
-          <article className="prose prose-invert prose-p:text-gray-300 prose-p:text-lg prose-headings:text-white prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-gray-950 prose-pre:border prose-pre:border-gray-800 prose-pre:whitespace-pre-wrap prose-pre:break-words max-w-none w-full mx-auto flex flex-col justify-center min-h-full">
+          <article className="prose prose-invert prose-p:text-gray-300 prose-p:text-lg prose-headings:text-white prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-gray-950 prose-pre:border prose-pre:border-gray-800 prose-pre:whitespace-pre-wrap prose-pre:break-words max-w-none w-full mx-auto my-auto block">
             <ReactMarkdown rehypePlugins={[rehypeRaw]}>
               {preprocessSolutions(slides[currentSlide])}
             </ReactMarkdown>
