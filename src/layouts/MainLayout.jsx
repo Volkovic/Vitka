@@ -22,21 +22,23 @@ export default function MainLayout() {
 
   return (
     <div className="min-h-screen bg-background-dark text-text-main flex flex-col">
-      <header className="border-b border-gray-800 bg-background-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <img src={logo} alt="01.Center Logo" className="w-8 h-8" />
-          </Link>
-          <button 
-            onClick={signOut}
-            className="text-gray-400 hover:text-red-400 transition-colors flex items-center gap-2 text-sm font-semibold"
-            title="Cerrar Sesión"
-          >
-            <LogOut size={18} />
-            <span className="hidden sm:inline">Salir</span>
-          </button>
-        </div>
-      </header>
+      {!isModuleView && (
+        <header className="border-b border-gray-800 bg-background-card/50 backdrop-blur-sm sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
+              <img src={logo} alt="01.Center Logo" className="w-8 h-8" />
+            </Link>
+            <button 
+              onClick={signOut}
+              className="text-gray-400 hover:text-red-400 transition-colors flex items-center gap-2 text-sm font-semibold"
+              title="Cerrar Sesión"
+            >
+              <LogOut size={18} />
+              <span className="hidden sm:inline">Salir</span>
+            </button>
+          </div>
+        </header>
+      )}
       <main className={`flex-1 w-full ${isModuleView ? '' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'}`}>
         <Outlet />
       </main>

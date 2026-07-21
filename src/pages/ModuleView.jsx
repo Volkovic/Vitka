@@ -75,7 +75,7 @@ export default function ModuleView() {
   };
 
   return (
-    <div className="flex w-full h-[calc(100vh-64px)] overflow-hidden relative">
+    <div className="flex w-full h-screen overflow-hidden relative">
       {/* Theory/Slide Section */}
       <div 
         className={`transition-all duration-300 ease-in-out h-full flex flex-col
@@ -92,25 +92,27 @@ export default function ModuleView() {
       </div>
 
       {/* Vertical Separator Bar (Desktop only) */}
-      <div 
-        className="hidden lg:flex flex-col items-center w-3 flex-shrink-0 bg-gray-800/60 hover:bg-gray-700/60 cursor-pointer transition-colors relative group"
-        onClick={() => setIsChatOpen(!isChatOpen)}
-        title={isChatOpen ? 'Cerrar chat' : 'Abrir chat'}
-      >
-        {/* Chevron toggle centered on the bar */}
-        <div className="absolute top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-6 h-10 bg-gray-800 border border-gray-700 rounded-md group-hover:bg-gray-700 group-hover:border-gray-600 transition-colors shadow-lg">
-          {isChatOpen ? (
-            <ChevronRight size={16} className="text-gray-400 group-hover:text-primary transition-colors" />
-          ) : (
-            <ChevronLeft size={16} className="text-gray-400 group-hover:text-primary transition-colors" />
-          )}
+      {!isQuizActive && (
+        <div 
+          className="hidden lg:flex flex-col items-center w-3 flex-shrink-0 bg-gray-800/60 hover:bg-gray-700/60 cursor-pointer transition-colors relative group"
+          onClick={() => setIsChatOpen(!isChatOpen)}
+          title={isChatOpen ? 'Cerrar chat' : 'Abrir chat'}
+        >
+          {/* Chevron toggle centered on the bar */}
+          <div className="absolute top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-6 h-10 bg-gray-800 border border-gray-700 rounded-md group-hover:bg-gray-700 group-hover:border-gray-600 transition-colors shadow-lg">
+            {isChatOpen ? (
+              <ChevronRight size={16} className="text-gray-400 group-hover:text-primary transition-colors" />
+            ) : (
+              <ChevronLeft size={16} className="text-gray-400 group-hover:text-primary transition-colors" />
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* AI Chat Section (Desktop only, side-by-side) */}
       <div 
         className={`transition-all duration-300 ease-in-out hidden lg:flex flex-col h-full bg-[#0d0d0d]
-          ${isChatOpen ? 'w-[40%] opacity-100' : 'w-0 opacity-0 overflow-hidden'}
+          ${isChatOpen && !isQuizActive ? 'w-[40%] opacity-100' : 'w-0 opacity-0 overflow-hidden'}
         `}
       >
         <AiChat
@@ -120,6 +122,7 @@ export default function ModuleView() {
           courseId={courseId}
           moduleId={moduleId}
           slideIndex={currentSlideIndex}
+          disabled={isQuizActive}
         />
       </div>
 
@@ -132,6 +135,7 @@ export default function ModuleView() {
           courseId={courseId}
           moduleId={moduleId}
           slideIndex={currentSlideIndex}
+          disabled={isQuizActive}
         />
       </div>
     </div>

@@ -26,7 +26,7 @@ function setStoredConfig(config) {
   localStorage.setItem('vitka_ai_config', JSON.stringify(config));
 }
 
-export default function AiChat({ isOpen, onToggle, slideContent, courseId, moduleId, slideIndex = 0 }) {
+export default function AiChat({ isOpen, onToggle, slideContent, courseId, moduleId, slideIndex = 0, disabled = false }) {
   const { user } = useAuth();
   const [allMessages, setAllMessages] = useState([]);
   const messages = useMemo(() => allMessages.filter(m => m.slideIndex === slideIndex), [allMessages, slideIndex]);
@@ -300,11 +300,14 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
   const handleSuggestion = (text) => {
     sendMessage(text);
   };
-
   const suggestedQuestions = [
     '🤔 Dame un ejemplo',
     '❓ No entendí esto',
   ];
+
+  if (disabled) {
+    return null;
+  }
 
   if (!isOpen) {
     return (
