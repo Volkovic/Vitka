@@ -55,21 +55,18 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
 
   // Load config from localStorage or .env
   useEffect(() => {
-    const config = getStoredConfig();
-    const envApiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    
-    if (envApiKey) {
-      setProvider('google');
-      setApiKey(envApiKey);
-      setHasConfig(true);
-      // Update localStorage if it's different
-      if (config?.apiKey !== envApiKey) {
-        setStoredConfig({ provider: 'google', apiKey: envApiKey });
+    const savedConfigStr = localStorage.getItem('vitka-ai-config');
+
+    if (savedConfigStr) {
+      try {
+        const config = JSON.parse(savedConfigStr);
+        setProvider(config.provider);
+        setApiKey(config.apiKey);
+        setHasConfig(true);
+        setIsConfigOpen(false);
+      } catch (e) {
+        console.error("Invalid saved AI config");
       }
-    } else if (config?.apiKey && config?.provider) {
-      setProvider(config.provider);
-      setApiKey(config.apiKey);
-      setHasConfig(true);
     }
   }, []);
 
