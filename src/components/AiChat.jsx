@@ -18,7 +18,7 @@ function getStoredConfig() {
   try {
     const raw = localStorage.getItem('vitka_ai_config');
     if (raw) return JSON.parse(raw);
-  } catch {}
+  } catch { }
   return null;
 }
 
@@ -73,7 +73,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
   // Load chat history from Supabase
   useEffect(() => {
     if (!user || !courseId || !moduleId) return;
-    
+
     async function loadHistory() {
       const { data, error } = await supabase
         .from('ai_chat_messages')
@@ -100,7 +100,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
             }
             return { role: m.role, content: m.content, slideIndex: 0, id: m.id };
           });
-        
+
         setAllMessages(prev => {
           // Preserve any actively streaming messages (which have a temp- ID)
           const tempMessages = prev.filter(m => typeof m.id === 'string' && m.id.startsWith('temp-'));
@@ -144,11 +144,11 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
       role,
       content: `:::SLIDE:::${index}::: ${content}`,
     }).select('id');
-    
+
     if (error) {
       console.error("Error saving message to Supabase:", error);
     }
-    
+
     return data && data.length > 0 ? data[0].id : null;
   };
 
@@ -157,7 +157,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
   const clearHistory = async () => {
     if (!user) return;
     const idsToDelete = messages.filter(m => m.id).map(m => m.id);
-    
+
     if (idsToDelete.length > 0) {
       await supabase
         .from('ai_chat_messages')
@@ -170,10 +170,10 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
 
   const deleteMessage = async (msgId) => {
     if (!user || !msgId) return;
-    
+
     // Optimistic update
     setAllMessages(prev => prev.filter(m => m.id !== msgId));
-    
+
     // Delete from DB
     await supabase
       .from('ai_chat_messages')
@@ -189,7 +189,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
     const userMessage = { role: 'user', content: text.trim(), slideIndex };
     const tempId = 'temp-' + Date.now();
     const tempAssistantMessage = { id: tempId, role: 'assistant', content: '', slideIndex };
-    
+
     setAllMessages(prev => [...prev, userMessage, tempAssistantMessage]);
     setInput('');
     setIsLoading(true);
@@ -203,7 +203,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
     // Build the system prompt with slide context
     const systemMessage = {
       role: 'system',
-      content: `Eres un asistente de IA tutor para un curso de programación. El estudiante está viendo actualmente el siguiente contenido de la lección:\n\n---\n${slideContent || 'No hay contenido de diapositiva disponible.'}\n---\n\nAyuda al estudiante a entender este material. Responde preguntas de forma clara y concisa. Usa ejemplos de código cuando sea útil. Responde siempre en español.`,
+      content: `Eres un asistente de IA tutor para un curso de programación. El estudiante está viendo actualmente el siguiente contenido de la lección:\n\n---\n${slideContent || 'No hay contenido de diapositiva disponible.'}\n---\n\nAyuda al estudiante a entender este material. ERES DIRECTO Y CONCRETO. Omite introducciones amables, saludos o frases de empatía (como "¡No te preocupes!", "¡Claro que sí!", etc). Ve directamente a la explicación técnica de lo que se pregunta, basándote en el contenido de la diapositiva. Usa ejemplos de código cuando sea útil. Responde siempre en español.`,
     };
 
     // Filter out the temp message for the API request
@@ -240,7 +240,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
         // Original Edge Function flow for other providers
         const session = await supabase.auth.getSession();
         const accessToken = session?.data?.session?.access_token;
-        
+
         response = await fetch(`${SUPABASE_URL}/functions/v1/ai-chat`, {
           method: 'POST',
           headers: {
@@ -305,7 +305,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
           try {
             const parsed = JSON.parse(line.slice(6));
             let chunkText = '';
-            
+
             if (provider === 'google' && parsed.candidates?.[0]?.content?.parts?.[0]?.text) {
               chunkText = parsed.candidates[0].content.parts[0].text;
             } else if (parsed.text) {
@@ -316,13 +316,13 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
               fullText += chunkText;
               setAllMessages(prev => prev.map(m => m.id === tempId ? { ...m, content: fullText + ' ▊' } : m));
             }
-          } catch {}
+          } catch { }
         }
       }
 
       // Remove cursor and update state
       setAllMessages(prev => prev.map(m => m.id === tempId ? { ...m, content: fullText } : m));
-      
+
       // Save complete response to DB only once, at the end
       if (fullText) {
         const asstId = await saveMessage('assistant', fullText, slideIndex);
@@ -402,11 +402,10 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
               <button
                 key={p.id}
                 onClick={() => setProvider(p.id)}
-                className={`px-3 py-2 rounded-lg text-xs font-bold transition-all ${
-                  provider === p.id
+                className={`px-3 py-2 rounded-lg text-xs font-bold transition-all ${provider === p.id
                     ? 'bg-primary/20 text-primary border border-primary/50'
                     : 'bg-gray-800 text-gray-400 border border-gray-700 hover:border-gray-500'
-                }`}
+                  }`}
               >
                 {p.name}
               </button>
@@ -490,11 +489,11 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
                   </div>
                 </div>
               )}
-              
+
               {messages.map((msg, i) => (
                 <div key={msg.id || i} className={`group flex items-center gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {msg.role === 'user' && msg.id && (
-                    <button 
+                    <button
                       onClick={() => deleteMessage(msg.id)}
                       className="p-1.5 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg"
                       title="Eliminar mensaje"
@@ -502,19 +501,18 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
                       <Trash2 size={14} />
                     </button>
                   )}
-                  <div className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed overflow-hidden break-words ${
-                    msg.role === 'user'
+                  <div className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed overflow-hidden break-words ${msg.role === 'user'
                       ? 'bg-primary/20 text-white rounded-br-md whitespace-pre-wrap'
                       : 'bg-gray-800 text-gray-200 rounded-bl-md border border-gray-700 prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:p-2 prose-pre:bg-black/50 prose-pre:border prose-pre:border-gray-700 prose-pre:whitespace-pre-wrap prose-pre:break-words'
-                  }`}>
+                    }`}>
                     {msg.role === 'user' ? (
                       msg.content
                     ) : (
                       msg.content === '' ? (
                         <div className="flex gap-1 py-1 px-2">
-                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
-                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
-                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                         </div>
                       ) : (
                         <ReactMarkdown>{msg.content}</ReactMarkdown>
@@ -522,7 +520,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
                     )}
                   </div>
                   {msg.role === 'assistant' && msg.id && (
-                    <button 
+                    <button
                       onClick={() => deleteMessage(msg.id)}
                       className="p-1.5 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg"
                       title="Eliminar mensaje"
@@ -657,7 +655,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
                   {messages.map((msg, i) => (
                     <div key={msg.id || i} className={`group flex items-center gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                       {msg.role === 'user' && msg.id && (
-                        <button 
+                        <button
                           onClick={() => deleteMessage(msg.id)}
                           className="p-1 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg"
                           title="Eliminar mensaje"
@@ -665,19 +663,18 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
                           <Trash2 size={14} />
                         </button>
                       )}
-                      <div className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed overflow-hidden break-words ${
-                        msg.role === 'user'
+                      <div className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed overflow-hidden break-words ${msg.role === 'user'
                           ? 'bg-primary/20 text-white rounded-br-md whitespace-pre-wrap'
                           : 'bg-gray-800 text-gray-200 rounded-bl-md border border-gray-700 prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:p-2 prose-pre:bg-black/50 prose-pre:border prose-pre:border-gray-700 prose-pre:whitespace-pre-wrap prose-pre:break-words'
-                      }`}>
+                        }`}>
                         {msg.role === 'user' ? (
                           msg.content
                         ) : (
                           msg.content === '' ? (
                             <div className="flex gap-1 py-1 px-2">
-                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
-                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
-                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                             </div>
                           ) : (
                             <ReactMarkdown>{msg.content}</ReactMarkdown>
@@ -685,7 +682,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
                         )}
                       </div>
                       {msg.role === 'assistant' && msg.id && (
-                        <button 
+                        <button
                           onClick={() => deleteMessage(msg.id)}
                           className="p-1 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg"
                           title="Eliminar mensaje"
