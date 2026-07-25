@@ -1,90 +1,129 @@
-## Ordenando Datos (ORDER BY)
+## Filtrando Datos con WHERE (Parte 2): Texto
 
-Por defecto, cuando haces un simple `SELECT * FROM tabla`, la base de datos te devolverá las filas en el orden exacto en el que fueron insertadas físicamente en el disco duro, o en un orden impredecible dependiente del motor. 
-
-Si necesitas presentar los datos de forma estructurada (ej. Ranking de los mejores pagados, o listado alfabético), debes usar explícitamente la cláusula `ORDER BY`.
-
-```sql
-SELECT nombre, salario 
-FROM empleados 
-ORDER BY salario;
-```
-Por defecto, `ORDER BY` siempre ordena de manera **Ascendente** (de menor a mayor, o de la A a la Z).
+Cuando trabajamos con columnas que contienen texto (strings), SQL soporta un conjunto adicional de operadores específicos para hacer cosas como **comparación insensible a mayúsculas** y **búsqueda de patrones con comodines**.
 
 ---
 
-### Orden Descendente (DESC)
-
-Si queremos invertir el orden (de mayor a menor, o de Z a A), debemos adjuntar la palabra clave `DESC` (Descending) justo después de la columna.
+### Operadores para Texto
 
 ```sql
--- Queremos ver primero a los más jóvenes (Edad menor a mayor)
-SELECT nombre, edad FROM usuarios ORDER BY edad ASC;
+-- =              Comparación exacta (sensible a mayúsculas/minúsculas)
+--                →  columna = "abc"
 
--- Queremos ver a los más ricos primero (Salario mayor a menor)
-SELECT nombre, salario FROM usuarios ORDER BY salario DESC;
+-- != o <>        Desigualdad exacta (sensible a mayúsculas/minúsculas)
+--                →  columna != "abcd"
+
+-- LIKE           Comparación exacta INSENSIBLE a mayúsculas/minúsculas
+--                →  columna LIKE "ABC"
+
+-- NOT LIKE       Desigualdad INSENSIBLE a mayúsculas/minúsculas
+--                →  columna NOT LIKE "ABCD"
+
+-- IN (...)       El texto existe en una lista de valores
+--                →  columna IN ("A", "B", "C")
+
+-- NOT IN (...)   El texto NO existe en una lista de valores
+--                →  columna NOT IN ("D", "E", "F")
 ```
-*(Nota: Aunque `ASC` es el comportamiento por defecto y no hace falta escribirlo, muchos programadores lo ponen para hacer el código más explícito).*
 
 ---
 
-### Ordenamiento Múltiple
+### Comodines (Wildcards) con LIKE
 
-Puedes ordenar por más de una columna a la vez. El motor ordenará por la primera columna y, **solo si hay empates** en la primera, utilizará la segunda columna para desempatar, y así sucesivamente.
+Los comodines son caracteres especiales que solo funcionan con el operador `LIKE` (o `NOT LIKE`):
+
+**`%` (Porcentaje):** Representa **cero, uno o múltiples** caracteres cualesquiera.
 
 ```sql
-SELECT nombre, apellido, edad 
-FROM clientes 
-ORDER BY apellido ASC, nombre ASC;
+-- Coincide con "AT", "ATIC", "CAT", "BATS"
+WHERE columna LIKE "%AT%"
 ```
-En este ejemplo, organizará a todos los clientes alfabéticamente por su apellido. Si resulta que hay 15 clientes de apellido "Pérez", a esos 15 los ordenará internamente por su nombre de pila.
+
+**`_` (Guión bajo):** Representa **exactamente un** carácter cualquiera.
+
+```sql
+-- Coincide con "AND", "ANT", pero NO con "AN" (faltan caracteres)
+WHERE columna LIKE "AN_"
+```
 
 ---
 
-### Limitando Resultados (LIMIT)
+### Regla Importante sobre Strings
 
-Si tienes un millón de productos, pero solo necesitas saber cuál es "El Producto Más Caro" de toda tu tienda, no tiene sentido descargar el millón de filas a tu servidor. 
-En MySQL y PostgreSQL utilizamos la directiva `LIMIT` para truncar (recortar) la salida.
-
-```sql
-SELECT nombre, precio 
-FROM productos 
-ORDER BY precio DESC 
-LIMIT 1;
-```
-Aquí la base de datos ordena todo del más caro al más barato, pero gracias a `LIMIT 1`, descarta el resto y te devuelve **únicamente** la fila campeona superior.
-
-*(Nota: En Microsoft SQL Server, se usa `TOP` en lugar de `LIMIT` al inicio de la consulta: `SELECT TOP 1 nombre FROM productos`)*.
+Todos los strings en SQL deben ir **entre comillas** para que el parser pueda distinguir las palabras del texto de las palabras clave del lenguaje SQL.
 
 ---
 
-### Paginación de Datos (OFFSET)
-
-Cuando entras a la página de Google y le das click al botón "Página 2", el navegador no te descarga toda la internet. 
-SQL maneja las páginas con la directiva `OFFSET` (Desplazamiento). Le dice a la base de datos cuántas filas iniciales debe "saltarse" o "ignorar" antes de empezar a devolverte resultados.
+### Ejemplos Prácticos con la Tabla Movies
 
 ```sql
--- Página 1: Trae los primeros 10 resultados
-SELECT * FROM posts ORDER BY fecha DESC LIMIT 10 OFFSET 0;
+-- Encontrar todas las películas de "Toy Story" (Toy Story, Toy Story 2, Toy Story 3...)
+SELECT title FROM movies 
+WHERE title LIKE "Toy Story%";
 
--- Página 2: Sáltate los primeros 10, y tráeme los 10 que siguen
-SELECT * FROM posts ORDER BY fecha DESC LIMIT 10 OFFSET 10;
+-- Encontrar todas las películas dirigidas por John Lasseter
+SELECT title FROM movies 
+WHERE director = "John Lasseter";
 
--- Página 3: Sáltate los primeros 20, y tráeme los 10 que siguen
-SELECT * FROM posts ORDER BY fecha DESC LIMIT 10 OFFSET 20;
+-- Encontrar películas y directores que NO fueron dirigidas por John Lasseter
+SELECT title, director FROM movies 
+WHERE director != "John Lasseter";
+
+-- Encontrar todas las películas WALL-* (WALL-E, WALL-G, etc.)
+SELECT title FROM movies 
+WHERE title LIKE "WALL-_";
 ```
+
+---
+
+### Nota sobre Búsqueda de Texto Avanzada
+
+Aunque la mayoría de motores de base de datos son bastante eficientes con estos operadores, la **búsqueda de texto completo** (full-text search) se delega mejor a librerías especializadas como **Apache Lucene** o **Elasticsearch**. Estas librerías están diseñadas específicamente para búsquedas de texto, soportando internacionalización y consultas avanzadas con mayor rendimiento.
 
 ---
 
 ### Ejercicio Práctico 1
 
-**Analiza el siguiente requerimiento:** Necesitamos obtener el "Segundo empleado con el salario más alto de la empresa". ¿Cómo armas la consulta?
+**¿Cuál es la diferencia entre estas dos consultas?**
+```sql
+-- Consulta A
+SELECT * FROM usuarios WHERE nombre = "maría";
+
+-- Consulta B
+SELECT * FROM usuarios WHERE nombre LIKE "maría";
+```
 
 **[Solución]**
 ```sql
-SELECT nombre, salario 
-FROM empleados 
-ORDER BY salario DESC 
-LIMIT 1 OFFSET 1;
--- **Justificación:** Al ordenar `DESC`, ponemos a los más ricos arriba. `LIMIT 1` asegura que nos traiga solo 1 fila. Y la clave maestra es `OFFSET 1`, que le dice al motor: "sáltate e ignora a la primera fila absoluta (el más rico real), y entrégame solo el que quedó en el segundo puesto".
+-- La Consulta A usa el operador = que es SENSIBLE a mayúsculas/minúsculas.
+-- Solo encontrará registros donde el nombre sea exactamente "maría" (minúscula).
+-- NO encontrará "María", "MARÍA" ni "maRía".
+
+-- La Consulta B usa LIKE sin comodines, que es INSENSIBLE a mayúsculas.
+-- Encontrará "maría", "María", "MARÍA" y cualquier variación de capitalización.
+
+-- Gotcha: LIKE sin comodines (% o _) funciona como un "= insensible a case".
+```
+
+---
+
+### Ejercicio Práctico 2
+
+**Lee el código. ¿Qué emails encontrará esta consulta?**
+```sql
+SELECT email FROM usuarios 
+WHERE email LIKE "%@gmail.%";
+```
+
+**[Solución]**
+```sql
+-- Encontrará TODOS los emails que contengan "@gmail." en cualquier posición:
+-- "juan@gmail.com"     ✅
+-- "ana@gmail.es"       ✅  
+-- "pedro@gmail.co.uk"  ✅
+-- "info@hotmail.com"   ❌ (no contiene "@gmail.")
+-- "gmail@yahoo.com"    ❌ (tiene "gmail" pero no "@gmail.")
+
+-- El % antes y después actúa como "cualquier cosa puede ir aquí".
+-- Es un patrón muy útil para segmentar usuarios por proveedor de email.
 ```

@@ -1,47 +1,156 @@
-## Transacciones (ACID)
+## Creando Tablas (CREATE TABLE)
 
-Una **Transacción** asegura que una secuencia de operaciones complejas en la base de datos (Ej: 1. Restar dinero de mi cuenta, 2. Sumarlo a tu cuenta) se ejecuten como una **única unidad de trabajo invisible e indisoluble**.
-
-La regla principal de las bases de datos (ACID) dice: **"O todo sale perfecto, o no se guarda absolutamente nada."**
+Hasta ahora trabajamos con tablas que ya existían. Ahora entramos a **DDL (Data Definition Language)**: los comandos para crear y definir la **estructura** de las tablas.
 
 ---
 
-### COMMIT y ROLLBACK
+### La Sintaxis de CREATE TABLE
 
-Cuando un servidor de transacciones abre una ventana (BEGIN), tú empiezas a ejecutar tus UPDATE y DELETE. Todos esos cambios quedan guardados temporalmente en el Limbo (Memoria temporal).
-
-- **COMMIT:** Si los 50 pasos de tu script salieron perfectos y sin ningún fallo, das la orden final de `COMMIT`. SQL graba los cambios en piedra en el disco duro permanentemente.
-- **ROLLBACK:** Si en el paso 49 ocurre un error (falla de red o salto por falta de fondos), el sistema dispara el `ROLLBACK`. Esta instrucción aborta toda la operación y revierte el sistema al estado exacto e impoluto que tenía antes de empezar el paso 1, previniendo dinero desaparecido.
+Cuando creas una nueva tabla, necesitas definir el **esquema**: el nombre de cada columna, su tipo de dato, y opcionalmente las **restricciones** (constraints) que debe cumplir:
 
 ```sql
-BEGIN;
+CREATE TABLE nombre_tabla (
+    columna1 tipo_dato restriccion_opcional DEFAULT valor_default,
+    columna2 tipo_dato restriccion_opcional,
+    columna3 tipo_dato restriccion_opcional
+);
+```
 
-UPDATE cuentas SET saldo = saldo - 100 WHERE id = 'A';
-UPDATE cuentas SET saldo = saldo + 100 WHERE id = 'B';
+Si la tabla ya existe previamente en la base de datos, el comando `CREATE TABLE` lanzará un error. Para evitarlo, puedes usar la cláusula de seguridad `IF NOT EXISTS`:
 
-COMMIT;
+```sql
+CREATE TABLE IF NOT EXISTS nombre_tabla (
+    columna1 tipo_dato,
+    columna2 tipo_dato
+);
 ```
 
 ---
 
-### Índices (Performance)
+### Tipos de Datos Comunes
 
-Las bases de datos buscan datos leyendo fila por fila desde el principio hasta el final (Full Table Scan). Si tu tabla tiene 100 millones de filas, un SELECT puede tardar minutos.
-
-Un **Índice (INDEX)** es una pequeña estructura de árbol b-tree oculta (como el índice alfabético al final de un libro) que le permite a SQL saltar mágicamente directo a la fila correcta en milisegundos.
+Cada motor de base de datos soporta tipos ligeramente diferentes, pero estos son los más universales:
 
 ```sql
-CREATE INDEX idx_usuario_email ON usuarios(email);
+-- Tipos Numéricos:
+-- INTEGER / INT       Número entero (sin decimales)
+-- FLOAT / REAL        Número con decimales (punto flotante)
+-- BOOLEAN             Verdadero (1) o Falso (0)
+
+-- Tipos de Texto:
+-- TEXT                 Cadena de texto de longitud variable
+-- VARCHAR(n)          Cadena de texto con máximo de n caracteres
+-- CHAR(n)             Cadena de texto de exactamente n caracteres
+
+-- Tipos de Fecha:
+-- DATE                Fecha (YYYY-MM-DD)
+-- DATETIME            Fecha y hora
+-- TIMESTAMP           Marca temporal (segundos desde epoch)
 ```
-*Con este índice, las consultas `WHERE email = '...'` volarán instantáneamente.*
+
+---
+
+### Restricciones de Tabla (Constraints)
+
+Las restricciones son reglas que el motor impone sobre los datos para mantener su **integridad**:
+
+```sql
+-- PRIMARY KEY   Identifica de forma única cada fila. No puede ser NULL ni 
+--               repetirse. Cada tabla debería tener exactamente una.
+
+-- NOT NULL      Prohíbe que la columna acepte valores NULL.
+--               Obliga a que siempre se inserte un valor real.
+
+-- UNIQUE        Garantiza que no haya valores duplicados en esa columna.
+--               (similar a PRIMARY KEY pero puede haber múltiples columnas UNIQUE)
+
+-- DEFAULT       Define un valor automático si el INSERT no proporciona uno.
+--               Ejemplo: DEFAULT 0, DEFAULT CURRENT_TIMESTAMP
+
+-- FOREIGN KEY   Referencia a la PRIMARY KEY de otra tabla, creando una relación.
+--               Garantiza integridad referencial (no puedes referenciar algo 
+--               que no existe).
+
+-- CHECK         Valida que el valor cumpla una expresión personalizada.
+--               Ejemplo: CHECK (age > 0)
+```
+
+---
+
+### Ejemplo Completo
+
+```sql
+CREATE TABLE movies (
+    id INTEGER PRIMARY KEY,
+    title TEXT NOT NULL,
+    director TEXT,
+    year INTEGER DEFAULT 2000,
+    length_minutes INTEGER,
+    FOREIGN KEY (director) REFERENCES directors(name)
+);
+```
+
+Esta tabla:
+- Tiene un `id` que identifica cada película de forma única.
+- Exige que `title` no sea NULL (toda película debe tener nombre).
+- Permite que `director` sea NULL (podría ser desconocido).
+- Si no se especifica `year`, asume el valor 2000 por defecto.
+- La columna `director` referencia a la tabla `directors`.
 
 ---
 
 ### Ejercicio Práctico 1
 
-**Si los índices aceleran todas las lecturas de forma milagrosa a 1 milisegundo, ¿por qué no le ponemos un índice a absolutamente todas las columnas de todas las tablas y ya está?**
+**Lee el siguiente esquema y detecta los problemas arquitectónicos:**
+
+```sql
+CREATE TABLE posts (
+    titulo VARCHAR(50)
+);
+```
 
 **[Solución]**
 ```sql
--- Porque cada índice tiene un precio gravísimo: **Desaceleran salvajemente las Escrituras (INSERT, UPDATE, DELETE)**. Cada vez que inyectas una fila nueva, el motor debe pausar y reestructurar matemáticamente todos y cada uno de los árboles (índices) adjuntos. Si tienes 20 índices, cada registro que entra será lentísimo, colapsando tu capacidad de inserción masiva. Solo se indexan las llaves principales y las usadas masivamente en el WHERE.
+-- Problemas detectados:
+-- 1. No tiene PRIMARY KEY (id). Las filas serán irreconocibles: no podrás 
+--    hacer UPDATE ni DELETE a un post específico sin identificador único.
+-- 2. VARCHAR(50) es extremadamente corto para un título de post (explotará 
+--    con títulos largos y el INSERT fallará).
+-- 3. No tiene NOT NULL en titulo, permitiendo insertar posts sin título.
+-- 4. No tiene columnas de metadata (fecha_creacion, autor, etc.)
+--
+-- Versión mejorada:
+-- CREATE TABLE posts (
+--     id INTEGER PRIMARY KEY,
+--     titulo VARCHAR(255) NOT NULL,
+--     contenido TEXT,
+--     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
+-- );
+```
+
+---
+
+### Ejercicio Práctico 2
+
+**¿Qué hace la restricción `FOREIGN KEY` y qué error produce si intentas violarla?**
+
+```sql
+CREATE TABLE orders (
+    id INTEGER PRIMARY KEY,
+    customer_id INTEGER NOT NULL,
+    total FLOAT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+-- Luego intentas:
+INSERT INTO orders (id, customer_id, total) VALUES (1, 999, 50.00);
+```
+
+**[Solución]**
+```sql
+-- La FOREIGN KEY garantiza que customer_id DEBE existir como id en la tabla 
+-- customers. Es un "contrato de integridad referencial".
+-- Si el cliente con id 999 NO existe en la tabla customers, el INSERT fallará
+-- con un error de violación de clave foránea.
+-- Esto previene "datos huérfanos": órdenes apuntando a clientes inexistentes.
 ```

@@ -1,90 +1,114 @@
 ## ¿Qué es SQL?
 
-**SQL (Structured Query Language)** es el lenguaje estándar utilizado para comunicarse con las bases de datos relacionales (RDBMS) como MySQL, PostgreSQL, SQL Server o SQLite. 
+**SQL (Structured Query Language)** es un lenguaje diseñado para permitir tanto a usuarios técnicos como no técnicos consultar, manipular y transformar datos almacenados en una **base de datos relacional**.
 
-Las bases de datos relacionales almacenan información estructurada en **Tablas** (similares a hojas de cálculo de Excel), las cuales están compuestas por **Filas** (registros) y **Columnas** (atributos).
-
-En este curso aprenderás a leer, manipular y extraer exactamente la información que necesitas de bases de datos inmensas.
+Gracias a su simplicidad y potencia, SQL se ha convertido en el estándar universal: millones de sitios web y aplicaciones móviles dependen de bases de datos SQL para almacenar su información de forma segura y escalable.
 
 ---
 
-### La Declaración SELECT
+### ¿Sabías que...?
 
-La declaración fundamental de SQL es `SELECT`. Es la orden que le damos a la base de datos para que busque y nos traiga (consulte) ciertos datos de una tabla.
+Existen muchos motores de bases de datos SQL populares: **SQLite**, **MySQL**, **PostgreSQL**, **Oracle** y **Microsoft SQL Server**. Todos soportan el estándar común de SQL (que es lo que aprenderás en este curso), aunque cada uno puede diferir en las funcionalidades extra y tipos de almacenamiento que soporta.
 
-La estructura básica (sintaxis) es:
+---
+
+## Bases de Datos Relacionales
+
+Antes de aprender la sintaxis de SQL, es fundamental entender qué es una base de datos relacional.
+
+Una base de datos relacional organiza la información en **Tablas** bidimensionales (similares a hojas de cálculo de Excel). Cada tabla tiene:
+
+- Un número fijo de **Columnas** (los atributos o propiedades de la tabla).
+- Cualquier cantidad de **Filas** (las instancias individuales de datos).
+
+Por ejemplo, si una concesionaria tuviera una base de datos, podrías encontrar una tabla con todos los vehículos registrados:
+
 ```sql
-SELECT columna1, columna2 FROM nombre_tabla;
+-- Tabla: Vehiculos
+-- | Id | Marca_Modelo       | Ruedas | Puertas | Tipo       |
+-- |----|--------------------| -------|---------|------------|
+-- | 1  | Ford Focus         | 4      | 4       | Sedán      |
+-- | 2  | Tesla Roadster     | 4      | 2       | Deportivo  |
+-- | 3  | Kawasaki Ninja     | 2      | 0       | Motocicleta|
+-- | 4  | McLaren Formula 1  | 4      | 0       | Carrera    |
+-- | 5  | Tesla S            | 4      | 4       | Sedán      |
 ```
 
-Si queremos seleccionar **todas** las columnas de una tabla, utilizamos el comodín asterisco `*`:
-```sql
-SELECT * FROM usuarios;
-```
-*Esto traerá absolutamente toda la información de la tabla usuarios.*
+En la misma base podrías encontrar tablas relacionadas: una lista de conductores registrados, tipos de licencias o infracciones de tránsito.
+
+Al aprender SQL, el objetivo es aprender a **contestar preguntas específicas sobre estos datos**, como: *"¿Qué vehículos tienen menos de 4 ruedas?"* o *"¿Cuántos modelos produce Tesla?"*.
+
+---
+
+## La Declaración SELECT
+
+Para recuperar datos de una base de datos SQL necesitamos escribir sentencias `SELECT`, conocidas coloquialmente como **consultas** (queries).
+
+Una consulta es simplemente una declaración que especifica: **qué datos buscamos**, **dónde encontrarlos** en la base de datos, y opcionalmente **cómo transformarlos** antes de devolverlos.
 
 ---
 
 ### Seleccionando Columnas Específicas
 
-Es una buena práctica (para mejorar la velocidad y ahorrar memoria) seleccionar únicamente las columnas que realmente necesitas.
+La consulta más básica selecciona columnas específicas de una tabla:
 
 ```sql
-SELECT nombre, correo FROM usuarios;
+SELECT columna1, columna2
+FROM nombre_tabla;
 ```
-Esta consulta leerá la tabla `usuarios` y devolverá solo las columnas `nombre` y `correo` para todos los registros existentes.
+
+El resultado será un conjunto bidimensional de filas y columnas: efectivamente una copia de la tabla, pero **solo** con las columnas que solicitamos.
 
 ---
 
-### Alias de Columnas (AS)
+### Seleccionando Todas las Columnas
 
-A veces, los nombres de las columnas en la base de datos son técnicos o difíciles de leer (ej. `usr_first_nm`). Podemos renombrar temporalmente la columna en los resultados utilizando la palabra clave `AS` (Alias).
-
-```sql
-SELECT usr_first_nm AS Nombre, usr_age AS Edad 
-FROM usuarios;
-```
-El resultado mostrará las cabeceras como "Nombre" y "Edad", haciendo el reporte mucho más amigable para el humano.
-
----
-
-### Valores Únicos (DISTINCT)
-
-Si tienes una tabla de compras y quieres saber de qué países provienen tus clientes, una simple consulta `SELECT pais FROM compras;` te devolverá miles de filas repetidas ("México", "México", "España", "México").
-
-Para obtener solo los valores únicos (eliminar los duplicados visuales), usamos `DISTINCT`:
+Si queremos recuperar **absolutamente todas** las columnas de una tabla, usamos el asterisco (`*`) como atajo en lugar de listar cada nombre de columna individualmente:
 
 ```sql
-SELECT DISTINCT pais FROM compras;
+SELECT *
+FROM nombre_tabla;
 ```
-Esto devolverá una lista limpia y sin repeticiones de los países registrados.
+
+Esta consulta es muy útil para inspeccionar rápidamente una tabla volcando todos sus datos de una sola vez.
 
 ---
 
 ### Ejercicio Práctico 1
 
-**Lee el siguiente código e identifica el error conceptual:**
-```sql
-SELECT nombre, apellido, DISTINCT edad FROM clientes;
-```
+**Dada la tabla `Vehiculos` del ejemplo anterior, ¿qué consulta escribirías para obtener solo la marca/modelo y el tipo de cada vehículo?**
 
 **[Solución]**
 ```sql
--- **Error:** La palabra clave `DISTINCT` aplica a la consulta entera y siempre debe ir inmediatamente después de la palabra `SELECT`, no en medio de las columnas.
--- **Correcto:** `SELECT DISTINCT edad, nombre, apellido FROM clientes;` (aunque evaluar la distinción de múltiples columnas a la vez tiene un comportamiento diferente).
+SELECT Marca_Modelo, Tipo
+FROM Vehiculos;
+
+-- Seleccionamos únicamente las dos columnas que nos interesan.
+-- El resultado mostrará 5 filas (una por cada vehículo), pero solo
+-- con las columnas Marca_Modelo y Tipo. Las columnas Id, Ruedas y 
+-- Puertas no aparecerán en el resultado.
 ```
 
 ---
 
 ### Ejercicio Práctico 2
 
-**¿Qué salida produce el siguiente código asumiendo que la tabla tiene 10 productos?**
+**Lee el siguiente código y razona: ¿Cuál es la diferencia práctica entre ambas consultas?**
 ```sql
-SELECT * AS TodosLosDatos FROM productos;
+-- Consulta A
+SELECT * FROM Vehiculos;
+
+-- Consulta B
+SELECT Id, Marca_Modelo, Ruedas, Puertas, Tipo FROM Vehiculos;
 ```
 
 **[Solución]**
 ```sql
--- **Error de Sintaxis:** No puedes asignarle un Alias (`AS`) al comodín asterisco `*`. El comodín es un expansor de todas las columnas, no una columna per se. 
--- Debes hacer `SELECT * FROM productos;` o darle alias a columnas individuales.
+-- Ambas devuelven exactamente los mismos datos en este caso, porque
+-- la Consulta B lista manualmente TODAS las columnas de la tabla.
+-- Sin embargo, la Consulta A (SELECT *) es peligrosa en producción: 
+-- si en el futuro alguien agrega una columna nueva a la tabla (ej. "Color"),
+-- SELECT * traerá automáticamente esa columna extra sin que tu aplicación 
+-- lo espere, potencialmente rompiendo la UI o consumiendo ancho de banda 
+-- innecesario. Listar las columnas explícitamente es más seguro y predecible.
 ```

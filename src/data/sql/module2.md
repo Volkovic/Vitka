@@ -1,136 +1,125 @@
-## Filtrando Datos (La Cláusula WHERE)
+## Filtrando Datos con WHERE (Parte 1)
 
-De poco sirve tener una base de datos de 1 millón de clientes si solo podemos pedirlos todos a la vez. Para extraer **solamente** las filas que cumplen con ciertas condiciones específicas, utilizamos la cláusula `WHERE`.
+Ya sabemos cómo seleccionar columnas específicas de una tabla, pero si tuvieras una tabla con **100 millones de filas**, leerlas todas sería imposible e ineficiente.
 
-La cláusula `WHERE` se coloca inmediatamente después de `FROM`.
+Para filtrar y recuperar solo ciertas filas del resultado, necesitamos usar la cláusula `WHERE` en nuestra consulta.
 
 ```sql
-SELECT nombre, pais 
-FROM clientes 
-WHERE pais = 'España';
+SELECT columna1, columna2
+FROM nombre_tabla
+WHERE condicion;
 ```
-Esta consulta filtrará y devolverá exclusivamente a los clientes cuyo país sea textualmente 'España'. 
-*(Nota: En SQL estándar, los strings o textos siempre deben ir encerrados entre comillas simples `' '`)*.
+
+La cláusula `WHERE` se aplica a **cada fila** de la tabla, evaluando los valores de sus columnas para determinar si esa fila debe incluirse en los resultados o no.
 
 ---
 
-### Operadores de Comparación
+### Operadores Numéricos
 
-Puedes usar los clásicos operadores matemáticos dentro de tu cláusula `WHERE`:
-- `=` : Igual a
-- `>` : Mayor que
-- `<` : Menor que
-- `>=` : Mayor o igual
-- `<=` : Menor o igual
-- `<>` o `!=` : Diferente a (No igual)
+Puedes construir condiciones más complejas combinando múltiples filtros con las palabras clave lógicas `AND` y `OR`:
 
 ```sql
-SELECT nombre, salario 
-FROM empleados 
-WHERE salario >= 3000;
-```
-Esto obtiene a todos los empleados que ganen 3000 o más.
-
----
-
-### Condiciones Múltiples (AND, OR, NOT)
-
-Podemos encadenar múltiples filtros lógicos.
-
-**AND:** Exige que **ambas** condiciones sean verdaderas simultáneamente.
-```sql
-SELECT nombre FROM empleados 
-WHERE departamento = 'Ventas' AND salario > 4000;
+SELECT columna1, columna2
+FROM nombre_tabla
+WHERE condicion1
+    AND/OR condicion2
+    AND/OR ...;
 ```
 
-**OR:** Exige que **al menos una** de las condiciones sea verdadera.
-```sql
-SELECT nombre FROM clientes 
-WHERE ciudad = 'Madrid' OR ciudad = 'Barcelona';
-```
+A continuación, los operadores disponibles para datos numéricos (enteros o decimales):
 
-**NOT:** Invierte la condición (Lo contrario a).
 ```sql
-SELECT nombre FROM clientes 
-WHERE NOT pais = 'USA';
+-- Operadores estándar de comparación:
+-- =         Igual a                        →  columna = 4
+-- != o <>   Diferente a                    →  columna != 4
+-- <         Menor que                      →  columna < 4
+-- <=        Menor o igual que              →  columna <= 4
+-- >         Mayor que                      →  columna > 4
+-- >=        Mayor o igual que              →  columna >= 4
+
+-- Operadores de rango:
+-- BETWEEN ... AND ...       Dentro de un rango (inclusivo)
+--                           →  columna BETWEEN 1.5 AND 10.5
+
+-- NOT BETWEEN ... AND ...   Fuera de un rango (inclusivo)
+--                           →  columna NOT BETWEEN 1 AND 10
+
+-- Operadores de lista:
+-- IN (...)                  Existe en una lista de valores
+--                           →  columna IN (2, 4, 6)
+
+-- NOT IN (...)              No existe en una lista de valores
+--                           →  columna NOT IN (1, 3, 5)
 ```
 
 ---
 
-### Filtrando en una Lista (IN)
+### Ejemplo Práctico: Tabla Movies
 
-Si quisieras buscar clientes en 5 ciudades diferentes usando `OR`, tu código quedaría enorme y verboso (`ciudad = 'A' OR ciudad = 'B' OR...`). 
-El operador `IN` permite definir un conjunto o lista permitida de forma elegante.
-
-```sql
-SELECT nombre, ciudad 
-FROM clientes 
-WHERE ciudad IN ('Madrid', 'Barcelona', 'Valencia', 'Sevilla');
-```
-Esto funciona exactamente igual que múltiples OR encadenados, pero es infinitamente más limpio.
-
----
-
-### Filtrando Rangos (BETWEEN)
-
-Cuando necesitas filtrar valores que caen dentro de un rango continuo (ya sean números, textos alfabéticos o fechas), el operador `BETWEEN` es tu mejor amigo.
+Imagina una tabla `movies` con las columnas `id`, `title`, `director`, `year` y `length_minutes`:
 
 ```sql
-SELECT nombre, edad 
-FROM usuarios 
-WHERE edad BETWEEN 18 AND 25;
-```
-*(Nota importante: `BETWEEN` es INCLUSIVO en SQL estándar, es decir, atrapará a los que tienen exactamente 18 y a los que tienen exactamente 25).*
+-- Encontrar la película con id 6
+SELECT * FROM movies WHERE id = 6;
 
----
+-- Encontrar películas lanzadas entre 2000 y 2010 (ambos incluidos)
+SELECT title, year FROM movies 
+WHERE year BETWEEN 2000 AND 2010;
 
-### Buscando Patrones de Texto (LIKE)
-
-A veces no sabes la palabra exacta, pero conoces una parte del texto. El operador `LIKE` te permite buscar patrones usando **Comodines** (Wildcards):
-- `%` : Representa CERO, UNO, o MÚLTIPLES caracteres cualquiera.
-- `_` : Representa EXACTAMENTE UN caracter cualquiera.
-
-**Ejemplos:**
-```sql
--- Nombres que comiencen con la letra 'A'
-WHERE nombre LIKE 'A%'
-
--- Nombres que terminen con 'ez'
-WHERE nombre LIKE '%ez'
-
--- Nombres que contengan la palabra 'mar' en cualquier lugar
-WHERE nombre LIKE '%mar%'
-
--- Nombres de exactamente 4 letras que empiecen con 'L' (L + 3 espacios vacíos)
-WHERE nombre LIKE 'L___'
+-- Encontrar películas que NO se lanzaron entre 2000 y 2010
+SELECT title, year FROM movies 
+WHERE year NOT BETWEEN 2000 AND 2010;
 ```
 
 ---
 
-## 💻 Ejercicios Prácticos
+### ¿Sabías que...?
 
-**Consigna 1: ¿Qué salida produce este código?**
+SQL **no requiere** que escribas las palabras clave en mayúsculas. Sin embargo, como convención universal, se escriben en mayúsculas (`SELECT`, `WHERE`, `FROM`) para distinguirlas visualmente de los nombres de tablas y columnas, haciendo la consulta más fácil de leer.
+
+---
+
+### La Potencia de WHERE para el Rendimiento
+
+Además de hacer los resultados más manejables para el humano, las cláusulas `WHERE` también permiten que la consulta se ejecute **más rápido**, ya que reducen la cantidad de datos innecesarios que el motor debe procesar y devolver.
+
+---
+
+### Ejercicio Práctico 1
+
+**¿Qué salida produce este código?**
 ```sql
 SELECT * FROM productos WHERE precio = 50 AND precio = 100;
 ```
 
 **[Solución]**
 ```sql
--- Devolverá 0 filas (Tabla Vacía).
--- Es lógicamente imposible que una única fila tenga un precio que sea 
--- exactamente 50 y, al mismo tiempo exacto, sea 100. 
--- Probablemente el programador quería usar el operador OR.
+-- Devolverá 0 filas (resultado vacío).
+-- Es lógicamente IMPOSIBLE que un único valor sea exactamente 50 
+-- y al mismo tiempo exactamente 100. El operador AND exige que AMBAS
+-- condiciones se cumplan simultáneamente en la misma fila. 
+-- Probablemente el programador quería usar OR, o bien BETWEEN 50 AND 100.
 ```
 
-**Consigna 2: Reescribe el siguiente código feo usando un solo operador moderno:**
+---
+
+### Ejercicio Práctico 2
+
+**Reescribe esta consulta verbosa usando un solo operador más elegante:**
 ```sql
-SELECT id FROM facturas WHERE fecha >= '2023-01-01' AND fecha <= '2023-12-31';
+SELECT nombre FROM empleados 
+WHERE departamento_id = 1 
+   OR departamento_id = 3 
+   OR departamento_id = 5 
+   OR departamento_id = 7;
 ```
 
 **[Solución]**
 ```sql
-SELECT id FROM facturas WHERE fecha BETWEEN '2023-01-01' AND '2023-12-31';
+SELECT nombre FROM empleados 
+WHERE departamento_id IN (1, 3, 5, 7);
 
--- El operador BETWEEN hace exactamente lo mismo (mayor o igual, y menor o igual), 
--- logrando que el código sea semánticamente hermoso y fácil de leer.
+-- El operador IN hace exactamente lo mismo que múltiples OR encadenados,
+-- pero de forma mucho más limpia, legible y fácil de mantener.
+-- Si mañana necesitas agregar el departamento 9, solo lo añades a la lista.
 ```

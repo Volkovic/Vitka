@@ -1,88 +1,127 @@
-Vamos a desglosar las herramientas que SQL nos da para modificar textos al momento de extraerlos. Piensa en estas funciones como herramientas de formato automático:
+## OUTER JOINs
 
-- **UPPER() y LOWER()**: Actúan como un botón de mayúsculas o minúsculas. Si tienes un nombre escrito de forma desordenada (ej. 'jUaN'), `UPPER` lo transforma a 'JUAN' y `LOWER` a 'juan'.
-- **LENGTH() o LEN()**: Es un simple contador de caracteres. Te dice cuántas letras tiene un texto.
-- **CONCAT()**: Es como pegamento. Te permite unir diferentes columnas o textos. Por ejemplo, unir el `nombre` y el `apellido` con un espacio en el medio.
-- **SUBSTRING() o SUBSTR()**: Funciona como unas tijeras. Te permite recortar y extraer solo un pedacito del texto, desde la posición que le indiques.
-- **TRIM()**: Es como una aspiradora de espacios. Limpia los espacios en blanco innecesarios que quedan al principio o al final de un texto (ej. transforma '   hola   ' en 'hola').
-- **REPLACE()**: Funciona como la herramienta de "Buscar y Reemplazar" de Word. Cambia todas las apariciones de un texto por otro masivamente (ej. cambiar todos los '.com' por '.org').
+Como vimos en el módulo anterior, el `INNER JOIN` solo incluye filas que tienen una coincidencia en **ambas** tablas. Pero si los datos de las dos tablas no están perfectamente sincronizados (cosa que pasa constantemente en el mundo real), perderás información valiosa.
+
+Los **OUTER JOINs** resuelven este problema permitiendo que filas **sin pareja** sobrevivan en el resultado.
+
+---
+
+### LEFT JOIN (LEFT OUTER JOIN)
+
+El `LEFT JOIN` retorna **todas las filas de la tabla izquierda** (la que escribes en el `FROM`), e intenta emparejarlas con filas de la tabla derecha (la del `JOIN`).
+
+Si una fila de la izquierda no encuentra pareja en la derecha, **no se descarta**: simplemente los campos de la tabla derecha se rellenan con `NULL`.
 
 ```sql
-SELECT 
-  UPPER(TRIM(nombre)) AS NombreMayusculaLimpio,
-  SUBSTRING(apellido, 1, 3) AS Abreviacion,
-  CONCAT(nombre, ' ', apellido) AS NombreCompleto
-FROM clientes;
+SELECT columna1, columna2
+FROM tabla_a
+LEFT JOIN tabla_b
+    ON tabla_a.id = tabla_b.tabla_a_id
+WHERE condicion;
 ```
 
 ---
 
-Las fechas y los números tienen sus propias herramientas matemáticas en SQL. Son muy útiles para no tener que hacer estos cálculos en el código de tu aplicación:
+### Ejemplo Visual
 
-**Fechas:**
-- **NOW() o CURRENT_TIMESTAMP**: Es un reloj. Te devuelve la fecha y hora exacta del sistema en este instante.
-- **EXTRACT(parte FROM fecha)**: Actúa como unas pinzas. Si tienes una fecha completa, puedes usarlo para "arrancar" solo el AÑO (YEAR) o el MES (MONTH) ignorando el resto.
-- **DATEDIFF()**: Es una calculadora de distancia temporal. Te dice exactamente cuántos días de diferencia hay entre dos fechas distintas.
-
-**Números y Conversiones:**
-- **ROUND(numero, decimales)**: Redondea un número a la cantidad de decimales que le pidas, matemáticamente correcto (hacia arriba o hacia abajo según corresponda).
-- **CEIL() y FLOOR()**: Son redondeos forzados. `CEIL()` siempre redondea hacia el techo (arriba) y `FLOOR()` siempre redondea hacia el piso (abajo).
-- **CAST(valor AS tipo) o CONVERT()**: Es un traductor de tipos de datos. Si tienes un texto como '2026-10-15' y quieres que la base de datos lo trate como una fecha real o un número, usas esta función para forzar la conversión.
+Dadas las tablas `employees` y `buildings`:
 
 ```sql
-SELECT 
-  EXTRACT(YEAR FROM NOW()) AS AnioActual,
-  ROUND(salario * 1.21, 2) AS SalarioConImpuestos,
-  CAST('2026-10-15' AS DATE) AS FechaFalsa
-FROM empleados;
+SELECT e.name, e.building, b.capacity
+FROM employees e
+LEFT JOIN buildings b
+    ON e.building = b.building_name;
+```
+
+**Resultado:** Verás a TODOS los empleados. Si un empleado no tiene edificio asignado (o su edificio no existe en la tabla `buildings`), verás su nombre pero la columna `capacity` mostrará `NULL`.
+
+---
+
+### RIGHT JOIN (RIGHT OUTER JOIN)
+
+Es exactamente lo mismo que el `LEFT JOIN`, pero dándole el privilegio de supervivencia a la **tabla derecha** (la del `JOIN`):
+
+```sql
+SELECT e.name, b.building_name, b.capacity
+FROM employees e
+RIGHT JOIN buildings b
+    ON e.building = b.building_name;
+```
+
+**Resultado:** Verás TODOS los edificios. Si un edificio no tiene ningún empleado asignado, las columnas del empleado se rellenan con `NULL`.
+
+*Nota de la industria: En la práctica, los programadores rara vez usan `RIGHT JOIN`. Prefieren reescribir la misma lógica invirtiendo el orden de las tablas y usando un `LEFT JOIN`, por convención visual.*
+
+---
+
+### FULL OUTER JOIN
+
+Devuelve **absolutamente TODAS** las filas de ambas tablas, hayan encontrado pareja o no. Es la unión más completa:
+
+```sql
+SELECT e.name, b.building_name
+FROM employees e
+FULL OUTER JOIN buildings b
+    ON e.building = b.building_name;
+```
+
+- Si un empleado no tiene edificio → se muestra con NULLs en las columnas del edificio.
+- Si un edificio no tiene empleados → se muestra con NULLs en las columnas del empleado.
+
+---
+
+### Comparación Rápida
+
+```sql
+-- INNER JOIN:       Solo las filas con pareja en AMBAS tablas
+-- LEFT JOIN:        TODAS las de la izquierda + sus parejas (o NULL)
+-- RIGHT JOIN:       TODAS las de la derecha + sus parejas (o NULL)
+-- FULL OUTER JOIN:  TODAS las de ambos lados (NULLs donde no hay pareja)
 ```
 
 ---
 
-Piensa en el `CASE WHEN` como un policía de tránsito que dirige los datos según ciertas reglas. Es la forma en que SQL hace un `if / else if / else`. 
+### Ejercicio Práctico 1
 
-Evalúa las filas una por una. En el siguiente ejemplo, si el salario es menor a 2000, le asigna la etiqueta 'Junior'. Si está entre 2000 y 5000, le asigna 'Mid'. Y si no cumple ninguna de esas reglas (la cláusula `ELSE`), le asigna 'Senior'.
+**¿Qué tipo de JOIN usarías para obtener la lista de TODOS los edificios, incluyendo aquellos que actualmente están vacíos (sin empleados)?**
 
-**⚠️ El peligro de olvidar el ELSE:** Si omites la parte final (`ELSE`) y una fila no cumple ninguna de las condiciones `WHEN`, SQL simplemente devolverá un valor vacío (`NULL`). Esto es un error muy común que puede romper la información que muestras en pantalla.
-
+**[Solución]**
 ```sql
-SELECT nombre, salario,
-  CASE
-    WHEN salario < 2000 THEN 'Junior'
-    WHEN salario BETWEEN 2000 AND 5000 THEN 'Mid'
-    ELSE 'Senior'
-  END AS RangoSalarial
-FROM empleados;
+-- Necesitas un RIGHT JOIN (o un LEFT JOIN con las tablas invertidas):
+SELECT b.building_name, e.name
+FROM employees e
+RIGHT JOIN buildings b
+    ON e.building = b.building_name;
+
+-- O equivalentemente (más común en la industria):
+SELECT b.building_name, e.name
+FROM buildings b
+LEFT JOIN employees e
+    ON b.building_name = e.building;
+
+-- Los edificios vacíos aparecerán con NULL en la columna e.name.
 ```
 
 ---
 
-A veces las bases de datos tienen información faltante, lo que en SQL se conoce como un valor `NULL` (vacío absoluto). Mostrar un `NULL` en tu aplicación web se ve feo o puede causar errores. Aquí es donde entra tu plan de respaldo.
+### Ejercicio Práctico 2
 
-La función **`COALESCE()`** (el estándar oficial, preferido sobre funciones como `IFNULL`) es como un salvavidas. Evalúa si el dato existe. Si el dato es `NULL`, entonces escupe automáticamente el segundo parámetro que le pases como "plan B".
-
-En este código, si el usuario no tiene teléfono (`NULL`), en lugar de devolver vacío, la base de datos devolverá el texto 'Sin registrar'.
+**Lee este código. ¿Qué técnica usa para encontrar a los empleados que NO tienen edificio asignado?**
 
 ```sql
-SELECT nombre, COALESCE(telefono, 'Sin registrar') AS Tel FROM usuarios;
+SELECT e.name, e.role
+FROM employees e
+LEFT JOIN buildings b
+    ON e.building = b.building_name
+WHERE b.building_name IS NULL;
 ```
 
----
-
-Veamos algunos trucos avanzados y errores críticos que debes evitar al usar todas estas funciones:
-
-**Combinar y Anidar funciones:**
-Puedes meter una función dentro de otra, como en las matemáticas. En `UPPER(TRIM(nombre))`, SQL evalúa **de adentro hacia afuera**: primero aspira los espacios con `TRIM` y luego sube el resultado a mayúsculas con `UPPER`.
-
-**Funciones en Agrupaciones:**
-Es totalmente legal agrupar datos (con `GROUP BY`) usando el resultado de una función. Por ejemplo, agrupar a los usuarios por el año extraído de su fecha de nacimiento: `GROUP BY EXTRACT(YEAR FROM fecha_nacimiento)`.
-
-**Contar usando Condiciones (Agregación Condicional):**
-Puedes mezclar un `SUM` con un `CASE WHEN` para contar cosas específicas dentro de un grupo de una sola vez. Por ejemplo: `SUM(CASE WHEN sexo='M' THEN 1 ELSE 0 END)`. Esto suma 1 si es masculino, y 0 si no lo es, filtrando los datos rápidamente.
-
-**Aleatoriedad y Peso Físico:**
-- **ORDER BY RANDOM()**: En lugar de ordenar de la A a la Z, asigna un valor temporal y baraja los resultados de forma aleatoria (útil para sacar un "ganador al azar").
-- **OCTET_LENGTH()**: A diferencia de `LENGTH` que cuenta letras, esta función te dice cuánto espacio físico en *bytes* ocupa ese texto en el disco duro.
-
-**🚨 Gotcha Crítico: Funciones en el WHERE**
-**Nunca** uses estas funciones directamente sobre la columna en la cláusula `WHERE` (ej. `WHERE YEAR(fecha) = 2026`). Al modificar el dato en la condición, la base de datos no puede usar sus índices rápidos (pierde la capacidad "SARGable") y se ve obligada a escanear toda la tabla lentamente. Lo correcto es comparar la columna original con un rango de fechas.
+**[Solución]**
+```sql
+-- Usa la técnica conocida como "Anti-Join":
+-- 1. El LEFT JOIN garantiza que TODOS los empleados aparezcan.
+-- 2. Los empleados sin edificio tendrán NULL en b.building_name.
+-- 3. El WHERE IS NULL filtra SOLO esas filas huérfanas.
+-- Resultado: una lista limpia de empleados "sin hogar" laboral.
+-- Esta es una de las técnicas más usadas para detectar datos huérfanos.
+```

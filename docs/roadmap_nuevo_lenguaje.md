@@ -12,7 +12,7 @@ Este documento formaliza los pasos necesarios, lógicos y estructurales, para a�
 3. **Formateo Base:** Asegurar que todos los bloques de código tengan su correcto identificador de lenguaje (ej. ````sql`) para el resaltado de sintaxis (Syntax Highlighting). **REGLA ESTRICTA:** No cortar ni dividir bajo ningún concepto los bloques de código originarios al momento de segmentar la teoría.
 
 ## Fase 2: Segmentación y Micro-Aprendizaje
-1. **División por Días (Módulos):** Segmentar el material completo en "Días" lógicos. La cantidad de días (ej. 20, 23 o 30) se deja a criterio dependiendo de la densidad y complejidad del temario.
+1. **División por Módulos:** Segmentar el material completo en "Módulos" lógicos. La cantidad de modulos (ej. 20, 23 o 30) se deja a criterio dependiendo de la densidad y complejidad del temario.
 2. **División por Slides:** Dentro de cada Día, trocear el contenido largo en *Slides* interactivos para fomentar el micro-aprendizaje y evitar la fatiga visual del usuario.
 3. **Inyección de Ejercicios In-line:** 
    - Intercalar ejercicios prácticos dentro del contenido teórico.
@@ -21,7 +21,7 @@ Este documento formaliza los pasos necesarios, lógicos y estructurales, para a�
 
 ## Fase 3: Banco de Pruebas (Quizzes Dinámicos)
 1. **Creación del Archivo de Evaluación:** Generar un archivo maestro `quizzes.json` aislado para el nuevo lenguaje.
-2. **Volumen de Preguntas:** Crear exactamente **20 preguntas por cada Día/Módulo**.
+2. **Volumen de Preguntas:** Crear exactamente **20 preguntas por cada Módulo**.
 3. **Enfoque de Razonamiento:** Las preguntas deben alejarse de la mera teoría; deben obligar al estudiante a analizar lógicamente. Los formatos requeridos son:
    - **"¿Qué salida produce este código?"** (Lectura mental de ejecución).
    - **Preguntas Conceptuales Profundas** (El "por qué" de las herramientas).
@@ -30,9 +30,9 @@ Este documento formaliza los pasos necesarios, lógicos y estructurales, para a�
 4. **Estructura Estricta:** Cada pregunta debe incluir `id`, `question`, 4 `options` (Multiple Choice), 1 `correctAnswer` (índice), y una `justification` exhaustiva que explique el porqué técnico de la respuesta.
 
 ## Fase 4: Lógica de Motor de Evaluación
-1. **Aleatoriedad:** El componente de examen (Quiz) tomará el array de 20 preguntas del día y seleccionará de manera aleatoria **10 preguntas** para el intento actual, garantizando exámenes diferentes si el usuario necesita reintentarlo.
+1. **Aleatoriedad:** El componente de examen (Quiz) tomará el array de 20 preguntas del modulo y seleccionará de manera aleatoria **10 preguntas** para el intento actual, garantizando exámenes diferentes si el usuario necesita reintentarlo.
 2. **Criterio de Aprobación:** El umbral de éxito estricto será del **80% de respuestas correctas** (8/10).
-3. **Desbloqueo de Progreso:** Solo si el usuario alcanza o supera el 80%, el sistema (mediante LocalStorage / Estado Global) marcará el módulo como "Completado" y destruirá el candado, habilitando el acceso físico y lógico al siguiente Día.
+3. **Desbloqueo de Progreso:** Solo si el usuario alcanza o supera el 80%, el sistema (mediante LocalStorage / Estado Global) marcará el modulo como "Completado" y destruirá el candado, habilitando el acceso físico y lógico al siguiente modulo.
 
 ## Fase 5: Integración en la Interfaz (UI) y Router
 1. **Assets Visuales:** Definir el color temático (ej. Azul para SQL) e importar el logo vectorial/ícono correspondiente para inyectarlo en el Dashboard principal.

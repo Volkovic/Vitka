@@ -19,10 +19,11 @@ export const javascriptTitles = [
 ];
 
 export const sqlTitles = [
-  'Introducción a SQL', 'Filtrado de Datos', 'Ordenamiento y Limites', 'Agrupamiento (Group By)', 
-  'Subconsultas Simples', 'Funciones de Agregación', 'Joins (Parte 1)', 'Joins (Parte 2)', 
-  'Manejo de Nulos', 'Operadores de Conjunto', 'Consultas Correlacionadas', 'CTEs (Common Table Expr)', 
-  'DDL (Definición)', 'DML (Manipulación)', 'Funciones de Ventana'
+  'Introducción a SQL y SELECT', 'Filtros con WHERE (Pt. 1)', 'Filtros con WHERE (Pt. 2)', 
+  'Ordenamiento, Límites y Únicos', 'Multi-tabla con JOINs', 'OUTER JOINs', 
+  'NULLs en SQL', 'Expresiones y Alias', 'Funciones de Agregación (Pt. 1)', 
+  'Agregación con GROUP BY', 'Orden de Ejecución', 'INSERT INTO', 
+  'UPDATE y DELETE', 'CREATE TABLE', 'ALTER y DROP TABLE'
 ];
 
 export function getModuleTitle(courseId, moduleId) {

@@ -1,62 +1,145 @@
-## Manipulando Datos (DML)
+## Actualizando y Eliminando Filas
 
-Ahora entraremos a **DML (Data Manipulation Language)**: Los comandos operativos para Insertar, Actualizar y Eliminar registros (filas) dentro de nuestras estructuras previas.
-
----
-
-### INSERT INTO (Crear)
-
-Sirve para inyectar filas de información en las tablas.
-Es vital detallar entre los primeros paréntesis exactamente QUÉ columnas vas a rellenar, para que los valores (VALUES) coincidan milimétricamente en el mismo orden.
-
-```sql
-INSERT INTO usuarios (nombre, email, edad)
-VALUES ('Dano', 'dano@mail.com', 30);
-```
-
-Puedes insertar múltiples filas de golpe para ahorrar red (Bulk Insert):
-```sql
-INSERT INTO usuarios (nombre, email, edad)
-VALUES 
-  ('Pedro', 'pedro@mail.com', 22),
-  ('Ana', 'ana@mail.com', 27);
-```
+Ya sabemos insertar datos. Ahora aprenderemos a **modificar** filas existentes con `UPDATE` y a **eliminar** filas con `DELETE`. Ambos comandos comparten un mismo principio crítico: **la importancia del WHERE**.
 
 ---
 
-### UPDATE (Actualizar)
+## UPDATE: Actualizando Filas
 
-El comando UPDATE modifica las filas que **ya existen** en la base de datos.
-**¡Alerta Crítica!** Si usas UPDATE, es casi obligatorio usar la cláusula `WHERE`.
+El comando `UPDATE` modifica los valores de columnas en filas que **ya existen** en la tabla:
 
 ```sql
-UPDATE usuarios 
-SET edad = 31, email = 'nuevo@mail.com'
-WHERE id = 5;
+UPDATE nombre_tabla
+SET columna1 = valor1,
+    columna2 = valor2
+WHERE condicion;
+```
+
+La cláusula `SET` especifica qué columnas cambiar y a qué valores. La cláusula `WHERE` determina **cuáles filas** serán afectadas.
+
+---
+
+### Ejemplo Práctico
+
+```sql
+-- Corregir el año y el director de la película "A Bug's Life"
+UPDATE movies
+SET director = "John Lasseter",
+    year = 1998
+WHERE title = "A Bug's Life";
+
+-- Cambiar el título de la película con id 2
+UPDATE movies
+SET title = "Toy Story 2: El Regreso"
+WHERE id = 2;
 ```
 
 ---
 
-### DELETE (Borrar)
+### ⚠️ Peligro Crítico: UPDATE sin WHERE
 
-Elimina registros.
-**¡Alerta Crítica 2!** Al igual que UPDATE, un DELETE sin WHERE es un despido asegurado en producción.
+Si olvidas la cláusula `WHERE`, el `UPDATE` modificará **ABSOLUTAMENTE TODAS** las filas de la tabla sin discriminar:
 
 ```sql
-DELETE FROM usuarios 
-WHERE id = 5;
+-- ¡CATÁSTROFE! Esto cambia el director de TODAS las películas
+UPDATE movies
+SET director = "John Lasseter";
 ```
+
+Después de ejecutar esto, cada película en la base de datos mostrará a "John Lasseter" como director, destruyendo la información original de forma irreversible.
+
+---
+
+### Buena Práctica con UPDATE
+
+Antes de ejecutar un `UPDATE`, es recomendable primero verificar que tu cláusula `WHERE` selecciona las filas correctas ejecutando un `SELECT` con el mismo filtro:
+
+```sql
+-- Primero: verificar qué filas serán afectadas
+SELECT * FROM movies WHERE id = 2;
+
+-- Después: si el resultado es correcto, ejecutar el UPDATE
+UPDATE movies SET title = "Toy Story 2: El Regreso" WHERE id = 2;
+```
+
+---
+
+## DELETE: Eliminando Filas
+
+El comando `DELETE` elimina filas completas de la tabla:
+
+```sql
+DELETE FROM nombre_tabla
+WHERE condicion;
+```
+
+---
+
+### Ejemplo Práctico
+
+```sql
+-- Eliminar la película con id 4
+DELETE FROM movies WHERE id = 4;
+
+-- Eliminar todas las películas anteriores a 1995
+DELETE FROM movies WHERE year < 1995;
+```
+
+---
+
+### ⚠️ Peligro Crítico: DELETE sin WHERE
+
+Al igual que `UPDATE`, si olvidas el `WHERE`, borrarás **TODAS** las filas de la tabla:
+
+```sql
+-- ¡APOCALIPSIS! Esto vacía la tabla completamente
+DELETE FROM movies;
+```
+
+La tabla seguirá existiendo (su estructura y columnas se mantienen), pero todas las filas de datos serán eliminadas permanentemente.
 
 ---
 
 ### Ejercicio Práctico 1
 
-**¿Qué catástrofe produce exactamente este código en la empresa?**
+**¿Qué catástrofe produce exactamente este código?**
+
 ```sql
 UPDATE empleados SET salario = 5000;
 ```
 
 **[Solución]**
 ```sql
--- Al omitir el `WHERE` (la condición de freno), la base de datos obedecerá ciegamente la instrucción global. Irá fila por fila mutando a TODA LA EMPRESA (desde el conserje hasta el CEO) asignándoles a todos el salario de 5000 en el acto, arruinando la contabilidad completa irreversiblemente. ¡Siempre usa WHERE en Updates/Deletes!
+-- Al omitir el WHERE, la base de datos obedece la instrucción de forma GLOBAL.
+-- Irá fila por fila y asignará el salario de 5000 a TODOS los empleados: 
+-- desde el pasante hasta el CEO. 
+-- Resultado: la contabilidad y la nómina completa quedan destruidas.
+-- Correcto: UPDATE empleados SET salario = 5000 WHERE id = 42;
+```
+
+---
+
+### Ejercicio Práctico 2
+
+**¿Cuál es la diferencia entre estas dos operaciones?**
+
+```sql
+-- Operación A
+DELETE FROM productos;
+
+-- Operación B
+DROP TABLE productos;
+```
+
+**[Solución]**
+```sql
+-- Operación A (DELETE sin WHERE):
+-- Elimina TODAS las filas de datos, pero la tabla sigue existiendo vacía.
+-- La estructura (columnas, tipos, restricciones) se conserva intacta.
+-- Puedes seguir haciendo INSERT INTO productos después.
+
+-- Operación B (DROP TABLE):
+-- Destruye la tabla COMPLETA: estructura, datos, índices, restricciones, todo.
+-- La tabla deja de existir. Un INSERT INTO productos daría error:
+-- "Table 'productos' doesn't exist".
 ```

@@ -1,64 +1,118 @@
-## Subconsultas (Subqueries)
+## Agregación con GROUP BY (Parte 2)
 
-Una subconsulta es una consulta completa anidada o escondida adentro de otra consulta (Query dentro de un Query).
-
-Es útil cuando no sabes un valor de antemano.
+En el módulo anterior, las funciones de agregación operaban sobre **todas las filas** de la tabla a la vez. Pero, ¿qué pasa si quieres saber cuántas películas hizo **cada director** por separado? Para eso necesitas la cláusula `GROUP BY`.
 
 ---
 
-### Subconsultas en el WHERE
+### La Cláusula GROUP BY
 
-¿Cómo obtienes a todos los empleados que ganan más que el empleado llamado 'Pedro'? Como no sabes el salario de Pedro, primero debes consultarlo.
-
-```sql
-SELECT nombre, salario 
-FROM empleados
-WHERE salario > (
-    SELECT salario FROM empleados WHERE nombre = 'Pedro'
-);
-```
-SQL ejecutará primero el paréntesis interior (evalúa a un número, ej: 4000), y luego ejecuta la consulta externa (salario > 4000).
-
----
-
-### Subconsultas de Múltiples Filas
-
-Si la subconsulta interior devuelve más de una fila (un array de valores), no puedes usar `=` o `>`, debes usar operadores de lista como `IN` o `NOT IN`.
+`GROUP BY` agrupa las filas que comparten el mismo valor en la columna especificada, formando subconjuntos independientes. Luego, las funciones de agregación se aplican **a cada grupo** por separado:
 
 ```sql
--- Traer los clientes que hayan comprado un 'iPhone'
-SELECT nombre 
-FROM clientes
-WHERE id IN (
-    SELECT cliente_id FROM compras WHERE producto = 'iPhone'
-);
+SELECT columna_agrupada, AGG_FUNC(columna_b)
+FROM nombre_tabla
+WHERE condicion
+GROUP BY columna_agrupada;
 ```
 
 ---
 
-### Subconsultas Correlacionadas
-
-Normalmente una subconsulta se evalúa una sola vez de forma aislada. Pero en una correlacionada, la subconsulta interior hace referencia (depende) de una variable de la tabla exterior.
+### Ejemplo Concreto
 
 ```sql
--- Empleados que ganen MÁS que el promedio DE SU PROPIO departamento
-SELECT e1.nombre, e1.salario
-FROM empleados e1
-WHERE e1.salario > (
-    SELECT AVG(salario) 
-    FROM empleados e2 
-    WHERE e2.departamento = e1.departamento
-);
+-- ¿Cuántas películas dirigió cada director?
+SELECT director, COUNT(*) AS num_movies
+FROM movies
+GROUP BY director;
 ```
-*Este es un proceso pesadísimo: la subconsulta se tiene que volver a calcular por CADA UNA de las filas evaluadas en el query principal.*
+
+Esta consulta produce una fila **por cada director único**. Si hay 8 directores diferentes, el resultado tendrá 8 filas, cada una con el nombre del director y la cantidad de películas que dirigió.
+
+---
+
+### Múltiples Agregaciones por Grupo
+
+Puedes usar varias funciones de agregación sobre el mismo grupo:
+
+```sql
+-- Por cada director: cuántas películas, duración promedio y total
+SELECT director,
+       COUNT(*) AS num_movies,
+       AVG(length_minutes) AS avg_duration,
+       SUM(length_minutes) AS total_minutes
+FROM movies
+GROUP BY director;
+```
+
+---
+
+### Filtrando Grupos con HAVING
+
+¿Qué pasa si después de agrupar solo quieres ver los directores que tengan **más de 3 películas**?
+
+No puedes usar `WHERE` porque `WHERE` filtra filas individuales **antes** de que se formen los grupos. Para filtrar los grupos **después** de que ya fueron calculados, usas `HAVING`:
+
+```sql
+SELECT director, COUNT(*) AS num_movies
+FROM movies
+GROUP BY director
+HAVING COUNT(*) > 3;
+```
+
+---
+
+### WHERE vs HAVING: La Regla de Oro
+
+```sql
+-- WHERE:  Filtra FILAS individuales ANTES de agrupar
+-- HAVING: Filtra GRUPOS calculados DESPUÉS de agrupar
+
+-- Ejemplo combinado:
+SELECT director, COUNT(*) AS num_movies
+FROM movies
+WHERE year > 2000            -- Primero: solo considerar películas post-2000
+GROUP BY director            -- Después: agrupar por director
+HAVING COUNT(*) >= 2;        -- Finalmente: solo directores con 2+ películas
+```
 
 ---
 
 ### Ejercicio Práctico 1
 
-**¿Por qué las Subconsultas Correlacionadas se consideran un Anti-patrón de rendimiento masivo frente a un JOIN?**
+**Ordena estas cláusulas SQL en su estricto orden de ejecución lógica:**
+`GROUP BY, WHERE, ORDER BY, SELECT, FROM, HAVING`
 
 **[Solución]**
 ```sql
--- Porque ejecutan su lógica en un bucle N veces (N siendo las filas exteriores). Si la tabla exterior tiene 1 millón de empleados, el servidor hará 1 millón de consultas independientes extra a la base de datos para promediar salarios, matando el CPU. Con JOINs, los datos se calculan en masa (Set-based) una sola vez.
+-- 1. FROM        (Localiza la tabla de origen)
+-- 2. WHERE       (Filtra filas individuales crudas)
+-- 3. GROUP BY    (Agrupa las filas que sobrevivieron)
+-- 4. HAVING      (Filtra los grupos que no sirven)
+-- 5. SELECT      (Proyecta las columnas y calcula expresiones)
+-- 6. ORDER BY    (Ordena el resultado final)
+
+-- Esto explica por qué no puedes usar un alias del SELECT en el WHERE:
+-- el SELECT se ejecuta DESPUÉS del WHERE.
+```
+
+---
+
+### Ejercicio Práctico 2
+
+**¿Por qué este código genera un error?**
+
+```sql
+SELECT director, title, COUNT(*) AS num_movies
+FROM movies
+GROUP BY director;
+```
+
+**[Solución]**
+```sql
+-- Error: la columna "title" no está en el GROUP BY ni es una agregación.
+-- Cuando usas GROUP BY, el resultado tiene UNA fila por grupo (por director).
+-- Cada director puede tener muchos "titles" diferentes. SQL no sabe cuál
+-- de todos los títulos mostrar en esa única fila de resumen.
+-- Regla: toda columna en el SELECT que NO sea una función de agregación
+-- DEBE estar listada en el GROUP BY.
 ```

@@ -1,55 +1,129 @@
-## OUTER JOINS
+## Consultas con Expresiones
 
-A diferencia del INNER JOIN estricto que requiere pareja exacta, los Outer Joins permiten que las filas de una tabla sobrevivan en el resultado, incluso si no encontraron coincidencias en la otra tabla.
+Además de simplemente leer los datos crudos de las columnas, SQL permite usar **expresiones** para escribir lógica más compleja directamente en la consulta. Las expresiones pueden ser matemáticas, de texto, o transformaciones de datos que se calculan al vuelo.
 
 ---
 
-### LEFT JOIN (o LEFT OUTER JOIN)
+### Expresiones en el SELECT
 
-El `LEFT JOIN` retorna **TODAS** las filas de la tabla de la Izquierda (la primera que escribiste en el FROM), e intenta traer coincidencias de la tabla Derecha (la del JOIN).
-
-Si no encuentra coincidencias, no elimina la fila izquierda, sino que rellena con `NULL` los huecos vacíos de la derecha.
+Cada columna del `SELECT` puede ser una expresión que se calcula **para cada fila** del resultado:
 
 ```sql
-SELECT clientes.nombre, pedidos.total
-FROM clientes
-LEFT JOIN pedidos 
-  ON clientes.id = pedidos.cliente_id;
+SELECT columna_a, columna_b, columna_a + columna_b AS suma
+FROM nombre_tabla;
 ```
-*Resultado: Verás a todos los clientes. Si un cliente no compró nada, verás su nombre y en la columna 'total' dirá NULL.*
+
+Esto crea una "columna virtual" calculada que no existe físicamente en la tabla, pero que aparece en el resultado con su valor computado.
 
 ---
 
-### RIGHT JOIN
+### Expresiones Matemáticas
 
-Es exactamente lo mismo que el LEFT, pero dándole privilegio de supervivencia a la tabla de la Derecha.
-*(Nota: En la industria rara vez se usa el RIGHT JOIN, ya que los programadores prefieren reescribir la misma lógica volteando las tablas y usando un LEFT JOIN por costumbre visual).*
-
----
-
-### FULL OUTER JOIN
-
-Devuelve **absolutamente TODAS** las filas de ambas tablas, hayan emparejado o no. Si un cliente no compró, se muestra con NULLs. Si un pedido huérfano no tiene cliente, se muestra con NULLs en el cliente.
+Puedes usar los operadores aritméticos estándar (`+`, `-`, `*`, `/`) directamente en las consultas:
 
 ```sql
-SELECT c.nombre, p.total
-FROM clientes c
-FULL OUTER JOIN pedidos p 
-  ON c.id = p.cliente_id;
+-- Calcular los años desde que un empleado fue contratado
+SELECT name, 
+       hire_year, 
+       2025 - hire_year AS years_employed
+FROM employees;
+
+-- Calcular el precio con IVA
+SELECT product, 
+       price, 
+       price * 1.21 AS price_with_tax
+FROM products;
 ```
-*(Nota de limpieza: Le pusimos alias 'c' y 'p' a las tablas para no tener que escribir las palabras completas).*
+
+---
+
+### Expresiones en el WHERE
+
+Las expresiones no están limitadas al `SELECT`. También puedes usarlas en la cláusula `WHERE` para crear filtros más sofisticados:
+
+```sql
+-- Encontrar empleados que llevan más de 10 años en la empresa
+SELECT name, hire_year
+FROM employees
+WHERE 2025 - hire_year > 10;
+```
+
+---
+
+### Alias con AS
+
+La palabra clave `AS` permite asignar un **nombre temporal** (alias) a las columnas o expresiones del resultado. Esto hace que los reportes sean más legibles:
+
+```sql
+SELECT title AS "Título de la Película",
+       length_minutes / 60.0 AS "Duración en Horas"
+FROM movies;
+```
+
+Los alias son puramente cosméticos: **no modifican** la tabla original ni crean columnas nuevas en el disco. Solo cambian la cabecera que aparece en el resultado de la consulta.
+
+---
+
+### Alias para Tablas
+
+Los alias también se pueden usar para acortar los nombres de las tablas, especialmente útil cuando trabajas con JOINs:
+
+```sql
+-- Sin alias (verboso)
+SELECT employees.name, buildings.capacity
+FROM employees INNER JOIN buildings ON employees.building = buildings.name;
+
+-- Con alias (limpio)
+SELECT e.name, b.capacity
+FROM employees e INNER JOIN buildings b ON e.building = b.name;
+```
+
+El alias de tabla **no** necesita la palabra `AS`; basta con poner el alias después del nombre de la tabla separado por un espacio.
 
 ---
 
 ### Ejercicio Práctico 1
 
-**¿Cómo usarías un LEFT JOIN para encontrar a los clientes falsos (que se registraron pero que JAMÁS hicieron una compra)?**
+**¿Qué produce esta consulta si la tabla `movies` tiene una columna `domestic_sales` y otra `international_sales`?**
+
+```sql
+SELECT title, 
+       (domestic_sales + international_sales) / 1000000 AS earnings_millions
+FROM movies
+ORDER BY earnings_millions DESC
+LIMIT 3;
+```
 
 **[Solución]**
 ```sql
-SELECT c.nombre 
-FROM clientes c
-LEFT JOIN pedidos p ON c.id = p.cliente_id
-WHERE p.id IS NULL;
--- Al hacer el LEFT JOIN sabemos que los que no compraron tendrán la columna de pedido rellena de NULLs por SQL. Filtrando explícitamente `WHERE p.id IS NULL` nos aislamos para ver únicamente a los rezagados. A esta técnica técnica se le llama "Anti-Join".
+-- Produce las 3 películas con mayores ganancias totales (domésticas + 
+-- internacionales), mostrando el monto en millones (dividido por 1,000,000).
+-- Ordenadas de la que más ganó a la que menos.
+-- Ejemplo de resultado:
+--   "Toy Story 3"  |  1063.2
+--   "Finding Nemo"  |  940.3
+--   "Up"            |  731.4
+-- El alias "earnings_millions" SÍ se puede usar en ORDER BY (es una excepción
+-- especial de SQL, ya que ORDER BY se ejecuta después del SELECT).
+```
+
+---
+
+### Ejercicio Práctico 2
+
+**Detecta el error en este código:**
+
+```sql
+SELECT name, salary * 12 AS annual_salary
+FROM employees
+WHERE annual_salary > 50000;
+```
+
+**[Solución]**
+```sql
+-- Error: No puedes usar un alias definido en el SELECT dentro del WHERE.
+-- Esto se debe al ORDEN DE EJECUCIÓN de SQL: el WHERE se procesa ANTES 
+-- que el SELECT, por lo tanto "annual_salary" aún no existe cuando el 
+-- motor evalúa el filtro.
+-- Correcto: WHERE salary * 12 > 50000 (repetir la expresión completa).
 ```
