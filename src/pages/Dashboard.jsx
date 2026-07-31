@@ -11,7 +11,8 @@ import { supabase } from '../lib/supabase';
 const TOTAL_MODULES = {
   python: 30,
   javascript: 23,
-  sql: 15
+  sql: 15,
+  git: 8
 };
 
 export default function Dashboard() {
@@ -19,7 +20,8 @@ export default function Dashboard() {
   const [progress, setProgress] = useState({
     python: 0,
     javascript: 0,
-    sql: 0
+    sql: 0,
+    git: 0
   });
 
   useEffect(() => {
@@ -35,7 +37,8 @@ export default function Dashboard() {
         const maxModules = {
           python: 0,
           javascript: 0,
-          sql: 0
+          sql: 0,
+          git: 0
         };
         
         data.forEach(row => {
@@ -47,7 +50,8 @@ export default function Dashboard() {
         setProgress({
           python: Math.round((maxModules.python / TOTAL_MODULES.python) * 100),
           javascript: Math.round((maxModules.javascript / TOTAL_MODULES.javascript) * 100),
-          sql: Math.round((maxModules.sql / TOTAL_MODULES.sql) * 100)
+          sql: Math.round((maxModules.sql / TOTAL_MODULES.sql) * 100),
+          git: Math.round((maxModules.git / TOTAL_MODULES.git) * 100)
         });
       }
     }
@@ -94,10 +98,12 @@ export default function Dashboard() {
       cards: [
         {
           title: "Git/GitHub",
+          badge: "8 Módulos",
           description: "Control de versiones, trabajo colaborativo y buenas prácticas.",
           icon: GitBranch,
           to: "/git",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "git"
         }
       ]
     },

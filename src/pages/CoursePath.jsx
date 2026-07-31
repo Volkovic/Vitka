@@ -1,10 +1,10 @@
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Lock, ArrowRight, Code2, Terminal, Database, Loader2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Lock, ArrowRight, Code2, Terminal, Database, GitBranch, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { useState, useEffect } from 'react';
 
-import { pythonTitles, javascriptTitles, sqlTitles } from '../data/courseTitles';
+import { pythonTitles, javascriptTitles, sqlTitles, gitTitles } from '../data/courseTitles';
 
 export default function CoursePath() {
   const { courseId } = useParams();
@@ -37,16 +37,17 @@ export default function CoursePath() {
     loadProgress();
   }, [user, courseId]);
 
-  if (courseId !== 'python' && courseId !== 'javascript' && courseId !== 'sql') {
+  if (courseId !== 'python' && courseId !== 'javascript' && courseId !== 'sql' && courseId !== 'git') {
     return <Navigate to="/" />;
   }
 
   const isPython = courseId === 'python';
   const isSql = courseId === 'sql';
+  const isGit = courseId === 'git';
   
-  const moduleTitles = isPython ? pythonTitles : (isSql ? sqlTitles : javascriptTitles);
-  const courseName = isPython ? 'Python' : (isSql ? 'SQL' : 'JavaScript');
-  const Icon = isPython ? Terminal : (isSql ? Database : Code2);
+  const moduleTitles = isPython ? pythonTitles : (isSql ? sqlTitles : (isGit ? gitTitles : javascriptTitles));
+  const courseName = isPython ? 'Python' : (isSql ? 'SQL' : (isGit ? 'Git/GitHub' : 'JavaScript'));
+  const Icon = isPython ? Terminal : (isSql ? Database : (isGit ? GitBranch : Code2));
 
   if (authLoading || loading) {
     return <div className="flex items-center justify-center min-h-[50vh]"><Loader2 className="animate-spin text-primary" size={48}/></div>;

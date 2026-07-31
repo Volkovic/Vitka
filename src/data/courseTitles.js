@@ -26,10 +26,18 @@ export const sqlTitles = [
   'UPDATE y DELETE', 'CREATE TABLE', 'ALTER y DROP TABLE'
 ];
 
+export const gitTitles = [
+  'Fundamentos y Configuración', 'Ciclo de Vida del Código', 'Ramas, HEAD y Merging',
+  'Trabajo Remoto y Sincronización', 'Pull Requests y Code Review',
+  'Salvavidas: Deshacer Errores', 'Rebase, Squash y Releases',
+  'GitHub Actions y CI/CD'
+];
+
 export function getModuleTitle(courseId, moduleId) {
   const index = parseInt(moduleId, 10) - 1;
   if (courseId === 'python') return pythonTitles[index] || `Módulo ${moduleId}`;
   if (courseId === 'javascript') return javascriptTitles[index] || `Módulo ${moduleId}`;
   if (courseId === 'sql') return sqlTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'git') return gitTitles[index] || `Módulo ${moduleId}`;
   return `Módulo ${moduleId}`;
 }

@@ -1,0 +1,1938 @@
+{
+  "module1": [
+    {
+      "id": 101,
+      "question": "¿Cuál es la diferencia fundamental entre Git y GitHub?",
+      "options": [
+        "Git es una herramienta local de control de versiones; GitHub es una plataforma web que aloja repositorios Git.",
+        "Git es la versión gratuita y GitHub es la versión de pago del mismo software.",
+        "Git solo funciona en Linux; GitHub permite usar control de versiones en cualquier sistema operativo.",
+        "Git es un editor de código; GitHub es un servicio de almacenamiento en la nube para archivos."
+      ],
+      "correctAnswer": 0,
+      "justification": "Git es un sistema de control de versiones distribuido que se ejecuta localmente en tu computadora. GitHub es una plataforma web que aloja repositorios Git y agrega funcionalidades de colaboración como Pull Requests, Issues y Actions. Puedes usar Git sin GitHub, pero no GitHub sin Git."
+    },
+    {
+      "id": 102,
+      "question": "¿Qué significa que Git es un sistema 'distribuido'?",
+      "options": [
+        "Cada desarrollador tiene una copia completa del repositorio y toda su historia en su propia máquina.",
+        "El código se distribuye automáticamente a múltiples servidores para mejorar el rendimiento.",
+        "Git divide los archivos grandes en fragmentos más pequeños para optimizar el almacenamiento.",
+        "Los commits se reparten entre los miembros del equipo para procesarlos en paralelo."
+      ],
+      "correctAnswer": 0,
+      "justification": "En un sistema distribuido como Git, cada desarrollador tiene una copia completa del repositorio con todo su historial de commits. Esto permite trabajar sin conexión a internet y proporciona redundancia: si un servidor falla, cualquier copia local puede reconstruir el repositorio."
+    },
+    {
+      "id": 103,
+      "question": "¿Qué comando se usa para verificar si Git está instalado en tu computadora?",
+      "options": [
+        "git --version",
+        "git --check",
+        "git status --installed",
+        "git verify"
+      ],
+      "correctAnswer": 0,
+      "justification": "El comando 'git --version' muestra la versión de Git instalada (ej. 'git version 2.45.0'). Si Git no está instalado, el sistema mostrará un error de comando no reconocido."
+    },
+    {
+      "id": 104,
+      "question": "¿Cuál es la diferencia entre `git config --global` y `git config` (sin --global)?",
+      "options": [
+        "--global aplica la configuración a todos los repositorios del usuario; sin --global aplica solo al repositorio actual.",
+        "--global requiere permisos de administrador; sin --global funciona para cualquier usuario.",
+        "--global guarda la configuración en la nube; sin --global la guarda localmente.",
+        "No hay diferencia práctica, ambos hacen exactamente lo mismo."
+      ],
+      "correctAnswer": 0,
+      "justification": "El flag --global establece la configuración para todos los repositorios de tu usuario en esa computadora. Sin --global, la configuración solo aplica al repositorio donde te encuentras actualmente, lo cual es útil si quieres usar un email diferente para un proyecto específico."
+    },
+    {
+      "id": 105,
+      "question": "¿Qué hace el comando `git init`?",
+      "options": [
+        "Crea un nuevo repositorio Git vacío en la carpeta actual, generando la carpeta oculta .git/.",
+        "Descarga e instala la última versión de Git desde internet.",
+        "Inicializa la conexión con un servidor remoto como GitHub.",
+        "Crea un commit inicial con todos los archivos de la carpeta actual."
+      ],
+      "correctAnswer": 0,
+      "justification": "git init convierte una carpeta normal en un repositorio Git creando la carpeta oculta .git/ que contiene toda la infraestructura necesaria para el control de versiones. No crea ningún commit ni se conecta a ningún servidor remoto."
+    },
+    {
+      "id": 106,
+      "question": "¿Qué hace `git clone` que `git init` NO hace?",
+      "options": [
+        "Descarga una copia completa del repositorio remoto incluyendo toda su historia de commits.",
+        "Configura automáticamente el nombre de usuario y email.",
+        "Crea la carpeta .git/ con la configuración del proyecto.",
+        "Inicializa las ramas del proyecto con nombres predeterminados."
+      ],
+      "correctAnswer": 0,
+      "justification": "git clone descarga todo el contenido y la historia de un repositorio existente desde un servidor remoto, además de configurar la conexión con ese remoto (origin). git init solo crea un repositorio vacío sin historia ni conexión remota."
+    },
+    {
+      "id": 107,
+      "question": "¿Qué contiene la carpeta oculta `.git/` dentro de un repositorio?",
+      "options": [
+        "Toda la infraestructura de Git: historial de commits, configuración del repositorio, referencias a ramas y tags.",
+        "Solo los archivos que han sido modificados desde el último commit.",
+        "Una copia de seguridad del código fuente original antes de cualquier cambio.",
+        "Los credenciales de autenticación para conectarse a GitHub."
+      ],
+      "correctAnswer": 0,
+      "justification": "La carpeta .git/ es el cerebro de Git. Contiene el directorio objects/ con todo el contenido versionado, refs/ con punteros a ramas y tags, HEAD que indica la posición actual, config con la configuración del repositorio, y hooks/ con scripts automatizados."
+    },
+    {
+      "id": 108,
+      "question": "¿Qué ocurre si borras manualmente la carpeta `.git/` de un proyecto?",
+      "options": [
+        "Pierdes todo el historial de versiones. La carpeta se convierte en una carpeta normal sin control de versiones.",
+        "Git se reinstala automáticamente desde GitHub la próxima vez que abres la terminal.",
+        "Solo se pierden los commits no pusheados; los archivos se mantienen versionados.",
+        "El proyecto se corrompe y los archivos se eliminan junto con la carpeta .git/."
+      ],
+      "correctAnswer": 0,
+      "justification": "Eliminar .git/ destruye toda la historia de Git: commits, ramas, tags y configuración. Los archivos del proyecto siguen existiendo como archivos normales, pero dejan de estar bajo control de versiones. Si ya hiciste push a GitHub, la copia remota sigue intacta."
+    },
+    {
+      "id": 109,
+      "question": "Lee los siguientes comandos. ¿Cuál es el resultado final?\n\n```\nmkdir app\ncd app\ngit init\ngit config user.name \"Dev\"\n```",
+      "options": [
+        "Se crea un repositorio Git vacío con el nombre de autor 'Dev' configurado solo para ese repositorio.",
+        "Se crea un repositorio Git con un commit inicial que contiene un archivo README.",
+        "Se configura el nombre 'Dev' globalmente para todos los repositorios de la computadora.",
+        "El comando falla porque no se puede ejecutar git config antes de hacer el primer commit."
+      ],
+      "correctAnswer": 0,
+      "justification": "mkdir crea la carpeta, cd entra en ella, git init la convierte en repositorio. git config sin --global establece el nombre solo para este repositorio específico. No se creó ningún commit (eso requeriría git add + git commit)."
+    },
+    {
+      "id": 110,
+      "question": "¿Qué información muestra la salida de `git config --list`?",
+      "options": [
+        "Todas las configuraciones activas de Git: nombre de usuario, email, editor predeterminado, rama por defecto, etc.",
+        "La lista de todos los repositorios Git existentes en la computadora.",
+        "Los archivos que están siendo rastreados por Git en el repositorio actual.",
+        "El historial de los últimos comandos de Git ejecutados."
+      ],
+      "correctAnswer": 0,
+      "justification": "git config --list muestra todas las configuraciones activas, incluyendo las globales (de usuario) y las locales (del repositorio actual). Incluye valores como user.name, user.email, core.editor, init.defaultbranch, entre otros."
+    },
+    {
+      "id": 111,
+      "question": "¿Cuál de las siguientes afirmaciones sobre GitHub Desktop es CORRECTA?",
+      "options": [
+        "Es una interfaz gráfica que ejecuta los mismos comandos Git por debajo, sin necesidad de usar la terminal.",
+        "Es un reemplazo completo de Git que utiliza su propio sistema de control de versiones.",
+        "Solo funciona con repositorios alojados en GitHub, no con otros servicios como GitLab.",
+        "Permite crear commits pero no soporta operaciones avanzadas como merge o rebase."
+      ],
+      "correctAnswer": 0,
+      "justification": "GitHub Desktop es una capa visual sobre Git. Por debajo ejecuta exactamente los mismos comandos (git add, git commit, git push, etc.). Entender los conceptos de Git te hace más efectivo al usar la interfaz gráfica."
+    },
+    {
+      "id": 112,
+      "question": "¿Cuál es la URL correcta para clonar un repositorio público de GitHub?",
+      "options": [
+        "https://github.com/usuario/nombre-del-repo.git",
+        "https://github.com/clone/usuario/nombre-del-repo",
+        "git://download.github.com/usuario/nombre-del-repo",
+        "https://api.github.com/repos/usuario/nombre-del-repo/download"
+      ],
+      "correctAnswer": 0,
+      "justification": "La URL estándar para clonar por HTTPS es https://github.com/usuario/nombre-del-repo.git. También se puede clonar por SSH con git@github.com:usuario/nombre-del-repo.git."
+    },
+    {
+      "id": 113,
+      "question": "¿Qué archivo dentro de `.git/` indica en qué rama o commit estás actualmente?",
+      "options": [
+        "HEAD",
+        "config",
+        "refs/main",
+        "objects/current"
+      ],
+      "correctAnswer": 0,
+      "justification": "El archivo HEAD contiene una referencia a la rama actual (ej. 'ref: refs/heads/main') o directamente al hash de un commit (en estado Detached HEAD). Es el puntero que Git consulta para saber 'dónde estás parado'."
+    },
+    {
+      "id": 114,
+      "question": "¿Por qué Git utiliza hashes SHA-1 para identificar cada commit?",
+      "options": [
+        "Para garantizar la integridad de los datos: cualquier cambio en el contenido genera un hash completamente diferente.",
+        "Para ordenar los commits cronológicamente de forma más eficiente que usando fechas.",
+        "Para comprimir el tamaño de los commits y ahorrar espacio en disco.",
+        "Para cifrar el código fuente y protegerlo de accesos no autorizados."
+      ],
+      "correctAnswer": 0,
+      "justification": "Git usa SHA-1 como mecanismo de integridad. Cada commit, archivo y árbol de directorio tiene un hash único basado en su contenido. Si un solo byte cambia, el hash es completamente diferente, lo que permite detectar cualquier corrupción de datos."
+    },
+    {
+      "id": 115,
+      "question": "¿Cuál de las siguientes NO es una alternativa a GitHub?",
+      "options": [
+        "VS Code",
+        "GitLab",
+        "Bitbucket",
+        "Azure DevOps"
+      ],
+      "correctAnswer": 0,
+      "justification": "VS Code es un editor de código, no una plataforma de alojamiento de repositorios. GitLab, Bitbucket y Azure DevOps son plataformas que, al igual que GitHub, alojan repositorios Git y ofrecen funcionalidades de colaboración y CI/CD."
+    },
+    {
+      "id": 116,
+      "question": "¿Qué sucede si ejecutas `git init` dentro de una carpeta que ya es un repositorio Git?",
+      "options": [
+        "Git muestra un mensaje indicando que el repositorio ya fue inicializado. No se pierden datos.",
+        "Git borra el repositorio existente y crea uno nuevo desde cero.",
+        "Se genera un error fatal que corrompe la carpeta .git/ existente.",
+        "Git crea un segundo repositorio anidado dentro del primero."
+      ],
+      "correctAnswer": 0,
+      "justification": "Ejecutar git init en un repositorio existente es seguro. Git muestra 'Reinitialized existing Git repository...' y no borra ningún dato. Puede ser útil para regenerar archivos de configuración dañados dentro de .git/."
+    },
+    {
+      "id": 117,
+      "question": "Después de ejecutar `git clone https://github.com/user/repo.git`, ¿qué nombre tiene la carpeta creada?",
+      "options": [
+        "repo (el nombre del repositorio, sin la extensión .git)",
+        "user-repo (usuario y nombre separados por guión)",
+        "clone-repo (prefijo 'clone' seguido del nombre)",
+        "github-repo (nombre de la plataforma seguido del nombre)"
+      ],
+      "correctAnswer": 0,
+      "justification": "Git crea automáticamente una carpeta con el nombre del repositorio (la última parte de la URL sin .git). En este caso, crea la carpeta 'repo/' con todo el contenido y la historia del proyecto."
+    },
+    {
+      "id": 118,
+      "question": "¿Qué carpeta dentro de `.git/` almacena TODO el contenido versionado (archivos, commits, árboles)?",
+      "options": [
+        "objects/",
+        "refs/",
+        "hooks/",
+        "config/"
+      ],
+      "correctAnswer": 0,
+      "justification": "La carpeta objects/ es el almacén principal de Git. Contiene todos los blobs (archivos), trees (estructuras de directorio) y commits como objetos comprimidos e identificados por su hash SHA-1."
+    },
+    {
+      "id": 119,
+      "question": "¿Cuál es la principal ventaja de que Git sea un sistema distribuido frente a uno centralizado?",
+      "options": [
+        "Puedes trabajar sin conexión a internet porque tienes toda la historia localmente.",
+        "Los archivos se sincronizan automáticamente con todos los miembros del equipo en tiempo real.",
+        "No necesitas crear ramas porque cada desarrollador trabaja en su propia copia aislada.",
+        "Los conflictos de merge nunca ocurren porque cada desarrollador tiene su propio servidor."
+      ],
+      "correctAnswer": 0,
+      "justification": "Al tener una copia completa del repositorio localmente, puedes hacer commits, crear ramas, ver el historial y comparar versiones sin necesidad de conexión a internet. Solo necesitas internet para sincronizar con el servidor remoto (push/pull)."
+    },
+    {
+      "id": 120,
+      "question": "¿Quién creó Git y en qué año?",
+      "options": [
+        "Linus Torvalds en 2005, para gestionar el desarrollo del kernel de Linux.",
+        "Bill Gates en 2008, como parte del ecosistema de herramientas de Microsoft.",
+        "Guido van Rossum en 2003, como complemento para proyectos de Python.",
+        "Mark Zuckerberg en 2010, para gestionar el código fuente de Facebook."
+      ],
+      "correctAnswer": 0,
+      "justification": "Git fue creado por Linus Torvalds (también creador del kernel de Linux) en 2005, después de que la herramienta anterior (BitKeeper) dejara de ser gratuita. Lo diseñó para ser rápido, distribuido y capaz de manejar proyectos grandes como el kernel de Linux."
+    }
+  ],
+  "module2": [
+    {
+      "id": 201,
+      "question": "¿Cuáles son los tres estados fundamentales por los que pasa un archivo en Git?",
+      "options": [
+        "Working Directory → Staging Area → Repository",
+        "Draft → Review → Published",
+        "Local → Remote → Production",
+        "Untracked → Modified → Committed"
+      ],
+      "correctAnswer": 0,
+      "justification": "Los tres estados son: Working Directory (tu carpeta de trabajo), Staging Area (zona de preparación donde seleccionas qué incluir en el próximo commit) y Repository (la historia permanente de commits). Los archivos fluyen en ese orden: editas → preparas → guardas."
+    },
+    {
+      "id": 202,
+      "question": "¿Cuál es la función del Staging Area en Git?",
+      "options": [
+        "Permitir seleccionar exactamente qué cambios incluir en el próximo commit, dando control granular.",
+        "Almacenar copias de seguridad automáticas de todos los archivos modificados.",
+        "Sincronizar los cambios locales con el servidor remoto antes del push.",
+        "Comprimir los archivos para reducir el tamaño del repositorio."
+      ],
+      "correctAnswer": 0,
+      "justification": "El Staging Area permite elegir exactamente qué archivos (o incluso qué líneas) incluir en cada commit. Sin esta zona intermedia, cada commit incluiría todos los cambios, impidiendo hacer commits enfocados y limpios."
+    },
+    {
+      "id": 203,
+      "question": "En la salida de `git status`, ¿qué significa 'Untracked files'?",
+      "options": [
+        "Archivos nuevos que Git aún no conoce porque nunca fueron añadidos con git add.",
+        "Archivos que fueron eliminados del repositorio pero aún existen en el disco.",
+        "Archivos que están en el Staging Area esperando ser commiteados.",
+        "Archivos que fueron modificados pero ya se guardaron en un commit anterior."
+      ],
+      "correctAnswer": 0,
+      "justification": "Untracked files son archivos que existen en tu carpeta pero que Git nunca ha rastreado. Para que Git comience a rastrearlos, necesitas agregarlos con 'git add'. Hasta entonces, Git simplemente los ignora."
+    },
+    {
+      "id": 204,
+      "question": "¿Cuál es la diferencia entre `git add archivo.js` y `git add .`?",
+      "options": [
+        "git add archivo.js agrega solo ese archivo al staging; git add . agrega TODOS los archivos modificados y nuevos.",
+        "git add archivo.js agrega el archivo al commit directamente; git add . lo agrega al staging.",
+        "git add archivo.js funciona con archivos JavaScript; git add . funciona con cualquier tipo de archivo.",
+        "No hay diferencia, ambos agregan todos los archivos al staging."
+      ],
+      "correctAnswer": 0,
+      "justification": "git add con un nombre de archivo específico solo mueve ese archivo al Staging Area. git add . (con punto) agrega absolutamente todos los archivos nuevos y modificados del directorio actual y subdirectorios. Es más rápido pero menos preciso."
+    },
+    {
+      "id": 205,
+      "question": "¿Qué información almacena cada commit de Git?",
+      "options": [
+        "El snapshot de los archivos, el autor, la fecha, el mensaje descriptivo y un hash SHA-1 único.",
+        "Solo las líneas de código que cambiaron respecto al commit anterior.",
+        "Una copia completa de todo el repositorio incluyendo ramas y configuración.",
+        "El nombre del archivo modificado y la cantidad de líneas añadidas o eliminadas."
+      ],
+      "correctAnswer": 0,
+      "justification": "Cada commit guarda un snapshot completo de los archivos en staging, la identidad del autor (name + email), la fecha y hora, el mensaje descriptivo, y un hash SHA-1 que lo identifica de forma única e irrepetible."
+    },
+    {
+      "id": 206,
+      "question": "¿Qué muestra `git diff` que `git status` NO muestra?",
+      "options": [
+        "Las líneas exactas que se agregaron, eliminaron o modificaron dentro de cada archivo.",
+        "La lista de archivos que cambiaron desde el último commit.",
+        "El nombre de la rama actual y los remotos configurados.",
+        "El historial completo de todos los commits realizados."
+      ],
+      "correctAnswer": 0,
+      "justification": "git status muestra QUÉ archivos cambiaron (nivel de archivo). git diff muestra QUÉ LÍNEAS cambiaron dentro de esos archivos (nivel de línea), usando el formato de diff con líneas '+' (añadidas) y '-' (eliminadas)."
+    },
+    {
+      "id": 207,
+      "question": "En la salida de `git diff`, ¿qué significan las líneas que empiezan con `-` (rojo) y `+` (verde)?",
+      "options": [
+        "Las líneas con '-' fueron eliminadas; las líneas con '+' fueron añadidas.",
+        "Las líneas con '-' son errores; las líneas con '+' son correcciones.",
+        "Las líneas con '-' pertenecen al staging; las líneas con '+' al working directory.",
+        "Las líneas con '-' son del commit actual; las líneas con '+' del commit anterior."
+      ],
+      "correctAnswer": 0,
+      "justification": "En el formato diff, '-' marca líneas que existían antes y fueron eliminadas, y '+' marca líneas que fueron añadidas. Las líneas sin símbolo son contexto (no cambiaron). Un cambio de contenido aparece como una eliminación seguida de una adición."
+    },
+    {
+      "id": 208,
+      "question": "¿Qué hace `git log --oneline`?",
+      "options": [
+        "Muestra el historial de commits en formato compacto: una línea por commit con el hash corto y el mensaje.",
+        "Muestra solo el último commit realizado.",
+        "Lista todos los archivos que fueron modificados en cada commit.",
+        "Muestra el log en formato JSON para procesamiento automatizado."
+      ],
+      "correctAnswer": 0,
+      "justification": "git log --oneline condensa cada commit en una sola línea mostrando solo los primeros 7 caracteres del hash y el mensaje. Es mucho más legible que git log completo cuando quieres una vista rápida del historial."
+    },
+    {
+      "id": 209,
+      "question": "¿Cuál de estos archivos NUNCA debería subirse a un repositorio Git y por qué?",
+      "options": [
+        ".env — Contiene variables secretas como contraseñas, API keys y tokens de autenticación.",
+        "README.md — Es un archivo de documentación que solo ocupa espacio innecesario.",
+        "package.json — Contiene las dependencias que podrían causar conflictos entre desarrolladores.",
+        "index.html — Es el archivo principal que debe compilarse antes de versionarse."
+      ],
+      "correctAnswer": 0,
+      "justification": "El archivo .env contiene credenciales sensibles (contraseñas, tokens, API keys) que si se suben a un repositorio público quedan expuestas a cualquiera. Debe incluirse en .gitignore para que Git lo ignore por completo."
+    },
+    {
+      "id": 210,
+      "question": "¿Qué patrón en `.gitignore` ignora TODOS los archivos con extensión `.log`?",
+      "options": [
+        "*.log",
+        ".log",
+        "all.log",
+        "logs/"
+      ],
+      "correctAnswer": 0,
+      "justification": "El asterisco (*) es un wildcard que coincide con cualquier nombre de archivo. *.log ignora debug.log, error.log, app.log, etc. El patrón 'logs/' ignoraría una carpeta llamada logs, no los archivos .log individuales."
+    },
+    {
+      "id": 211,
+      "question": "Ya hiciste `git add .env` y lo commiteaste. Ahora agregas `.env` al `.gitignore`. ¿Git deja de rastrear `.env`?",
+      "options": [
+        "No. .gitignore solo funciona con archivos que Git aún no rastrea. Hay que ejecutar `git rm --cached .env` primero.",
+        "Sí. .gitignore retroactivamente elimina el archivo del historial de Git.",
+        "Sí, pero solo después de hacer un nuevo commit.",
+        "No. Una vez que un archivo es rastreado, es imposible dejar de rastrearlo."
+      ],
+      "correctAnswer": 0,
+      "justification": ".gitignore solo previene que archivos nuevos (untracked) sean añadidos accidentalmente. Si un archivo ya fue commiteado, .gitignore no lo afecta. Debes removerlo explícitamente del rastreo con 'git rm --cached .env' y luego commitear ese cambio."
+    },
+    {
+      "id": 212,
+      "question": "Según Conventional Commits, ¿qué prefijo usarías para un commit que corrige un bug?",
+      "options": [
+        "fix:",
+        "bug:",
+        "patch:",
+        "hotfix:"
+      ],
+      "correctAnswer": 0,
+      "justification": "El estándar Conventional Commits usa 'fix:' para correcciones de bugs. Otros prefijos comunes son 'feat:' (nueva funcionalidad), 'docs:' (documentación), 'chore:' (mantenimiento), 'refactor:' (reestructuración sin cambiar funcionalidad)."
+    },
+    {
+      "id": 213,
+      "question": "¿Cuál de estos mensajes de commit sigue correctamente el estándar Conventional Commits?",
+      "options": [
+        "feat: agregar autenticación con Google OAuth",
+        "NUEVA FUNCIONALIDAD: login con Google",
+        "Agregué el login con Google al proyecto",
+        "commit: agregar feature de login Google"
+      ],
+      "correctAnswer": 0,
+      "justification": "El formato correcto es 'tipo: descripción'. El tipo 'feat' indica nueva funcionalidad, seguido de dos puntos, un espacio, y una descripción concisa en minúsculas que explica qué se hizo."
+    },
+    {
+      "id": 214,
+      "question": "Lee el siguiente `git status`. ¿Cuántos archivos se incluirían en un commit si lo haces ahora?\n\n```\nChanges to be committed:\n  modified: app.js\n  new file: utils.js\nChanges not staged:\n  modified: README.md\nUntracked files:\n  test.js\n```",
+      "options": [
+        "2 (app.js y utils.js, que están en el Staging Area)",
+        "4 (todos los archivos listados)",
+        "3 (todos los modificados y nuevos, excluyendo untracked)",
+        "1 (solo app.js porque es el único modificado que está staged)"
+      ],
+      "correctAnswer": 0,
+      "justification": "Solo los archivos bajo 'Changes to be committed' están en el Staging Area y serán incluidos en el próximo commit. README.md (not staged) y test.js (untracked) quedarán fuera. El commit incluiría únicamente app.js y utils.js."
+    },
+    {
+      "id": 215,
+      "question": "¿Qué muestra `git diff --staged`?",
+      "options": [
+        "Los cambios que ya están en el Staging Area y se incluirán en el próximo commit.",
+        "Los cambios del Working Directory que aún no fueron añadidos al staging.",
+        "La diferencia entre la rama actual y la rama main.",
+        "Los archivos que fueron eliminados desde el último commit."
+      ],
+      "correctAnswer": 0,
+      "justification": "git diff (sin flags) muestra cambios en el Working Directory que NO están staged. git diff --staged muestra los cambios que YA fueron añadidos al Staging Area con git add y que serán parte del próximo commit."
+    },
+    {
+      "id": 216,
+      "question": "¿Por qué se considera mala práctica usar mensajes de commit como 'cambios', 'fix' o 'asdasd'?",
+      "options": [
+        "Porque no describen qué se cambió ni por qué, haciendo el historial inútil para entender la evolución del proyecto.",
+        "Porque Git rechaza mensajes de menos de 10 caracteres por defecto.",
+        "Porque los mensajes cortos ocupan menos espacio y causan problemas de almacenamiento.",
+        "Porque GitHub no permite mergear Pull Requests con mensajes de commit genéricos."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un historial de commits con mensajes descriptivos permite entender la evolución del proyecto sin abrir archivos. Mensajes como 'cambios' o 'fix' no aportan información: ¿qué se cambió? ¿qué se fixeó? ¿por qué? El historial se vuelve completamente inútil."
+    },
+    {
+      "id": 217,
+      "question": "¿Cuál es la diferencia entre `git diff` y `git diff --staged`?",
+      "options": [
+        "git diff muestra cambios NO preparados (working directory); git diff --staged muestra cambios YA preparados (staging area).",
+        "git diff muestra el último commit; git diff --staged muestra el penúltimo.",
+        "git diff compara ramas; git diff --staged compara commits.",
+        "No hay diferencia, ambos muestran los mismos cambios."
+      ],
+      "correctAnswer": 0,
+      "justification": "git diff sin argumentos muestra las diferencias entre el Working Directory y el Staging Area (cambios que aún no agregaste con git add). git diff --staged muestra las diferencias entre el Staging Area y el último commit (lo que ya está listo para commitear)."
+    },
+    {
+      "id": 218,
+      "question": "Lee el siguiente diff. ¿Qué cambió en el archivo?\n\n```diff\n-  const API_URL = 'http://localhost:3000'\n+  const API_URL = 'https://api.produccion.com'\n```",
+      "options": [
+        "Se cambió la URL de la API de localhost (desarrollo) a un dominio de producción con HTTPS.",
+        "Se agregó una nueva variable API_URL que no existía antes.",
+        "Se eliminó la variable API_URL del código.",
+        "Se renombró la variable de API_URL a otra cosa."
+      ],
+      "correctAnswer": 0,
+      "justification": "La línea con '-' (la vieja) usaba http://localhost:3000 (entorno de desarrollo). La línea con '+' (la nueva) usa https://api.produccion.com (entorno de producción). Es un reemplazo de valor: se cambió la URL a la que apunta la aplicación."
+    },
+    {
+      "id": 219,
+      "question": "¿Qué patrón en `.gitignore` ignora todo lo que está dentro de la carpeta `node_modules/`?",
+      "options": [
+        "node_modules/",
+        "*.node_modules",
+        "!node_modules",
+        "node_modules.*"
+      ],
+      "correctAnswer": 0,
+      "justification": "El patrón 'node_modules/' con la barra final indica que se ignore toda la carpeta y su contenido recursivamente. Esta carpeta contiene dependencias descargadas que pesan mucho y no deben versionarse, ya que se pueden regenerar con npm install."
+    },
+    {
+      "id": 220,
+      "question": "Según Conventional Commits, ¿qué tipo usarías si reorganizaste el código de un componente sin cambiar su funcionalidad?",
+      "options": [
+        "refactor: — Porque se reestructuró el código sin agregar funcionalidad ni corregir bugs.",
+        "feat: — Porque cualquier cambio en el código es una nueva funcionalidad.",
+        "fix: — Porque se mejoró el código que antes estaba desordenado.",
+        "style: — Porque refactorizar es lo mismo que cambiar el estilo visual."
+      ],
+      "correctAnswer": 0,
+      "justification": "refactor: se usa cuando se cambia la estructura interna del código sin modificar su comportamiento externo. No es feat (no agrega nada nuevo), no es fix (no había un bug), y no es style (style es para cambios de formato/indentación, no de lógica)."
+    }
+  ],
+  "module3": [
+    {
+      "id": 301,
+      "question": "¿Qué es una rama (branch) en Git?",
+      "options": [
+        "Una línea independiente de desarrollo que permite trabajar en cambios sin afectar el código principal.",
+        "Una copia completa del repositorio en una carpeta separada.",
+        "Un tipo especial de commit que marca el inicio de una nueva funcionalidad.",
+        "Una conexión con un servidor remoto donde se almacena el código."
+      ],
+      "correctAnswer": 0,
+      "justification": "Una rama es un puntero ligero a un commit que permite desarrollar funcionalidades, corregir bugs o experimentar en paralelo sin afectar la rama principal. Las ramas son extremadamente baratas en Git (solo un archivo de 41 bytes que contiene un hash)."
+    },
+    {
+      "id": 302,
+      "question": "¿Por qué se recomienda NUNCA trabajar directamente en la rama `main`?",
+      "options": [
+        "Porque un error en main afecta a todo el equipo y al código de producción, sin posibilidad de revisión previa.",
+        "Porque Git no permite hacer commits en la rama main.",
+        "Porque la rama main es de solo lectura por diseño.",
+        "Porque la rama main se elimina automáticamente si tiene errores."
+      ],
+      "correctAnswer": 0,
+      "justification": "main representa el código estable de producción. Trabajar directamente en ella implica que cualquier error llega inmediatamente a producción sin ser revisado. El estándar es trabajar en ramas separadas y usar Pull Requests para integrar código revisado a main."
+    },
+    {
+      "id": 303,
+      "question": "¿Qué es HEAD en Git?",
+      "options": [
+        "Un puntero que indica en qué commit (y generalmente en qué rama) estás posicionado actualmente.",
+        "El primer commit en la historia del repositorio.",
+        "El nombre predeterminado para la rama principal del proyecto.",
+        "Un archivo de configuración que almacena las credenciales del usuario."
+      ],
+      "correctAnswer": 0,
+      "justification": "HEAD es simplemente un puntero que indica 'dónde estás ahora'. Normalmente apunta a una rama (ej. main), que a su vez apunta a su último commit. Cuando haces un nuevo commit, la rama avanza y HEAD se mueve con ella."
+    },
+    {
+      "id": 304,
+      "question": "Si HEAD está en el commit D, ¿a qué commit se refiere `HEAD~2`?",
+      "options": [
+        "Al commit B (dos commits antes de D).",
+        "Al commit F (dos commits después de D).",
+        "Al commit C (un commit antes de D).",
+        "A la rama main, que siempre está 2 posiciones detrás de HEAD."
+      ],
+      "correctAnswer": 0,
+      "justification": "HEAD~N significa 'N commits antes del actual'. Si HEAD está en D, HEAD~1 es C (el padre), HEAD~2 es B (el abuelo). Estas referencias relativas son muy útiles para comandos como git diff HEAD~2 o git reset HEAD~1."
+    },
+    {
+      "id": 305,
+      "question": "¿Qué hace `git switch -c nueva-rama`?",
+      "options": [
+        "Crea una nueva rama llamada 'nueva-rama' Y se mueve a ella en un solo comando.",
+        "Crea la rama pero se queda en la rama actual.",
+        "Cambia a una rama existente llamada 'nueva-rama'.",
+        "Elimina la rama actual y crea 'nueva-rama' en su lugar."
+      ],
+      "correctAnswer": 0,
+      "justification": "El flag -c (create) en git switch crea la rama y te mueve a ella simultáneamente. Equivale a ejecutar 'git branch nueva-rama' seguido de 'git switch nueva-rama'. Es el equivalente moderno de 'git checkout -b nueva-rama'."
+    },
+    {
+      "id": 306,
+      "question": "En la salida de `git branch`, ¿qué indica el asterisco (*)?",
+      "options": [
+        "La rama en la que estás actualmente posicionado (donde apunta HEAD).",
+        "La rama que fue creada más recientemente.",
+        "La rama principal protegida del repositorio.",
+        "La rama que tiene más commits."
+      ],
+      "correctAnswer": 0,
+      "justification": "El asterisco (*) marca la rama activa, es decir, donde HEAD está apuntando. Si ves '* main', significa que estás en la rama main y cualquier commit que hagas se agregará a esa rama."
+    },
+    {
+      "id": 307,
+      "question": "¿Qué es un 'Fast-Forward Merge'?",
+      "options": [
+        "Un merge donde main simplemente avanza su puntero hasta el último commit de la otra rama, sin crear un commit de merge.",
+        "Un merge que se ejecuta más rápido porque omite la verificación de conflictos.",
+        "Un merge automático que GitHub hace sin necesidad de aprobación del equipo.",
+        "Un merge que solo incluye el último commit de la rama, descartando los intermedios."
+      ],
+      "correctAnswer": 0,
+      "justification": "Fast-Forward ocurre cuando main no tuvo nuevos commits desde que se creó la rama. Como no hay divergencia, Git simplemente mueve el puntero de main hacia adelante. No se crea un commit de merge adicional porque no hay nada que fusionar."
+    },
+    {
+      "id": 308,
+      "question": "¿Cuándo se crea un 'Merge Commit'?",
+      "options": [
+        "Cuando ambas ramas (main y la feature) tuvieron commits nuevos y Git necesita unir dos líneas de desarrollo.",
+        "Cada vez que se ejecuta git merge, sin importar el estado de las ramas.",
+        "Solo cuando hay conflictos de merge que requieren resolución manual.",
+        "Cuando el merge se realiza desde GitHub en vez de la terminal."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un Merge Commit se crea cuando hay divergencia: ambas ramas avanzaron con commits independientes. Git crea un commit especial con dos padres que une ambas líneas. Si no hay divergencia, Git hace Fast-Forward sin crear commit de merge."
+    },
+    {
+      "id": 309,
+      "question": "¿Cuándo ocurre un conflicto de merge?",
+      "options": [
+        "Cuando dos ramas modificaron la misma línea del mismo archivo de formas diferentes.",
+        "Cuando intentas mergear una rama que no tiene ningún commit.",
+        "Cuando dos ramas tienen archivos con el mismo nombre pero diferente extensión.",
+        "Siempre que se ejecuta git merge entre ramas con más de 5 commits de diferencia."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un conflicto ocurre cuando Git no puede decidir automáticamente qué versión mantener porque dos ramas editaron la misma línea. Git marca el archivo con indicadores (<<<<<<<, =======, >>>>>>>) y te pide que resuelvas manualmente."
+    },
+    {
+      "id": 310,
+      "question": "En un archivo con conflicto de merge, ¿qué representa el contenido entre `<<<<<<< HEAD` y `=======`?",
+      "options": [
+        "El código de TU rama actual (la rama donde estás parado).",
+        "El código de la rama que intentas mergear.",
+        "El código original antes de cualquier modificación.",
+        "Una sugerencia automática de Git para resolver el conflicto."
+      ],
+      "correctAnswer": 0,
+      "justification": "Entre <<<<<<< HEAD y ======= está el código de tu rama actual (HEAD). Entre ======= y >>>>>>> nombre-rama está el código de la rama que intentas mergear. Debes elegir cuál mantener (o combinar ambos) y eliminar todas las marcas de conflicto."
+    },
+    {
+      "id": 311,
+      "question": "Después de resolver un conflicto de merge, ¿qué comandos necesitas ejecutar?",
+      "options": [
+        "git add (archivo resuelto) y luego git commit para finalizar el merge.",
+        "Solo git merge --continue, sin necesidad de add ni commit.",
+        "git resolve (archivo) y luego git push para subir la resolución.",
+        "Solo git commit, porque git add se ejecuta automáticamente al resolver conflictos."
+      ],
+      "correctAnswer": 0,
+      "justification": "Después de editar el archivo para resolver el conflicto (eliminando las marcas <<<<, ====, >>>>), necesitas agregar el archivo al staging con 'git add' y luego hacer 'git commit' para completar el merge. Git crea automáticamente un mensaje de commit de merge."
+    },
+    {
+      "id": 312,
+      "question": "¿Cuál es la diferencia entre `git switch` y `git checkout` para cambiar de rama?",
+      "options": [
+        "Ambos hacen lo mismo para cambiar de rama, pero git switch es más moderno (Git 2.23+) y más intuitivo.",
+        "git switch es más rápido; git checkout verifica conflictos antes de cambiar.",
+        "git switch solo funciona con ramas locales; git checkout funciona con ramas remotas.",
+        "git switch crea automáticamente la rama si no existe; git checkout requiere el flag -b."
+      ],
+      "correctAnswer": 0,
+      "justification": "git switch fue introducido en Git 2.23 como reemplazo más intuitivo de git checkout para cambiar de ramas. checkout hacía demasiadas cosas (cambiar rama, restaurar archivos, crear ramas), lo cual era confuso. switch se enfoca exclusivamente en cambiar de rama."
+    },
+    {
+      "id": 313,
+      "question": "¿Qué hace `git branch -d mi-rama`?",
+      "options": [
+        "Elimina la rama solo si ya fue mergeada. Si tiene commits no mergeados, se niega y muestra un error.",
+        "Elimina la rama incondicionalmente, incluso si tiene commits no mergeados.",
+        "Desconecta la rama del remoto pero la mantiene localmente.",
+        "Renombra la rama actual a 'mi-rama'."
+      ],
+      "correctAnswer": 0,
+      "justification": "git branch -d (minúscula) es la opción segura: solo elimina la rama si sus commits ya fueron integrados en otra rama. Para forzar la eliminación sin verificación, se usa -D (mayúscula), lo cual puede causar pérdida de commits."
+    },
+    {
+      "id": 314,
+      "question": "Antes de cambiar de rama, ¿qué debe estar limpio para evitar problemas?",
+      "options": [
+        "El Working Directory (no debe haber cambios sin commitear o sin stashear).",
+        "La carpeta .git/ (no debe haber archivos temporales).",
+        "El historial de git log (no debe haber más de 100 commits).",
+        "La conexión con el remoto (debe estar sincronizado con GitHub)."
+      ],
+      "correctAnswer": 0,
+      "justification": "Antes de cambiar de rama, tu Working Directory debería estar limpio (sin cambios pendientes). Si tienes cambios sin commitear, Git podría negarse a cambiar de rama para no perder tu trabajo. Puedes commitear los cambios o usar git stash para guardarlos temporalmente."
+    },
+    {
+      "id": 315,
+      "question": "Lee el diagrama. ¿Qué tipo de merge haría Git si ejecutas `git merge feature` estando en `main`?\n\n```\nA ── B ── C        (main) ← HEAD\n          \\\n           D ── E  (feature)\n```",
+      "options": [
+        "Merge Commit, porque ambas ramas divergieron desde el commit B (main tiene C, feature tiene D y E).",
+        "Fast-Forward, porque feature está adelante de main.",
+        "No se puede hacer merge porque hay conflictos.",
+        "Rebase, porque Git elige automáticamente la mejor estrategia."
+      ],
+      "correctAnswer": 0,
+      "justification": "Hay divergencia: main avanzó a C y feature avanzó a D-E desde B. Como ambas ramas tienen commits que la otra no tiene, Git no puede hacer Fast-Forward. Creará un Merge Commit con dos padres (C y E) que une ambas líneas."
+    },
+    {
+      "id": 316,
+      "question": "Lee el diagrama. ¿Qué tipo de merge haría Git aquí?\n\n```\nA ── B              (main) ← HEAD\n      \\\n       C ── D ── E  (feature)\n```",
+      "options": [
+        "Fast-Forward, porque main no tuvo commits nuevos desde que se creó feature.",
+        "Merge Commit, porque feature tiene 3 commits por delante de main.",
+        "Conflicto, porque feature tiene más commits que main.",
+        "No se puede determinar sin ver el contenido de los archivos."
+      ],
+      "correctAnswer": 0,
+      "justification": "main no avanzó desde B (no hay divergencia). Feature simplemente continuó la línea desde B hasta E. Git puede hacer Fast-Forward: mover el puntero de main directamente a E, como si main hubiera hecho C, D y E secuencialmente."
+    },
+    {
+      "id": 317,
+      "question": "¿Qué sucede si dejas las marcas de conflicto (`<<<<<<<`, `=======`, `>>>>>>>`) en el archivo sin resolverlas?",
+      "options": [
+        "El código se rompe: las marcas son texto literal que el lenguaje de programación no entiende y generará errores de sintaxis.",
+        "Git las elimina automáticamente al hacer commit.",
+        "El archivo se vuelve de solo lectura hasta que las marcas se resuelvan.",
+        "Git ignora las marcas y toma la versión más reciente automáticamente."
+      ],
+      "correctAnswer": 0,
+      "justification": "Las marcas de conflicto son texto que Git inserta en el archivo. Si las dejas, tu código contendrá literalmente '<<<<<<<', '=======' y '>>>>>>>' como texto, lo cual causará errores de sintaxis. Debes eliminarlas manualmente y dejar solo el código correcto."
+    },
+    {
+      "id": 318,
+      "question": "¿En qué rama debes estar para ejecutar `git merge feature` correctamente?",
+      "options": [
+        "En la rama que RECIBIRÁ los cambios (generalmente main). Los cambios de feature se integran a donde estés parado.",
+        "En la rama feature, porque los cambios salen de tu posición actual hacia main.",
+        "En cualquiera de las dos ramas, el resultado es el mismo.",
+        "En una tercera rama neutral para evitar conflictos."
+      ],
+      "correctAnswer": 0,
+      "justification": "git merge trae los cambios de la rama especificada HACIA la rama actual. Si quieres integrar feature a main, primero debes hacer 'git switch main' y luego 'git merge feature'. Los cambios de feature se fusionan EN main."
+    },
+    {
+      "id": 319,
+      "question": "¿Cuál es el comando moderno equivalente a `git checkout -b nueva-rama`?",
+      "options": [
+        "git switch -c nueva-rama",
+        "git branch --create nueva-rama",
+        "git new-branch nueva-rama",
+        "git create nueva-rama"
+      ],
+      "correctAnswer": 0,
+      "justification": "git switch -c (o --create) es el equivalente moderno de git checkout -b. Ambos crean una rama nueva y te mueven a ella en un solo comando. git switch fue introducido en Git 2.23 para separar las funcionalidades sobrecargadas de checkout."
+    },
+    {
+      "id": 320,
+      "question": "¿Qué muestra `git log --oneline --graph --all`?",
+      "options": [
+        "Una vista gráfica ASCII del historial de TODAS las ramas, con líneas que muestran divergencias y merges.",
+        "Solo el último commit de la rama actual en una línea.",
+        "Una lista de todos los archivos del repositorio en formato de árbol.",
+        "El mismo resultado que git log --oneline pero coloreado."
+      ],
+      "correctAnswer": 0,
+      "justification": "--oneline muestra un commit por línea, --graph dibuja líneas ASCII que representan las ramificaciones y merges, --all muestra todas las ramas (no solo la actual). Es la mejor forma de visualizar la estructura del repositorio en la terminal."
+    }
+  ],
+  "module4": [
+    {
+      "id": 401,
+      "question": "¿Qué es un 'remote' (remoto) en Git?",
+      "options": [
+        "Una referencia a un repositorio que vive en un servidor externo, como GitHub.",
+        "Una rama local que tiene el prefijo 'remote/' en su nombre.",
+        "Un backup automático que Git crea cada 24 horas.",
+        "La configuración de red que Git usa para conectarse a internet."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un remoto es simplemente una conexión configurada que apunta a una copia del repositorio en un servidor (como GitHub, GitLab, etc.). Por convención, el remoto principal se llama 'origin'. Puedes tener múltiples remotos configurados."
+    },
+    {
+      "id": 402,
+      "question": "¿Qué nombre recibe por convención el remoto principal al clonar un repositorio?",
+      "options": [
+        "origin",
+        "main",
+        "master",
+        "remote"
+      ],
+      "correctAnswer": 0,
+      "justification": "'origin' es el nombre que Git asigna automáticamente al remoto cuando haces git clone. Es solo una convención (podrías renombrarlo), pero toda la comunidad lo usa para referirse al servidor principal del proyecto."
+    },
+    {
+      "id": 403,
+      "question": "¿Qué hace `git push -u origin mi-rama`?",
+      "options": [
+        "Sube la rama al remoto y establece el tracking (vínculo) para que futuros push/pull no necesiten especificar el remoto.",
+        "Actualiza la rama remota eliminando los commits que no están en local.",
+        "Crea un backup de la rama en el remoto sin establecer ninguna conexión permanente.",
+        "Sube la rama y la protege automáticamente contra push directos."
+      ],
+      "correctAnswer": 0,
+      "justification": "El flag -u (--set-upstream) establece una relación de tracking entre la rama local y la remota. Después de usar -u la primera vez, puedes simplemente escribir 'git push' sin especificar 'origin mi-rama' cada vez."
+    },
+    {
+      "id": 404,
+      "question": "¿Por qué Git rechaza un push con el mensaje 'fetch first'?",
+      "options": [
+        "Porque el remoto tiene commits que tú no tienes localmente. Debes descargarlos primero para no sobrescribirlos.",
+        "Porque tu conexión a internet es inestable y Git necesita verificar la conectividad.",
+        "Porque la rama remota está protegida y no acepta push directos.",
+        "Porque excediste el límite de push diarios en tu plan de GitHub."
+      ],
+      "correctAnswer": 0,
+      "justification": "El error 'fetch first' ocurre cuando el remoto tiene commits que tu repositorio local no tiene. Git se niega a subir para evitar sobrescribir el trabajo de otros. La solución es hacer git pull primero (descarga + merge) y luego reintentar el push."
+    },
+    {
+      "id": 405,
+      "question": "¿Cuál es la diferencia fundamental entre `git fetch` y `git pull`?",
+      "options": [
+        "fetch solo descarga los cambios sin aplicarlos; pull descarga Y aplica los cambios (fetch + merge).",
+        "fetch descarga solo metadatos; pull descarga los archivos completos.",
+        "fetch es más rápido porque descarga en segundo plano; pull bloquea la terminal.",
+        "fetch funciona con HTTPS; pull funciona con SSH."
+      ],
+      "correctAnswer": 0,
+      "justification": "git fetch descarga los cambios del remoto pero los deja en las ramas de tracking (origin/main) sin tocar tu rama local. git pull hace lo mismo pero además fusiona automáticamente esos cambios en tu rama actual. pull = fetch + merge."
+    },
+    {
+      "id": 406,
+      "question": "¿Qué es `origin/main` (la rama de tracking)?",
+      "options": [
+        "Una 'foto' local de cómo estaba la rama main en GitHub la última vez que sincronizaste.",
+        "Una rama remota que solo GitHub puede modificar.",
+        "La rama principal de tu repositorio local.",
+        "Un alias para referirte a la URL del repositorio remoto."
+      ],
+      "correctAnswer": 0,
+      "justification": "origin/main es una rama de tracking local que refleja el estado de main en el remoto. Se actualiza cuando haces git fetch o git pull. No puedes hacer commits directamente en ella; solo se actualiza al sincronizar con el servidor."
+    },
+    {
+      "id": 407,
+      "question": "¿En qué situación necesitarías configurar un remoto llamado 'upstream'?",
+      "options": [
+        "Cuando haces un fork de un repositorio y necesitas descargar actualizaciones del repositorio original.",
+        "Cuando tienes dos computadoras y quieres sincronizar el código entre ellas.",
+        "Cuando tu repositorio tiene más de una rama principal.",
+        "Cuando GitHub Desktop no reconoce tu repositorio local."
+      ],
+      "correctAnswer": 0,
+      "justification": "Al hacer fork de un proyecto, tu 'origin' apunta a TU copia. Para mantener tu fork actualizado con el proyecto original, configuras un segundo remoto llamado 'upstream' que apunta al repositorio del autor original, permitiéndote descargar sus actualizaciones."
+    },
+    {
+      "id": 408,
+      "question": "¿Cuál es el flujo correcto para actualizar tu fork con los últimos cambios del repositorio original?",
+      "options": [
+        "git fetch upstream → git merge upstream/main → git push origin main",
+        "git pull origin main → git push upstream main",
+        "git clone upstream → git push origin main",
+        "git sync upstream/main → git push"
+      ],
+      "correctAnswer": 0,
+      "justification": "Primero descargas los cambios del repo original (fetch upstream). Luego los integras a tu rama local (merge upstream/main). Finalmente subes tu rama actualizada a TU fork en GitHub (push origin main). Esto mantiene tu fork sincronizado."
+    },
+    {
+      "id": 409,
+      "question": "¿Por qué GitHub dejó de aceptar contraseñas para operaciones Git desde 2021?",
+      "options": [
+        "Por seguridad: los tokens de acceso personal (PAT) son más seguros porque pueden tener permisos limitados y ser revocados individualmente.",
+        "Porque las contraseñas ocupaban demasiado ancho de banda en las transmisiones.",
+        "Porque GitHub migró a un sistema de autenticación basado en blockchain.",
+        "Para forzar a los usuarios a usar GitHub Desktop en lugar de la terminal."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los Personal Access Tokens (PAT) son más seguros que las contraseñas porque pueden tener permisos limitados (solo lectura, solo ciertos repos), tienen fecha de expiración, y pueden ser revocados sin cambiar tu contraseña principal de GitHub."
+    },
+    {
+      "id": 410,
+      "question": "¿Cuál es la ventaja de usar SSH Keys sobre Personal Access Tokens (PAT)?",
+      "options": [
+        "Una vez configurada, la autenticación es automática sin necesidad de ingresar credenciales en cada operación.",
+        "Las SSH Keys son más rápidas para transferir archivos grandes.",
+        "Las SSH Keys permiten hacer push a cualquier repositorio sin permiso.",
+        "Las SSH Keys no tienen fecha de expiración y nunca necesitan renovarse."
+      ],
+      "correctAnswer": 0,
+      "justification": "Una vez que configuras tu SSH Key y la agregas a GitHub, la autenticación es transparente: nunca más necesitas escribir usuario ni token. El sistema operativo usa tu clave privada automáticamente para verificar tu identidad en cada push/pull."
+    },
+    {
+      "id": 411,
+      "question": "¿Qué comando muestra las URLs de los remotos configurados?",
+      "options": [
+        "git remote -v",
+        "git remote --list",
+        "git config --remotes",
+        "git show remote"
+      ],
+      "correctAnswer": 0,
+      "justification": "git remote -v (verbose) muestra los nombres de los remotos configurados junto con sus URLs para fetch y push. Sin -v, solo muestra los nombres (ej. 'origin') sin las URLs."
+    },
+    {
+      "id": 412,
+      "question": "¿Por qué muchos profesionales prefieren `git fetch` + `git merge` en lugar de `git pull` directo?",
+      "options": [
+        "Porque fetch les permite inspeccionar los cambios remotos antes de aplicarlos, evitando merges sorpresa.",
+        "Porque fetch es más rápido y consume menos ancho de banda.",
+        "Porque pull tiene un bug conocido que puede corromper repositorios grandes.",
+        "Porque fetch funciona sin conexión a internet."
+      ],
+      "correctAnswer": 0,
+      "justification": "Al hacer fetch primero, puedes ejecutar 'git log main..origin/main' para ver qué commits nuevos hay, y 'git diff main origin/main' para ver qué cambió. Esto te da control total antes de decidir si integrar los cambios. git pull hace todo automáticamente sin darte esa visibilidad."
+    },
+    {
+      "id": 413,
+      "question": "Lee la salida. ¿Cuántos remotos hay configurados?\n\n```\norigin   https://github.com/juan/app.git (fetch)\norigin   https://github.com/juan/app.git (push)\nstaging  https://github.com/empresa/app-staging.git (fetch)\nstaging  https://github.com/empresa/app-staging.git (push)\n```",
+      "options": [
+        "2 remotos: origin (fork personal de Juan) y staging (repositorio de la empresa).",
+        "4 remotos, uno por cada línea mostrada.",
+        "1 remoto con 4 URLs diferentes.",
+        "2 remotos, pero solo origin es funcional."
+      ],
+      "correctAnswer": 0,
+      "justification": "Hay 2 remotos configurados: 'origin' y 'staging'. Cada remoto aparece dos veces porque tiene una URL para fetch (descargar) y otra para push (subir), generalmente la misma. origin apunta al fork personal, staging al repo de la empresa."
+    },
+    {
+      "id": 414,
+      "question": "¿Qué pasa si ejecutas `git push` en una rama que nunca ha sido pusheada al remoto?",
+      "options": [
+        "Git muestra un error pidiéndote que establezcas el upstream con --set-upstream o -u.",
+        "Git crea automáticamente la rama en el remoto y sube los commits.",
+        "Git hace push a la rama main del remoto por defecto.",
+        "Git elimina la rama local porque no tiene contraparte remota."
+      ],
+      "correctAnswer": 0,
+      "justification": "Si la rama local no tiene tracking configurado, Git no sabe a qué rama remota subir. Muestra un error sugiriendo 'git push --set-upstream origin nombre-rama' para crear la rama en el remoto y establecer el vínculo."
+    },
+    {
+      "id": 415,
+      "question": "¿Qué hace el botón 'Fetch origin' en GitHub Desktop?",
+      "options": [
+        "Descarga los últimos cambios del remoto para verificar si hay actualizaciones, sin aplicarlos automáticamente.",
+        "Sube todos los commits locales al remoto de origen.",
+        "Elimina las ramas remotas que ya no existen en GitHub.",
+        "Descarga y aplica automáticamente todos los cambios del remoto."
+      ],
+      "correctAnswer": 0,
+      "justification": "El botón 'Fetch origin' en GitHub Desktop ejecuta git fetch por debajo. Descarga la información de los cambios remotos y, si detecta que hay commits nuevos, el botón cambia a 'Pull origin' para que puedas aplicarlos cuando quieras."
+    },
+    {
+      "id": 416,
+      "question": "¿Qué comando agregaría un nuevo remoto llamado 'upstream' a tu repositorio?",
+      "options": [
+        "git remote add upstream https://github.com/autor/repo.git",
+        "git remote create upstream https://github.com/autor/repo.git",
+        "git add remote upstream https://github.com/autor/repo.git",
+        "git config --add-remote upstream https://github.com/autor/repo.git"
+      ],
+      "correctAnswer": 0,
+      "justification": "git remote add [nombre] [url] es la sintaxis para agregar un nuevo remoto. 'upstream' es el nombre (convención para el repo original) y la URL es la dirección del repositorio en GitHub."
+    },
+    {
+      "id": 417,
+      "question": "¿Cuál es el riesgo de usar `git push --force`?",
+      "options": [
+        "Sobrescribe la historia del remoto con tu versión local, potencialmente eliminando commits de otros desarrolladores.",
+        "Consume el doble de ancho de banda que un push normal.",
+        "Cierra automáticamente todos los Pull Requests abiertos en la rama.",
+        "Desactiva las Branch Protection Rules temporalmente."
+      ],
+      "correctAnswer": 0,
+      "justification": "git push --force reemplaza la historia remota con tu historia local, sin importar lo que haya en el servidor. Si otros desarrolladores ya descargaron commits que tú estás eliminando, sus repositorios quedarán desincronizados. Solo debe usarse en ramas personales que nadie más usa."
+    },
+    {
+      "id": 418,
+      "question": "¿Qué hace `npm ci` a diferencia de `npm install` en un contexto de CI?",
+      "options": [
+        "Instala las dependencias exactas del package-lock.json sin modificarlo, siendo más rápido y determinista.",
+        "Instala las dependencias y ejecuta los tests automáticamente.",
+        "Solo funciona en servidores de integración continua, no en máquinas locales.",
+        "Instala solo las dependencias de producción, ignorando las de desarrollo."
+      ],
+      "correctAnswer": 0,
+      "justification": "npm ci (clean install) elimina node_modules/ y reinstala exactamente las versiones del package-lock.json sin modificarlo. Es más rápido y predecible que npm install, que puede actualizar el lockfile. Por eso se usa en pipelines de CI/CD."
+    },
+    {
+      "id": 419,
+      "question": "Si clonas un repositorio con `git clone`, ¿git automáticamente descarga todas las ramas remotas?",
+      "options": [
+        "Descarga toda la información de las ramas remotas, pero solo crea localmente la rama principal. Las demás están disponibles como ramas de tracking.",
+        "Sí, crea una rama local por cada rama que existe en el remoto.",
+        "No, solo descarga la rama main y las demás deben clonarse individualmente.",
+        "Depende del tamaño del repositorio: si es grande, solo descarga main."
+      ],
+      "correctAnswer": 0,
+      "justification": "git clone descarga todo el repositorio con toda su historia y todas las ramas. Sin embargo, solo crea una rama local (main). Las demás ramas están disponibles como ramas de tracking (origin/develop, origin/feature, etc.) y puedes crear ramas locales a partir de ellas cuando las necesites."
+    },
+    {
+      "id": 420,
+      "question": "¿Cuál es la clave privada y cuál la pública al generar SSH Keys, y cuál se sube a GitHub?",
+      "options": [
+        "La privada (id_ed25519) se queda en tu máquina; la pública (id_ed25519.pub) se sube a GitHub.",
+        "La pública se queda en tu máquina; la privada se sube a GitHub.",
+        "Ambas se suben a GitHub para verificación de doble factor.",
+        "La privada se sube a GitHub; la pública se comparte con el equipo."
+      ],
+      "correctAnswer": 0,
+      "justification": "La clave privada NUNCA debe compartirse: es tu 'contraseña' criptográfica. La clave pública (.pub) es la que se sube a GitHub. Cuando haces push, tu máquina usa la clave privada para firmar la comunicación, y GitHub usa la clave pública para verificar que eres tú."
+    }
+  ],
+  "module5": [
+    {
+      "id": 501,
+      "question": "¿Cuáles son los 5 pasos del GitHub Flow?",
+      "options": [
+        "Crear rama → Hacer commits → Abrir Pull Request → Code Review → Merge a main.",
+        "Fork → Clone → Edit → Push → Deploy.",
+        "git init → git add → git commit → git push → git merge.",
+        "Crear Issue → Asignar dev → Escribir código → Hacer push directo a main → Cerrar Issue."
+      ],
+      "correctAnswer": 0,
+      "justification": "GitHub Flow es el flujo estándar de la industria que asegura que todo código sea revisado antes de llegar a producción. Cada cambio pasa por una rama independiente, un Pull Request, una revisión de código (Code Review) y finalmente se integra a main."
+    },
+    {
+      "id": 502,
+      "question": "¿Qué es un Pull Request (PR)?",
+      "options": [
+        "Una propuesta formal en GitHub para integrar los cambios de una rama a otra, con espacio para revisión y discusión.",
+        "Un comando de Git que descarga los cambios del remoto.",
+        "Un tipo especial de merge que solo funciona en repositorios públicos.",
+        "Un mecanismo de GitHub para forzar la sincronización entre dos repositorios."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un Pull Request es una funcionalidad de GitHub (no de Git) que permite proponer cambios de una rama a otra. Incluye el diff completo, un espacio para discusión, integración con tests automáticos y un flujo de aprobación formal antes del merge."
+    },
+    {
+      "id": 503,
+      "question": "¿Para qué sirve un Draft Pull Request?",
+      "options": [
+        "Para abrir un PR en modo borrador y pedir feedback temprano antes de terminar el trabajo, sin poder mergearlo.",
+        "Para crear un PR que se mergea automáticamente sin necesidad de revisión.",
+        "Para ocultar un PR de los demás miembros del equipo hasta que esté listo.",
+        "Para crear un PR que solo contiene documentación, sin cambios de código."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los Draft PRs permiten compartir trabajo en progreso para discutir el enfoque, pedir feedback temprano o mostrar avances. Están marcados con una etiqueta gris de 'Draft' y no se pueden mergear hasta que el autor los marque como 'Ready for review'."
+    },
+    {
+      "id": 504,
+      "question": "En un Code Review, ¿qué significa 'Request Changes'?",
+      "options": [
+        "El revisor encontró problemas que deben corregirse antes de poder aprobar y mergear el PR.",
+        "El revisor está solicitando que le asignen los cambios para completarlos él mismo.",
+        "El revisor quiere que se reviertan todos los cambios del PR.",
+        "El revisor solicita más tiempo para terminar la revisión."
+      ],
+      "correctAnswer": 0,
+      "justification": "Request Changes es una de las 3 opciones al hacer Submit Review (las otras son Comment y Approve). Indica que el PR tiene problemas que el autor debe corregir. Con Branch Protection Rules activas, el PR no se puede mergear hasta que el revisor apruebe los cambios corregidos."
+    },
+    {
+      "id": 505,
+      "question": "¿Qué palabras clave en un mensaje de commit cierran automáticamente un Issue en GitHub?",
+      "options": [
+        "Fixes, Closes y Resolves (seguidas de #número-de-issue).",
+        "Done, Complete y Finish (seguidas de #número-de-issue).",
+        "Close-issue y Fix-bug (seguidas del título del issue).",
+        "No existe esta funcionalidad; los Issues deben cerrarse manualmente."
+      ],
+      "correctAnswer": 0,
+      "justification": "GitHub reconoce las palabras Fixes, Closes y Resolves seguidas de # y un número de Issue (ej. 'Fixes #23'). Cuando el commit con esta referencia se mergea a la rama principal, GitHub cierra automáticamente el Issue vinculado."
+    },
+    {
+      "id": 506,
+      "question": "¿Qué hace la Branch Protection Rule 'Require a pull request before merging' en `main`?",
+      "options": [
+        "Impide que cualquier persona haga push directo a main. Todo cambio debe pasar por un Pull Request.",
+        "Requiere que todos los PRs tengan al menos 100 líneas de código cambiadas.",
+        "Bloquea la creación de nuevas ramas desde main.",
+        "Impide que se eliminen commits de la historia de main."
+      ],
+      "correctAnswer": 0,
+      "justification": "Esta regla obliga a que todos los cambios en main pasen por un Pull Request. Nadie puede hacer git push origin main directamente. Combinada con las reglas de aprobación y tests, asegura que todo código en main fue revisado y verificado."
+    },
+    {
+      "id": 507,
+      "question": "¿Qué es un Issue en GitHub?",
+      "options": [
+        "Un ticket para reportar bugs, proponer funcionalidades o documentar tareas pendientes, vinculable a PRs y commits.",
+        "Un error de sintaxis detectado automáticamente por GitHub en el código.",
+        "Un conflicto de merge que GitHub no pudo resolver automáticamente.",
+        "Una notificación que GitHub envía cuando un workflow de Actions falla."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los Issues son el sistema de seguimiento de tareas integrado en GitHub. Funcionan como tickets que pueden ser categorizados con Labels, asignados a personas, agrupados en Milestones y vinculados a Pull Requests para trazabilidad completa."
+    },
+    {
+      "id": 508,
+      "question": "¿Cuál de estos es un ejemplo de 'bikeshedding' en un Code Review?",
+      "options": [
+        "Pasar 15 comentarios debatiendo si una variable se llama 'userData' o 'userInfo' mientras se ignora un bug de seguridad.",
+        "Pedir que se agreguen tests unitarios para una función crítica.",
+        "Sugerir usar async/await en vez de callbacks para mejorar la legibilidad.",
+        "Señalar que una dependencia tiene una vulnerabilidad conocida."
+      ],
+      "correctAnswer": 0,
+      "justification": "Bikeshedding es el fenómeno de dedicar tiempo desproporcionado a decisiones triviales (como nombres de variables) mientras se ignoran problemas importantes (como bugs de seguridad). En Code Reviews, es importante enfocarse en lo que realmente impacta la calidad y seguridad del código."
+    },
+    {
+      "id": 509,
+      "question": "¿Qué son los Labels en GitHub Issues?",
+      "options": [
+        "Etiquetas de colores que categorizan los Issues (ej. 'bug', 'enhancement', 'help wanted').",
+        "Números secuenciales asignados automáticamente a cada Issue.",
+        "Los nombres de las ramas asociadas a cada Issue.",
+        "Las prioridades asignadas por el dueño del repositorio."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los Labels son etiquetas visuales con colores que permiten categorizar y filtrar Issues. Labels comunes incluyen 'bug' (error), 'enhancement' (mejora), 'good first issue' (ideal para nuevos contribuidores), 'help wanted' (se necesita ayuda)."
+    },
+    {
+      "id": 510,
+      "question": "¿Qué Branch Protection Rule previene que se mergee un PR si los tests automáticos fallan?",
+      "options": [
+        "Require status checks to pass before merging.",
+        "Require a pull request before merging.",
+        "Require approvals.",
+        "Restrict who can push to matching branches."
+      ],
+      "correctAnswer": 0,
+      "justification": "'Require status checks to pass' obliga a que los checks (generalmente GitHub Actions ejecutando tests, linters, etc.) terminen exitosamente antes de permitir el merge. Si algún test falla, el botón de merge se deshabilita hasta que se corrija."
+    },
+    {
+      "id": 511,
+      "question": "Lee este PR. ¿Qué problemas tiene la descripción?\n\nTítulo: 'arreglos'\nDescripción: 'Se arreglaron cosas.'",
+      "options": [
+        "El título es genérico y la descripción no explica qué se arregló, por qué, ni cómo probarlo.",
+        "El título es demasiado largo y la descripción tiene errores ortográficos.",
+        "El PR no tiene Labels asignados.",
+        "No hay ningún problema; es una descripción válida y concisa."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un buen PR necesita un título descriptivo siguiendo Conventional Commits (ej. 'fix: corregir cálculo de IVA en checkout') y una descripción que explique qué cambió, por qué se hizo el cambio, y cómo el revisor puede probarlo. 'arreglos' y 'Se arreglaron cosas' no aportan ninguna información útil."
+    },
+    {
+      "id": 512,
+      "question": "¿Cuál es la principal ventaja del Code Review?",
+      "options": [
+        "Atrapa bugs antes de producción, comparte conocimiento en el equipo y mejora la calidad general del código.",
+        "Acelera el proceso de desarrollo al permitir que otros escriban código por ti.",
+        "Elimina la necesidad de escribir tests automatizados.",
+        "Permite que solo los desarrolladores senior hagan commits al proyecto."
+      ],
+      "correctAnswer": 0,
+      "justification": "El Code Review tiene múltiples beneficios: detecta bugs y problemas de seguridad, fomenta la transferencia de conocimiento (todos aprenden del código de los demás), mantiene la consistencia del código, y documenta las decisiones técnicas en la conversación del PR."
+    },
+    {
+      "id": 513,
+      "question": "¿Dónde se configuran las Branch Protection Rules en GitHub?",
+      "options": [
+        "Settings → Branches → Add branch protection rule.",
+        "Code → Branch settings → Security.",
+        "Actions → Workflow permissions → Branch rules.",
+        "Pull Requests → Rules → Protection settings."
+      ],
+      "correctAnswer": 0,
+      "justification": "Las Branch Protection Rules se configuran en la pestaña Settings del repositorio, sección Branches. Allí puedes agregar reglas para ramas específicas (ej. main) como requerir PRs, aprobaciones, status checks y más."
+    },
+    {
+      "id": 514,
+      "question": "¿Qué es GitHub Projects?",
+      "options": [
+        "Una herramienta de gestión visual integrada que organiza Issues y PRs en tableros tipo Kanban.",
+        "Un servicio de hosting para sitios web estáticos de GitHub.",
+        "Una plataforma para crear tutoriales interactivos sobre Git.",
+        "Un marketplace para comprar y vender plantillas de código."
+      ],
+      "correctAnswer": 0,
+      "justification": "GitHub Projects permite organizar Issues y Pull Requests en tableros Kanban con columnas personalizables (ej. Backlog, In Progress, Review, Done). Las tarjetas se mueven entre columnas a medida que avanza el trabajo."
+    },
+    {
+      "id": 515,
+      "question": "Si tienes 'Require approvals: 2' configurado, ¿qué necesita un PR para poder ser mergeado?",
+      "options": [
+        "Al menos 2 revisores diferentes deben aprobar el PR con 'Approve'.",
+        "El autor del PR debe aprobar su propio código 2 veces.",
+        "El PR debe tener al menos 2 commits.",
+        "Al menos 2 tests automáticos deben pasar exitosamente."
+      ],
+      "correctAnswer": 0,
+      "justification": "La regla 'Require approvals: 2' exige que al menos 2 personas diferentes revisen y aprueben el PR con 'Approve' antes de que el botón de merge se habilite. El autor del PR no puede aprobarse a sí mismo."
+    },
+    {
+      "id": 516,
+      "question": "¿Qué diferencia un Code Review con 'Comment' de uno con 'Approve'?",
+      "options": [
+        "'Comment' deja observaciones sin bloquear ni aprobar; 'Approve' da aprobación formal para el merge.",
+        "'Comment' es para PRs grandes; 'Approve' es para PRs pequeños.",
+        "'Comment' solo está disponible para colaboradores; 'Approve' para dueños del repo.",
+        "No hay diferencia funcional, ambos cuentan como aprobación."
+      ],
+      "correctAnswer": 0,
+      "justification": "Al hacer Submit Review con 'Comment', dejas feedback sin tomar posición sobre el merge. Con 'Approve', das tu visto bueno formal. Solo los 'Approve' cuentan para las Branch Protection Rules que requieren aprobaciones."
+    },
+    {
+      "id": 517,
+      "question": "¿Qué sucede si haces merge de un PR cuyo commit dice 'Fixes #15'?",
+      "options": [
+        "GitHub cierra automáticamente el Issue #15 porque la palabra 'Fixes' vincula el commit con ese Issue.",
+        "GitHub abre un nuevo Issue #16 como seguimiento.",
+        "GitHub elimina el Issue #15 permanentemente del repositorio.",
+        "Nada especial ocurre; 'Fixes #15' es solo texto informativo."
+      ],
+      "correctAnswer": 0,
+      "justification": "GitHub reconoce las keywords Fixes, Closes y Resolves seguidas de un número de Issue. Cuando el commit con esa referencia se mergea a la rama principal, GitHub cierra automáticamente el Issue vinculado y crea un enlace bidireccional entre el Issue y el PR/commit."
+    },
+    {
+      "id": 518,
+      "question": "¿Cuál es una buena práctica al hacer Code Review?",
+      "options": [
+        "Ser constructivo y explicar el porqué de cada sugerencia, ofreciendo alternativas en vez de solo señalar problemas.",
+        "Rechazar el PR inmediatamente si encuentras un solo error, sin dejar comentarios.",
+        "Aprobar siempre para no bloquear al compañero, incluso si ves problemas.",
+        "Solo revisar el código y no leer la descripción del PR."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un buen Code Review es constructivo: explica por qué algo podría ser problemático y sugiere alternativas. Rechazar sin explicación frustra al autor, y aprobar sin revisar derrota el propósito. También es buena práctica reconocer las partes bien hechas."
+    },
+    {
+      "id": 519,
+      "question": "¿Cuál es el beneficio de vincular Issues con Pull Requests?",
+      "options": [
+        "Crea trazabilidad completa: cualquiera puede rastrear desde el problema reportado hasta el código exacto que lo resolvió.",
+        "Permite que GitHub escriba automáticamente el código para resolver el Issue.",
+        "Hace que el PR se mergee automáticamente cuando el Issue se cierra.",
+        "Evita que dos personas trabajen en el mismo Issue simultáneamente."
+      ],
+      "correctAnswer": 0,
+      "justification": "La vinculación crea un vínculo bidireccional: desde el Issue puedes ver qué PR lo resolvió, y desde el PR puedes ver qué Issue motivó el cambio. Esto es invaluable para auditorías, debugging y para entender el contexto histórico de los cambios."
+    },
+    {
+      "id": 520,
+      "question": "¿Qué significa la regla 'Require conversation resolution before merging'?",
+      "options": [
+        "Todos los hilos de comentarios del Code Review deben estar marcados como resueltos antes de poder mergear.",
+        "El PR solo se puede mergear si no tiene ningún comentario.",
+        "El autor debe responder a todos los comentarios dentro de las 24 horas.",
+        "Solo el dueño del repositorio puede resolver las conversaciones."
+      ],
+      "correctAnswer": 0,
+      "justification": "Esta regla asegura que ningún comentario del Code Review quede ignorado. Cada hilo de discusión debe ser marcado como 'Resolved' (ya sea porque se hizo el cambio sugerido o se llegó a un acuerdo) antes de que el botón de merge se habilite."
+    }
+  ],
+  "module6": [
+    {
+      "id": 601,
+      "question": "¿Cuál es el propósito principal de `git stash`?",
+      "options": [
+        "Guardar cambios temporales sin hacer commit, dejando el Working Directory limpio para poder cambiar de rama.",
+        "Eliminar permanentemente los cambios del Working Directory.",
+        "Crear un commit temporal que se borra automáticamente después de 24 horas.",
+        "Guardar una copia de seguridad del repositorio completo en el disco."
+      ],
+      "correctAnswer": 0,
+      "justification": "git stash guarda tus cambios no commiteados en una 'pila' temporal y restaura el Working Directory al estado del último commit. Es ideal para cuando necesitas cambiar de rama urgentemente sin perder tu trabajo en progreso."
+    },
+    {
+      "id": 602,
+      "question": "¿Cuál es la diferencia entre `git stash apply` y `git stash pop`?",
+      "options": [
+        "apply recupera los cambios pero los mantiene en la lista de stashes; pop los recupera Y los elimina de la lista.",
+        "apply solo funciona en la misma rama; pop funciona en cualquier rama.",
+        "apply es más rápido; pop es más seguro.",
+        "No hay diferencia, ambos hacen exactamente lo mismo."
+      ],
+      "correctAnswer": 0,
+      "justification": "git stash apply aplica los cambios guardados pero mantiene el stash en la lista (por si lo necesitas en otro lugar). git stash pop aplica los cambios Y elimina el stash de la lista. Pop es como 'sacar del cajón y tirar el cajón'."
+    },
+    {
+      "id": 603,
+      "question": "¿Qué hace `git commit --amend`?",
+      "options": [
+        "Reemplaza el último commit con uno nuevo, permitiendo cambiar el mensaje o agregar archivos olvidados.",
+        "Agrega un comentario al último commit sin modificarlo.",
+        "Deshace el último commit y devuelve los archivos al Working Directory.",
+        "Crea un commit vacío que corrige errores del commit anterior."
+      ],
+      "correctAnswer": 0,
+      "justification": "git commit --amend no edita el commit anterior sino que lo reemplaza por uno nuevo con un hash diferente. Es útil para corregir mensajes o agregar archivos olvidados. Solo debe usarse si el commit aún no fue pusheado a GitHub."
+    },
+    {
+      "id": 604,
+      "question": "¿Cuándo es seguro usar `git commit --amend` y cuándo NO?",
+      "options": [
+        "Seguro si el commit es solo local (no pusheado). Peligroso si ya fue pusheado porque reescribe la historia.",
+        "Siempre es seguro; Git maneja los conflictos automáticamente.",
+        "Solo es seguro en la rama main; en otras ramas puede causar problemas.",
+        "Nunca es seguro; se recomienda crear un nuevo commit siempre."
+      ],
+      "correctAnswer": 0,
+      "justification": "amend reemplaza el commit (cambia su hash). Si ese commit ya fue pusheado y otros desarrolladores lo descargaron, sus copias tendrán un commit que ya no existe en el remoto, causando problemas de sincronización. Solo úsalo con commits locales."
+    },
+    {
+      "id": 605,
+      "question": "¿Qué hace `git revert HEAD`?",
+      "options": [
+        "Crea un NUEVO commit que deshace exactamente los cambios del último commit, sin borrar la historia.",
+        "Elimina el último commit de la historia permanentemente.",
+        "Mueve HEAD un commit hacia atrás, dejando los cambios en el staging area.",
+        "Revierte todos los archivos del proyecto a su estado original (primer commit)."
+      ],
+      "correctAnswer": 0,
+      "justification": "git revert no borra nada. Crea un nuevo commit que aplica los cambios inversos: si el commit original agregó 10 líneas, el revert las elimina. Si borró un archivo, el revert lo restaura. La historia permanece intacta y trazable."
+    },
+    {
+      "id": 606,
+      "question": "¿Cuál es la principal ventaja de `git revert` sobre `git reset`?",
+      "options": [
+        "revert es seguro para trabajo en equipo porque no borra historia; reset reescribe la historia y puede desincronizar a otros.",
+        "revert es más rápido que reset para repositorios grandes.",
+        "revert puede deshacer múltiples commits a la vez; reset solo uno.",
+        "revert funciona sin conexión a internet; reset requiere conexión."
+      ],
+      "correctAnswer": 0,
+      "justification": "revert crea un commit nuevo (aditivo), lo cual es completamente compatible con el trabajo en equipo. reset elimina commits (destructivo), lo cual rompe la sincronización si esos commits ya fueron compartidos. Regla simple: ¿ya hiciste push? → usa revert."
+    },
+    {
+      "id": 607,
+      "question": "¿Qué hace `git reset --soft HEAD~1`?",
+      "options": [
+        "Mueve HEAD un commit atrás, manteniendo los cambios del commit eliminado en el Staging Area, listos para commitear.",
+        "Elimina el último commit y borra todos sus cambios permanentemente.",
+        "Mueve HEAD un commit atrás, dejando los cambios en el Working Directory como 'not staged'.",
+        "Deshace el último commit y lo mueve a la papelera de reciclaje de Git."
+      ],
+      "correctAnswer": 0,
+      "justification": "reset --soft mueve HEAD pero mantiene todos los cambios del commit eliminado en el Staging Area. Es como 'deshacer el commit pero mantener todo preparado para re-commitear'. Útil si quieres cambiar el mensaje o combinar con otros cambios."
+    },
+    {
+      "id": 608,
+      "question": "¿Qué hace `git reset --hard HEAD~1`?",
+      "options": [
+        "Mueve HEAD un commit atrás y BORRA todos los cambios del commit eliminado del staging y del working directory.",
+        "Mueve HEAD un commit atrás pero mantiene los cambios en el working directory.",
+        "Mueve HEAD un commit atrás y crea un backup automático de los cambios.",
+        "Mueve HEAD un commit atrás y sube los cambios al remoto como 'revert'."
+      ],
+      "correctAnswer": 0,
+      "justification": "reset --hard es el modo más destructivo: elimina el commit de la historia Y borra todos sus cambios del staging area y del working directory. Los cambios desaparecen como si nunca hubieran existido. Solo son recuperables con git reflog."
+    },
+    {
+      "id": 609,
+      "question": "¿Qué es 'Detached HEAD' y cómo se produce?",
+      "options": [
+        "Un estado donde HEAD apunta directamente a un commit en vez de a una rama. Ocurre al hacer checkout a un commit específico.",
+        "Un error fatal que corrompe el repositorio y requiere clonar de nuevo.",
+        "Un estado donde la rama main se desconecta del remoto.",
+        "Un commit huérfano que no pertenece a ninguna rama."
+      ],
+      "correctAnswer": 0,
+      "justification": "Detached HEAD ocurre cuando haces 'git checkout <hash-de-commit>' en vez de checkoutear una rama. HEAD deja de apuntar a una rama y apunta directamente a un commit. No es peligroso: estás 'visitando' un commit viejo. Para salir, haz git switch a una rama."
+    },
+    {
+      "id": 610,
+      "question": "Si haces commits en estado Detached HEAD y luego cambias de rama, ¿qué pasa con esos commits?",
+      "options": [
+        "Quedan 'huérfanos' sin rama que los contenga y Git los eliminará eventualmente (~30 días).",
+        "Se agregan automáticamente a la rama main.",
+        "Se guardan en el stash automáticamente.",
+        "Git impide cambiar de rama si hay commits en Detached HEAD."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los commits hechos en Detached HEAD no pertenecen a ninguna rama. Al cambiar de rama, quedan sin referencia visible. Git los mantiene internamente (~30 días) y son accesibles vía reflog, pero eventualmente el garbage collector los elimina. Para conservarlos, crea una rama antes de cambiar."
+    },
+    {
+      "id": 611,
+      "question": "¿Qué es `git reflog` y cuándo lo necesitarías?",
+      "options": [
+        "Un registro de TODOS los movimientos de HEAD, incluso commits 'borrados'. Lo necesitas para recuperar trabajo perdido por un reset --hard.",
+        "Un log de los archivos referenciados en el último commit.",
+        "Un historial de las veces que hiciste git push al remoto.",
+        "Una lista de las ramas que fueron eliminadas del repositorio."
+      ],
+      "correctAnswer": 0,
+      "justification": "git reflog registra cada movimiento de HEAD (commits, checkouts, resets, merges, etc.). Es la última red de seguridad: si pierdes commits por un reset --hard accidental, puedes encontrar sus hashes en el reflog y restaurarlos."
+    },
+    {
+      "id": 612,
+      "question": "¿Qué hace `git commit --amend --no-edit`?",
+      "options": [
+        "Agrega los archivos del staging al último commit sin cambiar el mensaje de commit.",
+        "Crea un commit sin mensaje.",
+        "Edita el último commit pero no lo guarda hasta que ejecutes otro comando.",
+        "Deshace las ediciones hechas al último mensaje de commit."
+      ],
+      "correctAnswer": 0,
+      "justification": "El flag --no-edit mantiene el mensaje del commit original sin pedir uno nuevo. Es útil cuando olvidaste agregar un archivo al último commit: haces git add archivo-olvidado y luego git commit --amend --no-edit para incluirlo sin cambiar el mensaje."
+    },
+    {
+      "id": 613,
+      "question": "¿En qué orden usarías los tres modos de reset de menos a más destructivo?",
+      "options": [
+        "--soft (menos destructivo) → --mixed (intermedio) → --hard (más destructivo).",
+        "--hard → --mixed → --soft.",
+        "--mixed → --soft → --hard.",
+        "Los tres son igualmente destructivos, solo difieren en velocidad."
+      ],
+      "correctAnswer": 0,
+      "justification": "--soft mantiene cambios en staging (menos destructivo). --mixed los baja a working directory (intermedio). --hard elimina todo (más destructivo). En todos los casos, el commit desaparece del historial, pero los cambios se preservan en grados diferentes."
+    },
+    {
+      "id": 614,
+      "question": "¿Cómo sales de un estado Detached HEAD de forma segura?",
+      "options": [
+        "Ejecutando git switch main (o cualquier rama existente) para que HEAD vuelva a apuntar a una rama.",
+        "Ejecutando git fix-head para restaurar el estado normal.",
+        "Eliminando el archivo HEAD de la carpeta .git/ y recreándolo.",
+        "Haciendo git push para que GitHub repare la referencia."
+      ],
+      "correctAnswer": 0,
+      "justification": "La forma más simple es hacer git switch a una rama existente (ej. main). Si hiciste commits experimentales que quieres conservar, primero crea una rama nueva con 'git switch -c nombre-rama' y luego esos commits tendrán un hogar permanente."
+    },
+    {
+      "id": 615,
+      "question": "Un compañero hizo push de un commit con un bug. ¿Qué deberías usar: revert o reset?",
+      "options": [
+        "revert, porque el commit ya fue pusheado y compartido. Reset reescribiría la historia y rompería la sincronización del equipo.",
+        "reset --hard, porque es más rápido y elimina el problema de raíz.",
+        "Cualquiera de los dos; el resultado final es idéntico.",
+        "Ninguno; deberías crear una nueva rama y corregir el bug ahí."
+      ],
+      "correctAnswer": 0,
+      "justification": "Si el commit ya fue pusheado, revert es la única opción segura. Crea un commit nuevo que deshace los cambios sin borrar historia. Si usaras reset y push --force, romperías los repositorios locales de todos los que ya descargaron ese commit."
+    },
+    {
+      "id": 616,
+      "question": "¿Qué muestra la salida de `git stash list`?",
+      "options": [
+        "La lista de todos los stashes guardados, con su índice, rama de origen y mensaje.",
+        "Los archivos que fueron modificados en el stash más reciente.",
+        "La cantidad de espacio en disco que ocupan los stashes.",
+        "Las ramas que tienen stashes pendientes de aplicar."
+      ],
+      "correctAnswer": 0,
+      "justification": "git stash list muestra cada stash con su índice (stash@{0}, stash@{1}), la rama donde se creó, y el mensaje (si se proporcionó uno con git stash save 'mensaje'). El stash@{0} es siempre el más reciente."
+    },
+    {
+      "id": 617,
+      "question": "¿Cuánto tiempo aproximadamente mantiene Git los commits 'huérfanos' en el reflog antes de eliminarlos?",
+      "options": [
+        "Aproximadamente 30 días, después de los cuales el garbage collector los elimina.",
+        "24 horas exactas después de perder la referencia.",
+        "Indefinidamente; Git nunca elimina datos.",
+        "Hasta que se llene el 90% del disco duro."
+      ],
+      "correctAnswer": 0,
+      "justification": "Por defecto, Git mantiene las entradas del reflog durante 30 días (configurable con gc.reflogExpire). Después de ese período, el garbage collector (git gc) puede eliminar los objetos sin referencia. Dentro de esos 30 días, son completamente recuperables."
+    },
+    {
+      "id": 618,
+      "question": "¿Qué hace `git reset --mixed HEAD~1` (el modo predeterminado)?",
+      "options": [
+        "Mueve HEAD un commit atrás y coloca los cambios en el Working Directory como 'not staged', vaciando el staging area.",
+        "Es idéntico a --soft: mantiene los cambios en staging.",
+        "Es idéntico a --hard: elimina todos los cambios.",
+        "Mueve HEAD un commit atrás y envía los cambios al stash automáticamente."
+      ],
+      "correctAnswer": 0,
+      "justification": "reset --mixed (el modo por defecto si no especificas flag) mueve HEAD y vacía el staging area, pero mantiene los cambios en el working directory como archivos 'modified (not staged)'. Necesitarías hacer git add de nuevo si quieres re-commitear."
+    },
+    {
+      "id": 619,
+      "question": "Hiciste `git reset --hard HEAD~3` por error. ¿Qué comandos ejecutarías para recuperar los commits?",
+      "options": [
+        "git reflog (para encontrar el hash del commit antes del reset) y luego git reset --hard <hash-encontrado>.",
+        "git undo --hard 3 para revertir la operación.",
+        "git recover HEAD~3 para restaurar los 3 commits.",
+        "Es imposible recuperarlos; reset --hard es irreversible."
+      ],
+      "correctAnswer": 0,
+      "justification": "git reflog muestra el historial de todos los movimientos de HEAD, incluyendo el estado anterior al reset. Buscas la entrada que muestra el commit donde estabas ANTES del reset, copias su hash y ejecutas 'git reset --hard <ese-hash>' para volver a ese punto."
+    },
+    {
+      "id": 620,
+      "question": "¿Qué hace `git stash drop stash@{0}`?",
+      "options": [
+        "Elimina el stash más reciente de la lista sin aplicar sus cambios.",
+        "Aplica el stash más reciente y lo elimina de la lista.",
+        "Mueve el stash a la papelera de reciclaje de Git.",
+        "Elimina TODOS los stashes de la lista."
+      ],
+      "correctAnswer": 0,
+      "justification": "git stash drop elimina un stash específico de la lista sin aplicar sus cambios. stash@{0} se refiere al más reciente. Si quieres eliminar TODOS los stashes, usas 'git stash clear'. Si quieres aplicar Y eliminar, usas 'git stash pop'."
+    }
+  ],
+  "module7": [
+    {
+      "id": 701,
+      "question": "¿Qué hace `git rebase main` estando en una rama feature?",
+      "options": [
+        "Toma los commits de feature y los recrea sobre la punta de main, como si hubieras empezado a trabajar desde el último commit de main.",
+        "Fusiona main y feature creando un commit de merge.",
+        "Elimina la rama feature y aplica sus cambios directamente en main.",
+        "Crea una copia de main dentro de feature sin modificar nada."
+      ],
+      "correctAnswer": 0,
+      "justification": "Rebase 'replanta' tus commits sobre el último commit de la rama especificada. Los commits se recrean (nuevos hashes) para que parezca que trabajaste desde la versión más actual de main. El resultado es una historia lineal y limpia."
+    },
+    {
+      "id": 702,
+      "question": "¿Cuál es la 'Regla de Oro' del rebase?",
+      "options": [
+        "NUNCA hacer rebase de ramas que ya fueron pusheadas y que otros desarrolladores están usando.",
+        "Siempre hacer rebase antes de cada commit para mantener la historia limpia.",
+        "Solo hacer rebase en la rama main, nunca en ramas feature.",
+        "Hacer rebase máximo una vez por día para no sobrecargar el servidor."
+      ],
+      "correctAnswer": 0,
+      "justification": "Rebase reescribe la historia (cambia los hashes de los commits). Si otros ya descargaron esa rama con los hashes originales, sus copias quedarán desincronizadas. Solo haz rebase de ramas personales que nadie más ha descargado."
+    },
+    {
+      "id": 703,
+      "question": "¿Cuál es la principal diferencia visual entre un merge y un rebase?",
+      "options": [
+        "Merge preserva las dos líneas de desarrollo con un commit de unión; rebase crea una historia lineal recta.",
+        "Merge es más rápido visualmente; rebase tarda más en renderizarse en git log.",
+        "Merge usa colores en la terminal; rebase es monocromático.",
+        "No hay diferencia visual; solo cambia el rendimiento interno de Git."
+      ],
+      "correctAnswer": 0,
+      "justification": "Con merge, git log --graph muestra las dos ramas y el punto de unión (forma de 'diamante'). Con rebase, la historia es una línea recta como si todo se hubiera hecho secuencialmente. Rebase produce un historial más limpio y fácil de leer."
+    },
+    {
+      "id": 704,
+      "question": "¿Qué es 'Squash' en el contexto de Git?",
+      "options": [
+        "Combinar múltiples commits en uno solo para crear un historial más limpio y legible.",
+        "Comprimir los archivos del repositorio para reducir su tamaño en disco.",
+        "Eliminar las ramas que ya fueron mergeadas para limpiar el repositorio.",
+        "Forzar un merge sin verificar conflictos."
+      ],
+      "correctAnswer": 0,
+      "justification": "Squash toma varios commits (ej. 'fix typo', 'otro fix', 'ahora sí funciona') y los fusiona en un solo commit limpio con un mensaje profesional. Es muy común hacerlo antes de abrir un PR para que la historia de main sea legible."
+    },
+    {
+      "id": 705,
+      "question": "¿Cómo se hace squash usando rebase interactivo?",
+      "options": [
+        "git rebase -i HEAD~N, luego cambiar 'pick' por 'squash' en los commits que quieres fusionar.",
+        "git squash HEAD~N para aplastar los últimos N commits automáticamente.",
+        "git merge --squash para fusionar y aplastar en un solo paso.",
+        "git commit --squash para combinar el staging con el último commit."
+      ],
+      "correctAnswer": 0,
+      "justification": "git rebase -i (interactivo) abre un editor con la lista de commits. Cambias 'pick' por 'squash' (o 's') en los commits que quieres fusionar con el anterior. Git te pide un mensaje final para el commit combinado resultante."
+    },
+    {
+      "id": 706,
+      "question": "¿Cuál es la forma más fácil de hacer squash sin usar la terminal?",
+      "options": [
+        "Seleccionar 'Squash and merge' en GitHub al mergear un Pull Request.",
+        "Usar la opción 'Compress commits' en GitHub Desktop.",
+        "Crear un Issue titulado 'squash' y GitHub lo hace automáticamente.",
+        "No es posible hacer squash sin la terminal."
+      ],
+      "correctAnswer": 0,
+      "justification": "GitHub ofrece 'Squash and merge' como opción al mergear un PR. Al seleccionarla, todos los commits del PR se combinan en uno solo al entrar a main. GitHub te permite editar el mensaje final. Es la forma más común y fácil de hacer squash en equipos."
+    },
+    {
+      "id": 707,
+      "question": "¿Qué hace `git cherry-pick <hash>`?",
+      "options": [
+        "Toma un commit específico de cualquier rama y aplica sus cambios en la rama actual, sin hacer merge de toda la rama.",
+        "Elimina un commit específico de la rama actual.",
+        "Marca un commit como favorito para encontrarlo fácilmente en el log.",
+        "Copia una rama completa a otra ubicación del repositorio."
+      ],
+      "correctAnswer": 0,
+      "justification": "Cherry-pick copia los cambios de un commit específico y los aplica como un nuevo commit en tu rama actual. La rama original no se modifica. Es útil cuando necesitas un fix específico de otra rama sin mergear todo su contenido."
+    },
+    {
+      "id": 708,
+      "question": "¿Cuál es la diferencia entre un Tag y una Rama en Git?",
+      "options": [
+        "Un tag es un marcador fijo que siempre apunta al mismo commit; una rama es un puntero que avanza con cada nuevo commit.",
+        "Un tag solo existe en GitHub; una rama existe localmente.",
+        "Un tag es para proyectos grandes; una rama es para proyectos pequeños.",
+        "No hay diferencia funcional; son nombres diferentes para lo mismo."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un tag es inmutable: una vez creado, siempre apunta al mismo commit (es una 'foto' permanente). Una rama es mutable: se mueve hacia adelante con cada nuevo commit. Los tags se usan para marcar versiones (v1.0.0), las ramas para trabajo en progreso."
+    },
+    {
+      "id": 709,
+      "question": "Según SemVer, ¿qué significa un cambio de `v2.3.1` a `v3.0.0`?",
+      "options": [
+        "Un cambio MAJOR que rompe la compatibilidad hacia atrás. Los usuarios podrían necesitar modificar su código.",
+        "Se corrigieron 3 bugs críticos simultáneamente.",
+        "Se agregaron 3 funcionalidades nuevas.",
+        "Se migró el proyecto a un nuevo lenguaje de programación."
+      ],
+      "correctAnswer": 0,
+      "justification": "En Semantic Versioning (MAJOR.MINOR.PATCH), incrementar MAJOR (2→3) indica un 'breaking change': algo cambió de forma incompatible. Los usuarios que actualicen podrían necesitar modificar su código. MINOR y PATCH se reinician a 0."
+    },
+    {
+      "id": 710,
+      "question": "¿Qué comando sube todos los tags locales a GitHub?",
+      "options": [
+        "git push origin --tags",
+        "git push --all-tags",
+        "git tag --push origin",
+        "git upload tags origin"
+      ],
+      "correctAnswer": 0,
+      "justification": "git push origin --tags sube todos los tags locales al remoto origin. Por defecto, git push NO sube tags; hay que hacerlo explícitamente. También puedes subir un tag específico con 'git push origin v1.0.0'."
+    },
+    {
+      "id": 711,
+      "question": "¿Qué es un GitHub Release?",
+      "options": [
+        "Una versión empaquetada del software basada en un tag, con notas de cambios y opcionalmente archivos binarios adjuntos.",
+        "Un commit especial que marca el fin del desarrollo de una rama.",
+        "Una funcionalidad para liberar el código fuente como dominio público.",
+        "Un tipo de Issue que se crea automáticamente al hacer un tag."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un Release en GitHub está basado en un tag y permite documentar los cambios de esa versión (Release Notes), adjuntar archivos binarios (ej. .exe, .apk) y notificar a los usuarios. Es la forma profesional de distribuir versiones del software."
+    },
+    {
+      "id": 712,
+      "question": "Según SemVer, si corriges un bug sin cambiar la funcionalidad, ¿qué número incrementas en `v1.4.2`?",
+      "options": [
+        "PATCH: v1.4.3",
+        "MINOR: v1.5.0",
+        "MAJOR: v2.0.0",
+        "Ninguno; los bug fixes no requieren cambio de versión."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los bug fixes que no cambian la funcionalidad ni rompen compatibilidad incrementan PATCH (el último número). v1.4.2 → v1.4.3. MINOR se incrementa con nueva funcionalidad compatible, MAJOR con cambios que rompen compatibilidad."
+    },
+    {
+      "id": 713,
+      "question": "Después de hacer rebase, ¿por qué los commits tienen hashes diferentes?",
+      "options": [
+        "Porque rebase recrea los commits con nuevos padres, y el hash depende del contenido completo incluyendo la referencia al padre.",
+        "Porque Git asigna hashes aleatorios en cada operación.",
+        "Porque rebase comprime los commits, cambiando su contenido binario.",
+        "Los hashes no cambian; rebase solo mueve los punteros."
+      ],
+      "correctAnswer": 0,
+      "justification": "El hash SHA-1 de un commit se calcula a partir de todo su contenido: archivos, mensaje, autor, fecha Y la referencia al commit padre. Al hacer rebase, los commits ahora tienen un padre diferente (el nuevo commit base), por lo tanto sus hashes cambian."
+    },
+    {
+      "id": 714,
+      "question": "¿Cuándo usarías `git cherry-pick` en un escenario real?",
+      "options": [
+        "Cuando un compañero corrigió un bug en su rama que necesitas urgentemente, pero su PR aún no fue mergeado.",
+        "Cuando quieres eliminar un commit específico de la historia.",
+        "Cuando quieres renombrar un commit sin cambiar su contenido.",
+        "Cuando necesitas crear una rama nueva a partir de un commit viejo."
+      ],
+      "correctAnswer": 0,
+      "justification": "Cherry-pick es ideal para 'tomar prestado' un commit específico sin esperar a que toda la rama se mergee. Un caso común: un hotfix crítico existe en una rama de desarrollo y necesitas aplicarlo a producción inmediatamente."
+    },
+    {
+      "id": 715,
+      "question": "Lee los commits. ¿Cuántos commits quedarían después de un squash de los 4?\n\n```\nf4b2 fix: ajustar CSS del modal\nc1a3 fix: corregir z-index del overlay\na7e2 fix: agregar cierre con tecla Escape\nd3f5 feat: crear componente Modal\n```",
+      "options": [
+        "1 solo commit con un mensaje como 'feat: crear componente Modal con overlay y tecla Escape'.",
+        "2 commits: los fixes agrupados y el feat separado.",
+        "4 commits; squash no reduce la cantidad de commits.",
+        "0 commits; squash elimina los commits de la historia."
+      ],
+      "correctAnswer": 0,
+      "justification": "Squash fusiona múltiples commits en uno solo. Los 4 commits se combinan en 1 con un mensaje que describe el resultado final. El historial pasa de 4 líneas desordenadas a 1 línea limpia y profesional."
+    },
+    {
+      "id": 716,
+      "question": "¿Qué crea `git tag -a v2.0.0 -m 'Segunda versión estable'`?",
+      "options": [
+        "Un tag anotado en el commit actual con el nombre v2.0.0 y un mensaje descriptivo.",
+        "Una rama nueva llamada v2.0.0 con un commit inicial que dice 'Segunda versión estable'.",
+        "Un commit vacío con el mensaje 'Segunda versión estable'.",
+        "Un archivo llamado v2.0.0 en la raíz del proyecto."
+      ],
+      "correctAnswer": 0,
+      "justification": "El flag -a crea un tag 'anotado' que incluye el nombre del creador, la fecha y un mensaje (-m). Es más informativo que un tag ligero (git tag v2.0.0 sin -a), y es el tipo recomendado para marcar releases."
+    },
+    {
+      "id": 717,
+      "question": "¿Cuál es el flujo profesional típico para actualizar tu rama feature con los últimos cambios de main usando rebase?",
+      "options": [
+        "git fetch origin → git rebase origin/main (estando en tu rama feature).",
+        "git merge main → git push --force (estando en main).",
+        "git pull origin main → git rebase --continue.",
+        "git checkout main → git rebase feature → git push."
+      ],
+      "correctAnswer": 0,
+      "justification": "Primero descargas los últimos cambios (fetch). Luego, estando en tu rama feature, haces rebase sobre origin/main para 'replantar' tus commits sobre la versión más actual de main. Esto mantiene tu rama actualizada con una historia lineal."
+    },
+    {
+      "id": 718,
+      "question": "Después de cherry-pick, ¿qué pasa con el commit original en su rama de origen?",
+      "options": [
+        "Sigue intacto. Cherry-pick crea una COPIA del commit, no lo mueve.",
+        "Se elimina de la rama original y se mueve a la rama destino.",
+        "Se marca como 'used' y no puede volver a ser cherry-picked.",
+        "Se convierte en un commit vacío sin cambios."
+      ],
+      "correctAnswer": 0,
+      "justification": "Cherry-pick copia los cambios de un commit a tu rama actual como un nuevo commit (con hash diferente). El commit original permanece sin cambios en su rama de origen. Cuando eventualmente hagas merge de esa rama, Git detecta que los cambios ya fueron aplicados."
+    },
+    {
+      "id": 719,
+      "question": "¿Qué opción en GitHub al mergear un PR permite mantener TODOS los commits individuales en la historia?",
+      "options": [
+        "'Create a merge commit' — Mantiene todos los commits y crea un commit de merge adicional.",
+        "'Squash and merge' — Mantiene todos los commits pero sin merge commit.",
+        "'Rebase and merge' — Crea un merge commit con todos los commits aplastados.",
+        "No hay opción; todos los métodos de merge condensan los commits."
+      ],
+      "correctAnswer": 0,
+      "justification": "'Create a merge commit' preserva todos los commits individuales de la rama feature en la historia de main, más un commit de merge que los une. 'Squash and merge' los combina en uno solo. 'Rebase and merge' los recrea linealmente sin commit de merge."
+    },
+    {
+      "id": 720,
+      "question": "Según SemVer, ¿qué versión sigue a v1.9.9 si agregas una funcionalidad nueva compatible?",
+      "options": [
+        "v1.10.0 — Se incrementa MINOR (9→10) y PATCH se reinicia a 0.",
+        "v2.0.0 — Se incrementa MAJOR porque 9 es el máximo.",
+        "v1.9.10 — Se incrementa PATCH (9→10).",
+        "v1.10.10 — Se incrementan MINOR y PATCH simultáneamente."
+      ],
+      "correctAnswer": 0,
+      "justification": "En SemVer, nueva funcionalidad compatible = incrementar MINOR. No hay límite numérico (MINOR puede ir de 9 a 10, 11, etc.). PATCH se reinicia a 0. MAJOR solo se incrementa con breaking changes. La versión correcta es v1.10.0."
+    }
+  ],
+  "module8": [
+    {
+      "id": 801,
+      "question": "¿Qué significa CI/CD?",
+      "options": [
+        "Continuous Integration / Continuous Deployment: automatizar la verificación y publicación del código.",
+        "Code Inspection / Code Deployment: revisar y subir código manualmente.",
+        "Commit Integration / Commit Delivery: integrar commits entre ramas automáticamente.",
+        "Cloud Infrastructure / Cloud Development: desarrollo basado en servicios en la nube."
+      ],
+      "correctAnswer": 0,
+      "justification": "CI (Continuous Integration) automatiza la ejecución de tests y verificaciones cada vez que se sube código. CD (Continuous Deployment) automatiza la publicación a producción cuando el código pasa todas las verificaciones. Juntos eliminan los procesos manuales propensos a errores."
+    },
+    {
+      "id": 802,
+      "question": "¿Dónde se almacenan los archivos de workflow de GitHub Actions?",
+      "options": [
+        "En la carpeta .github/workflows/ del repositorio, como archivos .yml.",
+        "En la carpeta .git/actions/ oculta del repositorio.",
+        "En la configuración de Settings > Actions de GitHub.",
+        "En un repositorio separado dedicado exclusivamente a los workflows."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los workflows deben estar en .github/workflows/ dentro del repositorio. Son archivos YAML (.yml o .yaml) que Git versiona como cualquier otro archivo. Esto significa que los workflows también pasan por el flujo de PR y Code Review."
+    },
+    {
+      "id": 803,
+      "question": "En GitHub Actions, ¿qué es un 'Runner'?",
+      "options": [
+        "El servidor (máquina virtual) donde se ejecutan los jobs del workflow.",
+        "El usuario que dispara el workflow haciendo push.",
+        "El archivo .yml que define los pasos del workflow.",
+        "Una herramienta de línea de comandos para ejecutar Actions localmente."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un Runner es un servidor (generalmente una máquina virtual proporcionada por GitHub) donde se ejecutan los jobs. 'runs-on: ubuntu-latest' especifica que el job corre en un servidor Ubuntu. GitHub ofrece runners con Ubuntu, Windows y macOS."
+    },
+    {
+      "id": 804,
+      "question": "¿Por qué es necesario usar `actions/checkout@v4` al inicio de casi todos los workflows?",
+      "options": [
+        "Porque el runner empieza vacío: no tiene tu código. Checkout clona el repositorio dentro del runner.",
+        "Porque verifica que el código no tenga errores de sintaxis antes de continuar.",
+        "Porque crea un checkpoint al que puedes volver si el workflow falla.",
+        "Porque autentica al runner con GitHub para poder hacer push."
+      ],
+      "correctAnswer": 0,
+      "justification": "Cuando un workflow se ejecuta, GitHub crea un servidor temporal vacío. actions/checkout clona tu repositorio dentro de ese servidor para que los pasos siguientes puedan acceder a tus archivos (ejecutar tests, compilar, etc.). Sin checkout, el runner no tiene código."
+    },
+    {
+      "id": 805,
+      "question": "¿Qué evento dispara un workflow configurado con `on: pull_request`?",
+      "options": [
+        "Cuando se abre, actualiza o sincroniza un Pull Request hacia las ramas especificadas.",
+        "Cuando se hace push directo a la rama main.",
+        "Cuando se crea un nuevo Issue en el repositorio.",
+        "Cuando alguien hace fork del repositorio."
+      ],
+      "correctAnswer": 0,
+      "justification": "El evento pull_request se dispara cuando se abre un PR, se agregan nuevos commits a un PR existente, o se reabre un PR cerrado. Es el evento más usado para CI, porque ejecuta tests sobre los cambios propuestos antes del merge."
+    },
+    {
+      "id": 806,
+      "question": "¿Qué son los Secrets en GitHub Actions y por qué son necesarios?",
+      "options": [
+        "Variables encriptadas almacenadas en GitHub para guardar contraseñas, tokens y API keys sin exponerlas en el código.",
+        "Archivos ocultos dentro de .github/ que solo el dueño del repositorio puede ver.",
+        "Workflows privados que no aparecen en la pestaña Actions del repositorio.",
+        "Ramas protegidas con cifrado especial para código sensible."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los Secrets permiten almacenar valores sensibles (tokens, passwords, API keys) de forma segura en GitHub. Se configuran en Settings > Secrets y se acceden con ${{ secrets.NOMBRE }} en los workflows. GitHub los encripta y los enmascara en los logs (aparecen como ***)."
+    },
+    {
+      "id": 807,
+      "question": "Lee el workflow. ¿Cuándo se ejecuta?\n\n```yaml\non:\n  push:\n    branches: [main]\n  pull_request:\n    branches: [main]\n```",
+      "options": [
+        "Se ejecuta al hacer push a main O al abrir/actualizar un PR hacia main.",
+        "Solo se ejecuta cuando se hace push a main.",
+        "Solo se ejecuta cuando se abre un PR hacia main.",
+        "Se ejecuta en todas las ramas del repositorio."
+      ],
+      "correctAnswer": 0,
+      "justification": "El workflow tiene dos triggers: push a main (ej. al hacer merge de un PR) y pull_request hacia main (al abrir o actualizar un PR). Es la configuración más común: CI corre en PRs (para validar antes del merge) y en push a main (para verificar después del merge)."
+    },
+    {
+      "id": 808,
+      "question": "¿Qué hace la sintaxis `${{ secrets.DEPLOY_TOKEN }}` en un workflow?",
+      "options": [
+        "Accede al valor del secret llamado DEPLOY_TOKEN, almacenado en la configuración del repositorio.",
+        "Crea un nuevo secret con el nombre DEPLOY_TOKEN.",
+        "Genera un token temporal de deploy que expira al terminar el workflow.",
+        "Descarga un token de GitHub Marketplace."
+      ],
+      "correctAnswer": 0,
+      "justification": "La sintaxis ${{ }} es una expresión de GitHub Actions que se evalúa en tiempo de ejecución. secrets.DEPLOY_TOKEN accede al valor del secret previamente configurado en Settings > Secrets. El valor real nunca aparece en los logs del workflow."
+    },
+    {
+      "id": 809,
+      "question": "¿Qué es una 'matrix' en GitHub Actions?",
+      "options": [
+        "Una estrategia que genera automáticamente múltiples jobs con todas las combinaciones de variables especificadas.",
+        "Una tabla de permisos que define qué usuarios pueden ejecutar cada workflow.",
+        "Un formato especial de YAML para definir variables de entorno.",
+        "Una herramienta de debugging que muestra la ejecución paso a paso."
+      ],
+      "correctAnswer": 0,
+      "justification": "Una matrix permite definir múltiples valores para variables (ej. node-version: [18, 20, 22], os: [ubuntu, windows]). GitHub Actions genera automáticamente un job por cada combinación y los ejecuta en paralelo, asegurando compatibilidad en múltiples entornos."
+    },
+    {
+      "id": 810,
+      "question": "¿Cuántos jobs genera esta matrix?\n\n```yaml\nmatrix:\n  node: [18, 20]\n  os: [ubuntu-latest, windows-latest, macos-latest]\n```",
+      "options": [
+        "6 jobs (2 versiones de Node × 3 sistemas operativos).",
+        "5 jobs (2 + 3 sumados).",
+        "3 jobs (uno por cada sistema operativo).",
+        "2 jobs (uno por cada versión de Node)."
+      ],
+      "correctAnswer": 0,
+      "justification": "La matrix genera TODAS las combinaciones posibles: Node 18 en Ubuntu, Node 18 en Windows, Node 18 en macOS, Node 20 en Ubuntu, Node 20 en Windows, Node 20 en macOS. Total: 2 × 3 = 6 jobs ejecutados en paralelo."
+    },
+    {
+      "id": 811,
+      "question": "¿Qué son los Git Hooks?",
+      "options": [
+        "Scripts que se ejecutan automáticamente en tu máquina local antes o después de ciertas acciones de Git.",
+        "Webhooks que GitHub envía a servidores externos cuando ocurren eventos.",
+        "Extensiones de GitHub que agregan funcionalidades a la interfaz web.",
+        "Atajos de teclado configurables para comandos de Git."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los Git Hooks son scripts ubicados en .git/hooks/ que se ejecutan automáticamente cuando ocurren eventos Git (pre-commit, pre-push, commit-msg, etc.). A diferencia de GitHub Actions que corren en la nube, los hooks corren localmente en tu computadora."
+    },
+    {
+      "id": 812,
+      "question": "¿Qué hace el hook 'pre-commit'?",
+      "options": [
+        "Ejecuta un script ANTES de crear un commit. Si el script falla, el commit se bloquea.",
+        "Ejecuta un script después de crear un commit para notificar al equipo.",
+        "Verifica que el mensaje del commit siga un formato específico.",
+        "Prepara los archivos del staging area antes de que se commiteen."
+      ],
+      "correctAnswer": 0,
+      "justification": "El hook pre-commit se ejecuta antes de que Git cree el commit. Típicamente se usa para ejecutar el linter o el formateador de código. Si el script retorna un error (exit code != 0), Git cancela el commit hasta que corrijas los problemas."
+    },
+    {
+      "id": 813,
+      "question": "¿Cuál es la diferencia principal entre Git Hooks y GitHub Actions?",
+      "options": [
+        "Hooks corren en tu computadora local; Actions corren en servidores de GitHub en la nube.",
+        "Hooks son gratuitos; Actions son de pago.",
+        "Hooks son más seguros porque están cifrados; Actions son públicos.",
+        "Hooks solo funcionan con JavaScript; Actions soportan cualquier lenguaje."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los Git Hooks se ejecutan localmente (rápidos pero saltables con --no-verify). GitHub Actions se ejecutan en la nube (no se pueden saltar, son la verificación definitiva). Lo ideal es usar ambos: hooks para feedback rápido local, Actions para verificación oficial."
+    },
+    {
+      "id": 814,
+      "question": "¿Qué herramienta es la más popular para gestionar Git Hooks en proyectos Node.js?",
+      "options": [
+        "Husky",
+        "ESLint",
+        "Prettier",
+        "Webpack"
+      ],
+      "correctAnswer": 0,
+      "justification": "Husky es la herramienta estándar para gestionar Git Hooks en el ecosistema Node.js. Permite definir hooks de forma simple en archivos dentro de .husky/ (ej. .husky/pre-commit con 'npm run lint'). ESLint y Prettier son herramientas que los hooks EJECUTAN, no gestores de hooks."
+    },
+    {
+      "id": 815,
+      "question": "Hay un error en este YAML. ¿Cuál es?\n\n```yaml\nsteps:\n- name: Instalar deps\n  run: npm ci\n  - name: Tests\n    run: npm test\n```",
+      "options": [
+        "El step 'Tests' está anidado dentro del step 'Instalar deps' por indentación incorrecta. Ambos steps deben estar al mismo nivel.",
+        "Falta el campo 'uses' en los steps.",
+        "Los steps no pueden tener el campo 'run'.",
+        "El nombre del step no puede contener espacios."
+      ],
+      "correctAnswer": 0,
+      "justification": "En YAML, la indentación determina la estructura. El segundo step (Tests) está indentado dentro del primero, lo cual es inválido para la estructura de steps de GitHub Actions. Cada step debe empezar con un guión (-) al mismo nivel de indentación que los demás."
+    },
+    {
+      "id": 816,
+      "question": "¿Qué hace `on: workflow_dispatch` en un workflow?",
+      "options": [
+        "Permite ejecutar el workflow manualmente desde la interfaz web de GitHub con un botón 'Run workflow'.",
+        "Dispara el workflow automáticamente cada vez que se modifica el archivo .yml.",
+        "Envía una notificación al equipo cuando el workflow se completa.",
+        "Cancela todos los workflows en ejecución cuando se dispara uno nuevo."
+      ],
+      "correctAnswer": 0,
+      "justification": "workflow_dispatch agrega un botón 'Run workflow' en la pestaña Actions de GitHub que permite ejecutar el workflow manualmente. Es útil para deploys manuales, generación de reportes bajo demanda, o tareas que no se disparan con push/PR."
+    },
+    {
+      "id": 817,
+      "question": "¿Qué hace `npm ci` a diferencia de `npm install` en un workflow de CI?",
+      "options": [
+        "Instala exactamente las versiones del package-lock.json sin modificarlo, siendo más rápido y determinista.",
+        "Solo instala dependencias de producción, ignorando las de desarrollo.",
+        "Ejecuta automáticamente los tests después de instalar las dependencias.",
+        "Compila las dependencias desde el código fuente en lugar de descargar binarios."
+      ],
+      "correctAnswer": 0,
+      "justification": "npm ci (clean install) elimina node_modules/ y reinstala exactamente las versiones del package-lock.json. A diferencia de npm install, nunca modifica el lockfile y falla si hay inconsistencias. Es más rápido y predecible, ideal para pipelines de CI."
+    },
+    {
+      "id": 818,
+      "question": "Lee el workflow. ¿Qué pasa si el step 'Lint' falla?\n\n```yaml\nsteps:\n  - uses: actions/checkout@v4\n  - run: npm ci\n  - name: Lint\n    run: npm run lint\n  - name: Tests\n    run: npm test\n```",
+      "options": [
+        "El step 'Tests' NO se ejecuta y todo el job se marca como fallido (❌).",
+        "El step 'Tests' se ejecuta de todas formas independientemente del lint.",
+        "El workflow se pausa y espera que alguien corrija el lint manualmente.",
+        "Solo el step 'Lint' se marca como fallido; los demás steps continúan normalmente."
+      ],
+      "correctAnswer": 0,
+      "justification": "Por defecto, los steps se ejecutan secuencialmente. Si un step falla (retorna exit code != 0), todos los steps siguientes se saltan y el job completo se marca como fallido. Esto se puede cambiar con 'if: always()' para forzar la ejecución."
+    },
+    {
+      "id": 819,
+      "question": "¿Cómo se combinan las Branch Protection Rules con GitHub Actions?",
+      "options": [
+        "Activando 'Require status checks to pass': el PR no se puede mergear si el workflow de CI falla.",
+        "Activando 'Require Actions approval': todos los workflows necesitan aprobación manual.",
+        "Las Branch Protection Rules y Actions no se pueden combinar.",
+        "Activando 'Auto-merge': Actions mergea automáticamente cualquier PR que pase."
+      ],
+      "correctAnswer": 0,
+      "justification": "La regla 'Require status checks to pass' vincula las Branch Protection Rules con GitHub Actions. Puedes seleccionar qué checks (workflows) deben pasar exitosamente para que el botón de merge se habilite. Si los tests fallan, el merge se bloquea automáticamente."
+    },
+    {
+      "id": 820,
+      "question": "¿Cuál es el beneficio de usar Git Hooks Y GitHub Actions (ambos) en un proyecto?",
+      "options": [
+        "Hooks dan feedback rápido al desarrollador localmente; Actions son la verificación definitiva en la nube que no se puede saltar.",
+        "Hooks reemplazan a Actions para ahorrar minutos de ejecución gratuitos en GitHub.",
+        "Actions reemplazan a Hooks porque son más confiables.",
+        "No tiene sentido usar ambos; son redundantes."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los hooks atrapan errores antes de que salgan de tu máquina (feedback en segundos). Actions verifican todo en un entorno limpio y controlado en la nube. Los hooks se pueden saltar (--no-verify), pero Actions no, siendo la barrera final. Usarlos juntos ofrece la mejor cobertura."
+    }
+  ]
+}
