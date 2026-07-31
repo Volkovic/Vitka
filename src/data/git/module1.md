@@ -2,7 +2,11 @@
 
 Imagina que estás escribiendo un documento importante. Para no perder cambios, empiezas a crear copias: `informe_final.docx`, `informe_final_v2.docx`, `informe_final_DEFINITIVO.docx`, `informe_final_DEFINITIVO_AHORA_SI.docx`...
 
-El **control de versiones** resuelve exactamente ese caos. Es un sistema que registra cada cambio que haces en tus archivos a lo largo del tiempo, permitiéndote:
+El Git es un **Sistema de Control de Versiones Distribuido**. Piensa en él como una "máquina del tiempo" para tu código. Registra cada cambio que haces, quién lo hizo y por qué, permitiéndote volver a cualquier versión anterior si algo sale mal.
+
+Fue creado en 2005 por **Linus Torvalds** (el mismo creador del kernel de Linux) precisamente para gestionar el desarrollo del kernel. Lo diseñó para ser rápido, distribuido y capaz de manejar proyectos masivos.
+
+### ¿Qué significa "Distribuido"?
 
 - **Volver a cualquier versión anterior** sin perder nada.
 - **Saber exactamente qué cambió**, cuándo y quién lo hizo.
@@ -32,9 +36,10 @@ Mucha gente confunde Git con GitHub, pero son cosas completamente diferentes:
 |----------|-----|--------|
 | **¿Qué es?** | Un programa/herramienta | Una plataforma web |
 | **¿Dónde vive?** | En tu computadora (local) | En internet (nube) |
-| **¿Qué hace?** | Rastrea cambios en archivos | Aloja repositorios Git y facilita la colaboración |
-| **¿Necesita internet?** | No (casi todo es local) | Sí |
-| **Alternativas** | — | GitLab, Bitbucket, Azure DevOps |
+
+- **Git** es la herramienta de línea de comandos. Funciona localmente en tu computadora. No necesita internet.
+- **GitHub** es una plataforma web (un servicio en la nube) que **aloja** repositorios de Git y añade herramientas de colaboración como Pull Requests y revisión de código.
+- **Alternativas a GitHub:** Existen otras plataformas que hacen exactamente lo mismo, como **GitLab**, **Bitbucket** o **Azure DevOps**. Todas ellas usan Git por debajo.
 
 **Analogía simple:**
 - **Git** es como el motor de un auto. Hace todo el trabajo pesado.
@@ -99,36 +104,45 @@ git config --list
 
 Un **repositorio** (o "repo") es simplemente una carpeta que Git está vigilando. Hay dos formas de empezar:
 
-### Opción 1: Crear un repositorio desde cero (`git init`)
+### Iniciar un Repositorio — git init
 
-Si tienes una carpeta con código existente (o una carpeta vacía) y quieres que Git comience a rastrear sus cambios:
+Para que Git empiece a rastrear una carpeta, necesitas inicializarla:
 
 ```bash
-# Crear una carpeta nueva (o navegar a una existente)
-mkdir mi-proyecto
+# Entrar a la carpeta de tu proyecto
 cd mi-proyecto
 
-# Inicializar Git en esta carpeta
+# Inicializar Git
 git init
-# Salida: Initialized empty Git repository in /ruta/mi-proyecto/.git/
 ```
 
-A partir de este momento, Git está "observando" todo lo que pasa dentro de `mi-proyecto/`.
+> **Nota:** Si ejecutas `git init` en una carpeta que ya es un repositorio, no se perderán datos. Git simplemente te dirá que reinicializó el repositorio existente, lo cual es útil si alguna vez se daña algún archivo de configuración interno.
+
+¿Qué acaba de pasar? Git ha creado una carpeta oculta llamada **`.git/`**. 
+
+### La anatomía de la carpeta .git/
+Esta carpeta es el cerebro de Git. Si la borras, **pierdes todo el historial** y el proyecto vuelve a ser una carpeta normal. Contiene componentes clave como:
+- **`objects/`**: El almacén principal. Aquí Git guarda todo el contenido versionado (archivos comprimidos y commits).
+- **`refs/`**: Punteros a tus ramas y tags.
+- **`HEAD`**: Un archivo que indica en qué rama o commit estás posicionado actualmente.
+- **`config`**: La configuración local de este repositorio específico.
+
+**Nunca modifiques archivos dentro de `.git/` manualmente.** Git lo hace por ti a través de los comandos.
 
 ---
 
-### Opción 2: Clonar un repositorio existente (`git clone`)
+### Descargar un Repositorio — git clone
 
-Si el proyecto ya existe en GitHub (o en cualquier servidor remoto) y quieres descargarlo a tu computadora con toda su historia:
+Si el proyecto ya existe en GitHub (o GitLab/Bitbucket) y quieres descargarlo, NO usas `git init`. Usas `git clone`:
 
 ```bash
 git clone https://github.com/usuario/nombre-del-repo.git
-
-# Esto crea una carpeta "nombre-del-repo/" con todo el código
-# y todo el historial de cambios.
 ```
 
-`git clone` es el equivalente a "descargar + conectar". No solo descarga los archivos, sino que también configura la conexión con el servidor remoto para que luego puedas subir y bajar cambios.
+`git clone` hace 3 cosas automáticamente:
+1. Crea una carpeta con el mismo nombre del repositorio (en este caso, `nombre-del-repo`).
+2. Descarga **todos los archivos** y **todo el historial** de commits.
+3. Configura la conexión con el servidor original (lo llama `origin`).
 
 ---
 
@@ -161,25 +175,33 @@ ls -la
 
 ### Ejercicio Práctico 1
 
-**¿Cuál es la diferencia entre `git init` y `git clone`? ¿En qué situación usarías cada uno?**
+**¿Es obligatorio tener internet y una cuenta de GitHub para usar Git?**
 
 **[Solución]**
 ```bash
-# git init: Inicializa un repositorio NUEVO desde cero en tu máquina local.
-# Lo usas cuando TÚ estás empezando un proyecto nuevo y quieres que Git
-# comience a rastrearlo.
-#
-# git clone: Descarga una COPIA COMPLETA de un repositorio que ya existe
-# en un servidor remoto (como GitHub). Lo usas cuando quieres trabajar
-# en un proyecto que otra persona (o tú mismo) ya subió a la nube.
-#
-# Diferencia clave: git init crea un repo vacío (sin historia).
-# git clone descarga un repo con toda su historia de commits.
+# No. git --version solo muestra si el programa está instalado
+# localmente en tu sistema operativo. Git funciona perfectamente
+# sin internet y sin cuenta de GitHub.
 ```
 
 ---
 
 ### Ejercicio Práctico 2
+
+**¿Por qué Git utiliza hashes largos como "a1b2c3d4..." para identificar commits?**
+
+**[Solución]**
+```bash
+# Esos hashes se llaman SHA-1. Git los genera basándose en el
+# contenido exacto del commit (archivos, autor, fecha, etc). 
+# Esto garantiza la integridad de los datos: si se altera un solo byte
+# en el historial, el hash cambiaría completamente. Funciona
+# como una huella dactilar digital única para cada versión.
+```
+
+---
+
+### Ejercicio Práctico 3
 
 **Lee el siguiente bloque de comandos y razona: ¿Qué ocurre en cada paso? ¿Cuál es el resultado final?**
 

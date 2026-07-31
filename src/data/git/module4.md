@@ -73,7 +73,12 @@ git push
 
 Esto significa que el remoto tiene commits que tú no tienes. **Git se niega a subir** para no sobrescribir el trabajo de otra persona. La solución: primero descarga los cambios con `git pull` y luego intenta el push de nuevo.
 
----
+### git push --force (Peligro)
+Existe una forma de obligar a Git a aceptar tus cambios y sobrescribir el historial remoto:
+```bash
+git push --force origin main
+```
+**NUNCA** uses `--force` en ramas compartidas (como `main` o `develop`), ya que destruirás el código que subieron tus compañeros. Solo se usa en tu propia rama de trabajo (por ejemplo, después de hacer un `rebase` o modificar el historial localmente).
 
 ## git fetch — Descargar Sin Aplicar
 
@@ -98,6 +103,9 @@ git log main..origin/main --oneline
 # Ver las diferencias entre tu código y el del remoto
 git diff main origin/main
 ```
+
+> **¿Qué ramas descarga `git clone`?**
+> Cuando usas `git clone`, Git descarga **todas** las ramas del repositorio remoto (y puedes verlas con `git branch -r`). Sin embargo, localmente solo te crea y te posiciona en la rama principal (`main` o `master`). Si quieres trabajar en otra rama que descargaste, solo usa `git switch nombre-rama` y Git creará tu copia local conectada a la remota.
 
 ---
 

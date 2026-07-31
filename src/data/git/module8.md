@@ -140,6 +140,9 @@ jobs:
 3. Ejecuta los dos pasos: imprime un saludo y muestra información.
 4. Puedes ver la salida en la pestaña **Actions** de tu repositorio en GitHub.
 
+> **¿Qué pasa si un paso (step) falla?**
+> Si cualquier comando dentro de un paso devuelve un error (ej. un test que falla o un script que se rompe), **todo el Job se detiene**. El workflow se marca como "Failed" (cruz roja) y todos los pasos siguientes se saltan (skips). Esto previene que hagas "deploy" si tus tests fallaron.
+
 ---
 
 ## Events — ¿Qué Dispara un Workflow?

@@ -55,11 +55,10 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
 
   // Load config from localStorage or .env
   useEffect(() => {
-    const savedConfigStr = localStorage.getItem('vitka-ai-config');
+    const config = getStoredConfig();
 
-    if (savedConfigStr) {
+    if (config) {
       try {
-        const config = JSON.parse(savedConfigStr);
         setProvider(config.provider);
         setApiKey(config.apiKey);
         setHasConfig(true);

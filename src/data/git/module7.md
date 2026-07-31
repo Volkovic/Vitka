@@ -146,16 +146,13 @@ Resultado: Los 4 commits se convierten en 1 solo commit profesional.
 
 ---
 
-### Método 2: Squash and Merge en GitHub
+### Las 3 formas de Merge en GitHub
 
-La forma más fácil de hacer squash es **directamente desde GitHub** al mergear un PR:
+Cuando un Pull Request es aprobado, GitHub te da 3 opciones para integrarlo:
 
-1. Cuando tu PR está aprobado, en vez de hacer clic en "Merge pull request", haz clic en la **flecha desplegable**.
-2. Selecciona **"Squash and merge"**.
-3. GitHub te permite editar el mensaje del commit final.
-4. Todos los commits del PR se fusionan en uno solo al entrar a `main`.
-
-Esta es la forma más común en equipos profesionales porque no requiere usar la terminal ni conocer `rebase -i`.
+1. **Create a merge commit:** Conserva todos los commits individuales de la rama y crea un commit extra de "merge". Es útil si quieres mantener toda la historia exacta de cómo se desarrolló.
+2. **Squash and merge:** Toma todos los commits del PR, los aplasta en **uno solo**, y lo agrega a `main`. Es la opción preferida por la mayoría de equipos porque mantiene el historial de `main` extremadamente limpio (un PR = un commit).
+3. **Rebase and merge:** Toma todos los commits del PR y los agrega al final de `main` secuencialmente, sin crear un commit de merge. Conserva los commits individuales pero en una línea recta.
 
 ---
 
