@@ -60,12 +60,10 @@ git status
 
 ### ¿Cómo leer la salida?
 
-| Estado | Significado |
-|--------|-------------|
-| **Untracked files** | Archivos nuevos que Git aún no conoce. Nunca fueron añadidos al staging. |
-| **Changes not staged** | Archivos que Git ya rastrea, fueron modificados, pero aún NO están en el Staging Area. |
-| **Changes to be committed** | Archivos que ya están en el Staging Area, listos para el próximo commit. |
-| **nothing to commit, working tree clean** | Todo está guardado. No hay cambios pendientes. |
+- **Untracked files:** Archivos nuevos que Git aún no conoce. Nunca fueron añadidos al staging.
+- **Changes not staged:** Archivos que Git ya rastrea, fueron modificados, pero aún NO están en el Staging Area.
+- **Changes to be committed:** Archivos que ya están en el Staging Area, listos para el próximo commit.
+- **nothing to commit, working tree clean:** Todo está guardado. No hay cambios pendientes.
 
 **Consejo:** Ejecuta `git status` constantemente. Es gratuito, no modifica nada y te mantiene orientado sobre lo que está pasando.
 
@@ -171,12 +169,10 @@ git diff
 
 ### ¿Cómo leer la salida de `git diff`?
 
-| Símbolo | Significado |
-|---------|-------------|
-| `---` y `+++` | El archivo antes (`---`) y después (`+++`) del cambio |
-| Líneas con `-` (rojo) | Líneas que se **eliminaron** |
-| Líneas con `+` (verde) | Líneas que se **agregaron** |
-| Líneas sin símbolo | Líneas que **no cambiaron** (contexto) |
+- **`---` y `+++`:** El archivo antes (`---`) y después (`+++`) del cambio
+- **Líneas con `-` (rojo):** Líneas que se **eliminaron**
+- **Líneas con `+` (verde):** Líneas que se **agregaron**
+- **Líneas sin símbolo:** Líneas que **no cambiaron** (contexto)
 
 ### Variantes útiles de diff
 
@@ -270,13 +266,11 @@ build/
 
 ### Reglas de sintaxis de `.gitignore`:
 
-| Patrón | Significado |
-|--------|-------------|
-| `archivo.txt` | Ignora un archivo específico |
-| `carpeta/` | Ignora toda una carpeta y su contenido |
-| `*.log` | Ignora todos los archivos con extensión `.log` |
-| `!importante.log` | Excepción: NO ignores este archivo aunque coincida con `*.log` |
-| `**/temp` | Ignora cualquier carpeta o archivo llamado `temp` en cualquier nivel |
+- **`archivo.txt`:** Ignora un archivo específico
+- **`carpeta/`:** Ignora toda una carpeta y su contenido
+- **`*.log`:** Ignora todos los archivos con extensión `.log`
+- **`!importante.log`:** Excepción: NO ignores este archivo aunque coincida con `*.log`
+- **`**/temp`:** Ignora cualquier carpeta o archivo llamado `temp` en cualquier nivel
 
 > **⚠️ Importante:** `.gitignore` solo funciona con archivos que Git **aún no está rastreando**. Si ya hiciste `git add` de un archivo `.env` y lo commiteaste, agregarlo al `.gitignore` después no lo eliminará del historial. Tendrías que removerlo explícitamente del rastreo con `git rm --cached .env`.
 
@@ -294,15 +288,13 @@ tipo: descripción corta del cambio
 
 ### Tipos más comunes:
 
-| Tipo | Cuándo usarlo | Ejemplo |
-|------|--------------|---------|
-| `feat` | Nueva funcionalidad | `feat: agregar sistema de login con Google` |
-| `fix` | Corrección de un bug | `fix: corregir cálculo de impuestos en carrito` |
-| `docs` | Cambios en documentación | `docs: actualizar guía de instalación` |
-| `style` | Formato/estilo (sin cambiar lógica) | `style: corregir indentación en app.js` |
-| `refactor` | Reestructurar código sin cambiar funcionalidad | `refactor: extraer lógica de validación a utils` |
-| `chore` | Tareas de mantenimiento | `chore: actualizar dependencias de producción` |
-| `test` | Agregar o modificar tests | `test: agregar tests para el módulo de pagos` |
+- **`feat`** (Nueva funcionalidad): `feat: agregar sistema de login con Google`
+- **`fix`** (Corrección de un bug): `fix: corregir cálculo de impuestos en carrito`
+- **`docs`** (Cambios en documentación): `docs: actualizar guía de instalación`
+- **`style`** (Formato/estilo): `style: corregir indentación en app.js`
+- **`refactor`** (Reestructurar código): `refactor: extraer lógica de validación a utils`
+- **`chore`** (Tareas de mantenimiento): `chore: actualizar dependencias de producción`
+- **`test`** (Agregar o modificar tests): `test: agregar tests para el módulo de pagos`
 
 ### ¿Por qué es importante?
 

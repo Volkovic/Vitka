@@ -48,12 +48,10 @@ Los commits E y F se "movieron" (en realidad se **recrearon** como E' y F') para
 
 ### ¿Cuándo usar merge y cuándo rebase?
 
-| Situación | Usar | Por qué |
-|-----------|------|---------|
-| Tu rama local necesita actualizarse con `main` | `rebase` | Mantiene tu historia limpia antes de abrir un PR |
-| Integrar un PR terminado a `main` | `merge` | Preserva el contexto del trabajo en equipo |
-| Rama compartida con otros | `merge` | Rebase reescribe la historia, lo cual es peligroso si otros ya la descargaron |
-| Rama personal solo tuya | `rebase` | No afecta a nadie más y tu historia queda ordenada |
+- **Tu rama local necesita actualizarse con `main`** (`rebase`): Mantiene tu historia limpia antes de abrir un PR
+- **Integrar un PR terminado a `main`** (`merge`): Preserva el contexto del trabajo en equipo
+- **Rama compartida con otros** (`merge`): Rebase reescribe la historia, lo cual es peligroso si otros ya la descargaron
+- **Rama personal solo tuya** (`rebase`): No afecta a nadie más y tu historia queda ordenada
 
 ### El flujo profesional típico:
 
@@ -228,11 +226,9 @@ git push origin --tags
 
 ### Tags vs Ramas:
 
-| Característica | Tag | Rama |
-|---------------|-----|------|
-| ¿Se mueve? | ❌ Siempre apunta al mismo commit | ✅ Avanza con cada nuevo commit |
-| ¿Para qué? | Marcar versiones (v1.0.0, v2.3.1) | Trabajo en progreso |
-| ¿Es mutable? | No (es una "foto" permanente) | Sí (crece con el tiempo) |
+- **¿Se mueve?** (❌ Siempre apunta al mismo commit): ✅ Avanza con cada nuevo commit
+- **¿Para qué?** (Marcar versiones (v1.0.0, v2.3.1)): Trabajo en progreso
+- **¿Es mutable?** (No (es una "foto" permanente)): Sí (crece con el tiempo)
 
 ---
 
@@ -250,11 +246,9 @@ El estándar de la industria para nombrar versiones es **Semantic Versioning**:
 
 ### Ejemplos:
 
-| Cambio de versión | Qué pasó |
-|-------------------|----------|
-| `v1.0.0` → `v1.0.1` | Se corrigió un bug. Tu código sigue funcionando igual. |
-| `v1.0.1` → `v1.1.0` | Se agregó una funcionalidad nueva. Tu código sigue funcionando. |
-| `v1.1.0` → `v2.0.0` | Se hizo un cambio que rompe la compatibilidad. Podrías necesitar modificar tu código. |
+- **`v1.0.0` → `v1.0.1`:** Se corrigió un bug. Tu código sigue funcionando igual.
+- **`v1.0.1` → `v1.1.0`:** Se agregó una funcionalidad nueva. Tu código sigue funcionando.
+- **`v1.1.0` → `v2.0.0`:** Se hizo un cambio que rompe la compatibilidad. Podrías necesitar modificar tu código.
 
 ---
 

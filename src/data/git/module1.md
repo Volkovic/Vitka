@@ -32,10 +32,8 @@ En el mundo del software, el control de versiones no es opcional: es tan fundame
 
 Mucha gente confunde Git con GitHub, pero son cosas completamente diferentes:
 
-| Concepto | Git | GitHub |
-|----------|-----|--------|
-| **¿Qué es?** | Un programa/herramienta | Una plataforma web |
-| **¿Dónde vive?** | En tu computadora (local) | En internet (nube) |
+- ****¿Qué es?**** (Un programa/herramienta): Una plataforma web
+- ****¿Dónde vive?**** (En tu computadora (local)): En internet (nube)
 
 - **Git** es la herramienta de línea de comandos. Funciona localmente en tu computadora. No necesita internet.
 - **GitHub** es una plataforma web (un servicio en la nube) que **aloja** repositorios de Git y añade herramientas de colaboración como Pull Requests y revisión de código.
@@ -161,13 +159,11 @@ ls -la
 
 ### ¿Qué hay dentro de `.git/`?
 
-| Carpeta/Archivo | Función |
-|-----------------|---------|
-| `objects/` | Almacena TODO el contenido: archivos, commits, árboles de directorio |
-| `refs/` | Guarda los punteros a las ramas y tags |
-| `HEAD` | Indica en qué rama o commit estás parado ahora mismo |
-| `config` | Configuración específica de este repositorio |
-| `hooks/` | Scripts que se ejecutan automáticamente en ciertos eventos |
+- **`objects/`:** Almacena TODO el contenido: archivos, commits, árboles de directorio
+- **`refs/`:** Guarda los punteros a las ramas y tags
+- **`HEAD`:** Indica en qué rama o commit estás parado ahora mismo
+- **`config`:** Configuración específica de este repositorio
+- **`hooks/`:** Scripts que se ejecutan automáticamente en ciertos eventos
 
 > **⚠️ Regla de oro:** NUNCA borres ni modifiques manualmente la carpeta `.git/`. Si la eliminas, pierdes toda la historia del proyecto. El proyecto seguirá existiendo como carpeta normal, pero Git dejará de rastrearlo.
 

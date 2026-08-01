@@ -125,11 +125,9 @@ const data = await response.json();
 ```
 4. **Hacer Submit Review** con una de estas opciones:
 
-| Opción | Significado |
-|--------|-------------|
-| **Comment** | Dejas comentarios sin aprobar ni bloquear |
-| **Approve** | ✅ Apruebas los cambios. Listos para merge. |
-| **Request Changes** | ❌ Pides cambios. El autor debe corregir antes del merge. |
+- ****Comment**:** Dejas comentarios sin aprobar ni bloquear
+- ****Approve**:** ✅ Apruebas los cambios. Listos para merge.
+- ****Request Changes**:** ❌ Pides cambios. El autor debe corregir antes del merge.
 
 ---
 
@@ -207,13 +205,11 @@ Las **Branch Protection Rules** son configuraciones de seguridad en GitHub que p
 
 ### Reglas más importantes:
 
-| Regla | Qué hace |
-|-------|----------|
-| **Require a pull request before merging** | Nadie puede hacer push directo a `main`. Todo debe pasar por un PR. |
-| **Require approvals** | El PR necesita al menos N aprobaciones antes del merge (ej. 1 o 2 revisores). |
-| **Require status checks to pass** | Si tienes GitHub Actions ejecutando tests, el PR no se puede mergear si los tests fallan. |
-| **Require conversation resolution** | Todos los comentarios del Code Review deben estar resueltos antes del merge. |
-| **Restrict who can push** | Solo ciertos usuarios o equipos pueden hacer push a la rama protegida. |
+- ****Require a pull request before merging**:** Nadie puede hacer push directo a `main`. Todo debe pasar por un PR.
+- ****Require approvals**:** El PR necesita al menos N aprobaciones antes del merge (ej. 1 o 2 revisores).
+- ****Require status checks to pass**:** Si tienes GitHub Actions ejecutando tests, el PR no se puede mergear si los tests fallan.
+- ****Require conversation resolution**:** Todos los comentarios del Code Review deben estar resueltos antes del merge.
+- ****Restrict who can push**:** Solo ciertos usuarios o equipos pueden hacer push a la rama protegida.
 
 ### ¿Cómo configurarlas?
 

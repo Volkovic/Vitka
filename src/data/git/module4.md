@@ -29,11 +29,9 @@ Cuando trabajas con remotos, existen **tres capas** de ramas que debes entender:
   └────────────────────────┘              └──────────────────┘
 ```
 
-| Rama | Dónde vive | Qué representa |
-|------|-----------|----------------|
-| `main` | Tu PC | Tu copia local con tus cambios |
-| `origin/main` | Tu PC (tracking) | Una "foto" de cómo estaba `main` en GitHub la última vez que sincronizaste |
-| `main` en GitHub | En la nube | La versión "oficial" del código |
+- **`main`** (Tu PC): Tu copia local con tus cambios
+- **`origin/main`** (Tu PC (tracking)): Una "foto" de cómo estaba `main` en GitHub la última vez que sincronizaste
+- **`main` en GitHub** (En la nube): La versión "oficial" del código
 
 ---
 
@@ -133,10 +131,8 @@ git pull origin main
 
 ### fetch vs pull — ¿Cuándo Usar Cada Uno?
 
-| Comando | Descarga | Aplica cambios | Riesgo | Cuándo usarlo |
-|---------|----------|---------------|--------|--------------|
-| `git fetch` | ✅ | ❌ | Ninguno | Cuando quieres VER qué hay de nuevo antes de aplicarlo |
-| `git pull` | ✅ | ✅ (merge) | Puede generar conflictos | Cuando confías en que los cambios no chocarán con los tuyos |
+- **`git fetch`:** ✅, ❌, Ninguno, Cuando quieres VER qué hay de nuevo antes de aplicarlo
+- **`git pull`:** ✅, ✅ (merge), Puede generar conflictos, Cuando confías en que los cambios no chocarán con los tuyos
 
 **Recomendación profesional:** En equipos grandes, muchos prefieren hacer `git fetch` + revisar + `git merge` manual, en lugar de `git pull` directo. Esto te da más control y evita merges sorpresa.
 
@@ -146,10 +142,8 @@ git pull origin main
 
 Cuando haces un **fork** de un repositorio en GitHub (es decir, creas tu propia copia de un proyecto de otra persona), trabajas con **dos remotos**:
 
-| Remoto | Apunta a | Para qué sirve |
-|--------|---------|----------------|
-| `origin` | **Tu fork** en GitHub | Subir tus cambios |
-| `upstream` | **El repositorio original** | Descargar actualizaciones del proyecto original |
+- **`origin`** (**Tu fork** en GitHub): Subir tus cambios
+- **`upstream`** (**El repositorio original**): Descargar actualizaciones del proyecto original
 
 ```bash
 # Ver remotos actuales
@@ -221,13 +215,11 @@ Después de generarla, copias el contenido de la clave pública (`.pub`) y la ag
 
 Todo lo que vimos en este módulo se puede hacer desde **GitHub Desktop** de forma visual:
 
-| Operación | En la terminal | En GitHub Desktop |
-|-----------|---------------|------------------|
-| Subir cambios | `git push` | Botón "Push origin" en la barra superior |
-| Descargar cambios | `git pull` | Botón "Fetch origin" → "Pull origin" |
-| Crear rama | `git switch -c nombre` | Menú Branch → New Branch |
-| Cambiar de rama | `git switch nombre` | Selector de ramas en la barra superior |
-| Ver historial | `git log` | Pestaña "History" |
+- **Subir cambios** (`git push`): Botón "Push origin" en la barra superior
+- **Descargar cambios** (`git pull`): Botón "Fetch origin" → "Pull origin"
+- **Crear rama** (`git switch -c nombre`): Menú Branch → New Branch
+- **Cambiar de rama** (`git switch nombre`): Selector de ramas en la barra superior
+- **Ver historial** (`git log`): Pestaña "History"
 
 > GitHub Desktop ejecuta exactamente los mismos comandos por debajo. Conocer los comandos te ayuda a entender qué hace cada botón y a diagnosticar problemas cuando algo sale mal.
 

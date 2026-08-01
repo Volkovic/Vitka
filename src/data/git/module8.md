@@ -24,10 +24,8 @@
   5. Paz y orden
 ```
 
-| Concepto | Qué automatiza |
-|----------|---------------|
-| **CI (Integración Continua)** | Ejecutar tests y verificaciones cada vez que alguien sube código |
-| **CD (Despliegue Continuo)** | Publicar automáticamente a producción cuando el código pasa todas las verificaciones |
+- ****CI (Integración Continua)**:** Ejecutar tests y verificaciones cada vez que alguien sube código
+- ****CD (Despliegue Continuo)**:** Publicar automáticamente a producción cuando el código pasa todas las verificaciones
 
 ---
 
@@ -54,14 +52,12 @@
 
 ### Glosario de conceptos clave:
 
-| Concepto | ¿Qué es? | Analogía |
-|----------|----------|----------|
-| **Workflow** | Un archivo `.yml` que define todo el proceso | La receta de cocina |
-| **Event** | Lo que dispara el workflow | El temporizador del horno |
-| **Job** | Un grupo de pasos que corren juntos | Un plato de la receta |
-| **Step** | Una acción individual dentro de un job | Un paso de la receta |
-| **Runner** | El servidor (máquina) donde se ejecuta | La cocina |
-| **Action** | Un bloque de código reutilizable del Marketplace | Un ingrediente prefabricado |
+- ****Workflow**** (Un archivo `.yml` que define todo el proceso): La receta de cocina
+- ****Event**** (Lo que dispara el workflow): El temporizador del horno
+- ****Job**** (Un grupo de pasos que corren juntos): Un plato de la receta
+- ****Step**** (Una acción individual dentro de un job): Un paso de la receta
+- ****Runner**** (El servidor (máquina) donde se ejecuta): La cocina
+- ****Action**** (Un bloque de código reutilizable del Marketplace): Un ingrediente prefabricado
 
 ---
 
@@ -335,11 +331,9 @@ Mientras que GitHub Actions corre **en la nube** (en los servidores de GitHub), 
 
 ### Hooks más comunes:
 
-| Hook | Cuándo se ejecuta | Uso típico |
-|------|-------------------|-----------|
-| `pre-commit` | Antes de crear un commit | Verificar formato del código, ejecutar lint |
-| `pre-push` | Antes de hacer push | Ejecutar tests rápidos |
-| `commit-msg` | Después de escribir el mensaje | Validar que sigue Conventional Commits |
+- **`pre-commit`** (Antes de crear un commit): Verificar formato del código, ejecutar lint
+- **`pre-push`** (Antes de hacer push): Ejecutar tests rápidos
+- **`commit-msg`** (Después de escribir el mensaje): Validar que sigue Conventional Commits
 
 ### Ejemplo con Husky (Node.js):
 
@@ -365,12 +359,10 @@ Ahora, cada vez que intentes hacer `git commit`, Husky ejecutará el linter auto
 
 ### Hooks vs Actions — ¿Cuándo usar cada uno?
 
-| | Git Hooks (local) | GitHub Actions (nube) |
-|---|---|---|
-| **¿Dónde corren?** | En tu computadora | En servidores de GitHub |
-| **¿Cuándo?** | Antes/después de acciones Git | Al hacer push, abrir PR, etc. |
-| **¿Se pueden saltar?** | Sí (`git commit --no-verify`) | No (a menos que desactives el workflow) |
-| **¿Para qué?** | Verificaciones rápidas antes de subir código | Tests completos, deploys, verificaciones oficiales |
+- ****¿Dónde corren?**** (En tu computadora): En servidores de GitHub
+- ****¿Cuándo?**** (Antes/después de acciones Git): Al hacer push, abrir PR, etc.
+- ****¿Se pueden saltar?**** (Sí (`git commit --no-verify`)): No (a menos que desactives el workflow)
+- ****¿Para qué?**** (Verificaciones rápidas antes de subir código): Tests completos, deploys, verificaciones oficiales
 
 Lo ideal es usar **ambos**: Hooks para atrapar errores antes de que salgan de tu máquina, y Actions como la verificación definitiva en la nube.
 

@@ -177,11 +177,9 @@ git reset --hard HEAD~1
 
 ### ¿Dónde quedan los cambios del commit C?
 
-| Modo | Working Directory | Staging Area | Commit History |
-|------|-------------------|-------------|----------------|
-| `--soft` | ✅ Intacto | ✅ Los cambios de C quedan staged | ❌ C desaparece |
-| `--mixed` | ✅ Los cambios de C quedan como "modified" | ❌ Vacío | ❌ C desaparece |
-| `--hard` | ❌ Borrado | ❌ Borrado | ❌ C desaparece |
+- **`--soft`:** ✅ Intacto, ✅ Los cambios de C quedan staged, ❌ C desaparece
+- **`--mixed`:** ✅ Los cambios de C quedan como "modified", ❌ Vacío, ❌ C desaparece
+- **`--hard`:** ❌ Borrado, ❌ Borrado, ❌ C desaparece
 
 > **⚠️ `git reset --hard` es el comando más destructivo de Git.** Si no hiciste push del commit, y haces `--hard`, esos cambios se pierden para siempre (bueno, casi... existe `git reflog`, que veremos más adelante).
 
@@ -189,12 +187,10 @@ git reset --hard HEAD~1
 
 ## revert vs reset — ¿Cuándo Usar Cada Uno?
 
-| | `git revert` | `git reset` |
-|---|---|---|
-| **¿Borra historia?** | No. Crea un commit nuevo | Sí. Elimina commits |
-| **¿Seguro para equipos?** | ✅ Siempre seguro | ⚠️ Peligroso si ya hiciste push |
-| **¿Cuándo usarlo?** | Cuando el commit ya está en GitHub | Cuando el commit es solo local |
-| **Ejemplo de uso** | "El último deploy rompió producción, necesito revertir YA" | "Acabo de hacer un commit local con basura, quiero borrarlo antes de subirlo" |
+- ****¿Borra historia?**** (No. Crea un commit nuevo): Sí. Elimina commits
+- ****¿Seguro para equipos?**** (✅ Siempre seguro): ⚠️ Peligroso si ya hiciste push
+- ****¿Cuándo usarlo?**** (Cuando el commit ya está en GitHub): Cuando el commit es solo local
+- ****Ejemplo de uso**** ("El último deploy rompió producción, necesito revertir YA"): "Acabo de hacer un commit local con basura, quiero borrarlo antes de subirlo"
 
 **Regla simple:**
 - ¿Ya hiciste `push`? → Usa `revert`.

@@ -67,12 +67,10 @@ Si cambias de rama (por ejemplo a `develop`), `HEAD` simplemente se mueve para a
 
 Git te permite navegar por la historia usando `HEAD` como punto de partida:
 
-| Referencia | Significado |
-|------------|-------------|
-| `HEAD` | El commit en el que estás ahora mismo |
-| `HEAD~1` | Un commit antes del actual (el "padre") |
-| `HEAD~2` | Dos commits antes del actual (el "abuelo") |
-| `HEAD~3` | Tres commits atrás |
+- **`HEAD`:** El commit en el que estás ahora mismo
+- **`HEAD~1`:** Un commit antes del actual (el "padre")
+- **`HEAD~2`:** Dos commits antes del actual (el "abuelo")
+- **`HEAD~3`:** Tres commits atrás
 
 ```
   commitA ── commitB ── commitC ── commitD
@@ -239,11 +237,9 @@ Cuando Git detecta un conflicto, marca el archivo con indicadores especiales:
 
 ### Anatomía de las marcas de conflicto:
 
-| Marca | Significado |
-|-------|-------------|
-| `<<<<<<< HEAD` | Inicio del conflicto. Lo que sigue es el código de TU rama actual |
-| `=======` | Separador entre las dos versiones |
-| `>>>>>>> feature` | Fin del conflicto. Lo de arriba es el código de la rama que intentas mergear |
+- **`<<<<<<< HEAD`:** Inicio del conflicto. Lo que sigue es el código de TU rama actual
+- **`=======`:** Separador entre las dos versiones
+- **`>>>>>>> feature`:** Fin del conflicto. Lo de arriba es el código de la rama que intentas mergear
 
 ---
 
