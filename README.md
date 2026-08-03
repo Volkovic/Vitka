@@ -1,16 +1,100 @@
-# React + Vite
+# Vitka
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma de aprendizaje interactiva de programación. Cursos modulares con teoría en diapositivas, quizzes con temporizador y un asistente de IA integrado como tutor.
 
-Currently, two official plugins are available:
+![Vista previa del dashboard](docs/preview.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack Tecnológico
 
-## React Compiler
+| Categoría | Tecnología |
+|---|---|
+| Frontend | React 19 · Vite 8 · React Router 7 |
+| Estilos | Tailwind CSS 4 · `@tailwindcss/typography` |
+| Íconos | Lucide React |
+| Markdown | `react-markdown` · `rehype-raw` · `rehype-slug` |
+| Backend (BaaS) | Supabase (Auth · PostgreSQL · Edge Functions) |
+| IA | Google Gemini API · OpenAI · Anthropic (BYOK) |
+| Deploy | Vercel |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Instalación
 
-## Expanding the ESLint configuration
+```bash
+# Clonar el repositorio
+git clone https://github.com/Volkovic/Vitka.git
+cd Vitka
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+# Crear un archivo .env en la raíz con:
+# VITE_SUPABASE_URL=tu_url_de_supabase
+# VITE_SUPABASE_ANON_KEY=tu_anon_key
+
+# Iniciar el servidor de desarrollo
+npm run dev
+```
+
+## Estructura del Proyecto
+
+```
+src/
+├── components/       # Componentes reutilizables
+│   ├── AiChat.jsx    # Chat con IA (tutor) — streaming SSE, multi-proveedor
+│   ├── CourseCard.jsx # Card de curso con barra de progreso
+│   ├── Quiz.jsx      # Evaluación con temporizador y puntaje mínimo
+│   └── SlideView.jsx # Visor de diapositivas con navegación por teclado
+├── context/
+│   └── AuthContext.jsx  # Autenticación con Google vía Supabase
+├── data/
+│   ├── courseTitles.js  # Títulos de módulos por curso
+│   ├── python/          # 30 módulos (.md) + quizzes.json
+│   ├── javascript/      # 23 módulos (.md) + quizzes.json
+│   ├── sql/             # 15 módulos (.md) + quizzes.json
+│   └── git/             # 8 módulos (.md) + quizzes.json
+├── layouts/
+│   └── MainLayout.jsx   # Layout principal con navbar
+├── lib/
+│   └── supabase.js      # Cliente de Supabase
+├── pages/
+│   ├── Dashboard.jsx    # Roadmap con fases y cursos
+│   ├── CoursePath.jsx   # Vista de módulos de un curso
+│   ├── ModuleView.jsx   # Visor de módulo (slides + chat + quiz)
+│   └── Login.jsx        # Pantalla de login
+├── App.jsx              # Rutas principales
+└── main.jsx             # Entry point
+```
+
+## Cursos Disponibles
+
+| Curso | Módulos | Estado |
+|---|---|---|
+| Python | 30 | ✅ Disponible |
+| JavaScript | 23 | ✅ Disponible |
+| SQL | 15 | ✅ Disponible |
+| Git/GitHub | 8 | ✅ Disponible |
+| TypeScript | — | 🔒 Próximamente |
+| React | — | 🔒 Próximamente |
+| Supabase | — | 🔒 Próximamente |
+| Docker | — | 🔒 Próximamente |
+
+## Funcionalidades Principales
+
+- **Teoría por diapositivas**: Contenido Markdown dividido por `---`, navegable con flechas del teclado.
+- **Quizzes cronometrados**: 10 preguntas (5 min) por módulo, 30 preguntas (15 min) en examen final. Puntaje mínimo para avanzar.
+- **Asistente IA**: Chat contextual por diapositiva. Soporta OpenAI, Anthropic y Google Gemini con API key propia del usuario.
+- **Progreso persistente**: Tracking de módulos completados guardado en Supabase.
+- **Auth con Google**: Login con un click vía Supabase Auth.
+
+## Scripts
+
+```bash
+npm run dev      # Servidor de desarrollo
+npm run build    # Build de producción
+npm run preview  # Preview del build
+npm run lint     # Ejecutar ESLint
+```
+
+## Licencia
+
+Proyecto personal de aprendizaje.
