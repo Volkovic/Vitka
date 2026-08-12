@@ -460,4 +460,77 @@ console.log(webTechs.includes("C")); // false
 Array.isArray:Para verificar si el tipo de dato en un array
 
 ```js
-const numbers = [1,
+const numbers = [1, 2, 3, 4, 5];
+console.log(Array.isArray(numbers)); // true
+
+const texto = 'JavaScript';
+console.log(Array.isArray(texto));   // false
+```
+
+---
+
+#### Crear un array desde otros iterables
+
+`Array.from()` permite crear un nuevo array a partir de un objeto iterable como un string, un Set, o un NodeList del DOM.
+
+```js
+// Desde un string
+console.log(Array.from('Hola'));  // ['H', 'o', 'l', 'a']
+
+// Desde un Set
+const miSet = new Set([1, 2, 3, 2, 1]);
+console.log(Array.from(miSet));  // [1, 2, 3]
+
+// Con función de transformación
+console.log(Array.from([1, 2, 3], x => x * 2)); // [2, 4, 6]
+```
+
+
+---
+
+#### Ordenar un array
+
+El método `.sort()` ordena los elementos **in-place** (modifica el array original). Por defecto, convierte los elementos a strings y los ordena **lexicográficamente** (orden alfabético/Unicode), lo cual produce resultados inesperados con números:
+
+```js
+// Con strings funciona intuitivamente
+let frutas = ['banana', 'manzana', 'cereza'];
+frutas.sort();
+console.log(frutas); // ['banana', 'cereza', 'manzana']
+
+// ⚠️ Con números, el resultado es SORPRENDENTE
+let nums = [10, 2, 5, 1];
+nums.sort();
+console.log(nums);   // [1, 10, 2, 5] — ¡Incorrecto! Ordena como strings: '1','10','2','5'
+```
+
+Para ordenar números correctamente, debemos pasar una **función comparadora**:
+
+```js
+let nums = [10, 2, 5, 1];
+
+// Orden ascendente
+nums.sort((a, b) => a - b);
+console.log(nums);   // [1, 2, 5, 10] ✅
+
+// Orden descendente
+nums.sort((a, b) => b - a);
+console.log(nums);   // [10, 5, 2, 1]
+```
+
+La función comparadora recibe dos elementos (`a` y `b`). Si retorna un número negativo, `a` va primero; si retorna positivo, `b` va primero; si retorna 0, quedan igual.
+
+
+---
+
+#### Invertir un array
+
+El método `.reverse()` invierte el orden de los elementos **in-place** (modifica el array original):
+
+```js
+let nums = [1, 2, 3, 4, 5];
+nums.reverse();
+console.log(nums);   // [5, 4, 3, 2, 1]
+```
+
+Un patrón muy común es combinar `.sort()` con `.reverse()` para ordenar de forma descendente.

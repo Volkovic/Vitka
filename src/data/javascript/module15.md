@@ -458,4 +458,128 @@ console.log(person2.getScore);
 
 console.log(person1.getSkills);
 console.log(person2.getSkills);
-console.log(person3.getSkills
+console.log(person3.getSkills);
+
+console.log(person1.getPersonInfo());
+console.log(person2.getPersonInfo());
+console.log(person3.getPersonInfo());
+```
+
+
+---
+
+
+### Métodos y Propiedades Estáticas (static)
+
+La palabra clave `static` define un método o propiedad que pertenece a la **clase misma**, no a las instancias. Esto significa que puedes llamarlo directamente sobre la clase sin necesidad de crear un objeto con `new`.
+
+```js
+class Auto {
+  constructor(marca) {
+    this.marca = marca;
+  }
+
+  // Método normal: se llama en una instancia
+  arrancar() {
+    return `${this.marca} está arrancando...`;
+  }
+
+  // Método estático: se llama directamente en la clase
+  static tocarBocina() {
+    return '¡BEEEP!';
+  }
+}
+
+const miAuto = new Auto('Toyota');
+
+// ✅ Método normal — se llama en la instancia
+console.log(miAuto.arrancar());     // 'Toyota está arrancando...'
+
+// ✅ Método estático — se llama en la CLASE
+console.log(Auto.tocarBocina());    // '¡BEEEP!'
+
+// ❌ Un método estático NO puede ser llamado desde una instancia
+console.log(miAuto.tocarBocina());  // TypeError: miAuto.tocarBocina is not a function
+```
+
+Los métodos estáticos son útiles para funciones utilitarias que no dependen del estado de ninguna instancia particular. Un ejemplo real es `Math.random()` — no necesitas hacer `new Math()` porque todos los métodos de `Math` son estáticos.
+
+
+---
+
+
+### El operador `instanceof`
+
+El operador `instanceof` verifica si un objeto es una instancia de una clase determinada (o de cualquier clase en su cadena de herencia). Retorna `true` o `false`.
+
+```js
+class Animal {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+}
+
+class Perro extends Animal {
+  ladrar() {
+    return '¡Guau!';
+  }
+}
+
+const firulais = new Perro('Firulais');
+
+console.log(firulais instanceof Perro);   // true
+console.log(firulais instanceof Animal);  // true  (hereda de Animal)
+console.log(firulais instanceof Object);  // true  (todo hereda de Object)
+
+const texto = 'Hola';
+console.log(texto instanceof Perro);      // false
+```
+
+`instanceof` recorre la **cadena de prototipos** del objeto para verificar la relación de herencia.
+
+
+---
+
+
+### Prototipos (Prototype)
+
+En JavaScript, **todo objeto tiene un prototipo**. El prototipo es un objeto interno del cual hereda propiedades y métodos. Las clases de ES6 son en realidad una sintaxis más limpia ("azúcar sintáctica") sobre el sistema de prototipos que JavaScript ha usado desde siempre.
+
+Cuando accedes a una propiedad o método de un objeto y este no la tiene directamente, JavaScript busca automáticamente en su prototipo, luego en el prototipo del prototipo, y así sucesivamente. A esta búsqueda se le llama **cadena de prototipos** (Prototype Chain).
+
+```js
+class Persona {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+  saludar() {
+    return `Hola, soy ${this.nombre}`;
+  }
+}
+
+const ana = new Persona('Ana');
+
+// El método 'saludar' no vive en 'ana' directamente,
+// sino en Persona.prototype
+console.log(ana.saludar());  // 'Hola, soy Ana'
+
+// Podemos ver el prototipo
+console.log(Object.getPrototypeOf(ana) === Persona.prototype); // true
+```
+
+Antes de ES6 (antes de las clases), los objetos y la herencia se creaban manualmente usando funciones constructoras y la propiedad `.prototype`:
+
+```js
+// Forma antigua (pre-ES6) de crear "clases"
+function Animal(nombre) {
+  this.nombre = nombre;
+}
+Animal.prototype.hablar = function() {
+  return `${this.nombre} hace un sonido`;
+};
+
+const gato = new Animal('Michi');
+console.log(gato.hablar()); // 'Michi hace un sonido'
+```
+
+Hoy en día usamos clases ES6 por claridad, pero entender prototipos es fundamental porque es el mecanismo real que opera por debajo.

@@ -393,3 +393,205 @@ Para crear una plantilla de cadenas(cadenas de plantilla), usamos dos tildes de 
 ```
 
 **Ejemplo: 1**
+
+```js
+let a = 2;
+let b = 3;
+console.log(`La suma de ${a} y ${b} es ${a + b}`); // La suma de 2 y 3 es 5
+```
+
+```js
+let nombre = "Asabeneh";
+let apellido = "Yetayeh";
+let pais = "Finland";
+let ciudad = "Helsinki";
+let idioma = "JavaScript";
+
+let informacion = `Soy ${nombre} ${apellido}. Vivo en ${pais}, ${ciudad}. Enseño ${idioma}`;
+console.log(informacion);
+```
+
+Los template literals permiten incluir expresiones de JavaScript directamente dentro del string, haciendo el código más legible que la concatenación con `+`.
+
+
+---
+
+## Métodos de String
+
+Los strings en JavaScript son inmutables (no pueden ser modificados directamente), pero disponen de una gran cantidad de métodos que retornan un **nuevo string** sin alterar el original.
+
+### Longitud y acceso a caracteres
+
+```js
+let js = 'JavaScript';
+
+// .length — retorna la cantidad de caracteres
+console.log(js.length);        // 10
+
+// Acceso por índice (empieza en 0)
+console.log(js[0]);            // 'J'
+console.log(js[3]);            // 'a'
+
+// Último carácter dinámicamente
+console.log(js[js.length - 1]); // 't'
+
+// .charAt(index) — igual que el acceso por corchete
+console.log(js.charAt(4));      // 'S'
+
+// .at(index) — ES2022, permite índices negativos
+console.log(js.at(-1));         // 't' (último carácter)
+console.log(js.at(-2));         // 'p' (penúltimo)
+```
+
+A diferencia de Python, usar `js[-1]` con corchetes retorna `undefined` en JavaScript estándar. Por eso, para acceder dinámicamente al último carácter se usa `str[str.length - 1]` o el moderno `str.at(-1)`.
+
+
+---
+
+### Búsqueda en strings
+
+```js
+let frase = 'el sol brilla fuerte';
+
+// .indexOf(subcadena) — retorna el índice de la primera aparición, o -1 si no existe
+console.log(frase.indexOf('sol'));     // 3
+console.log(frase.indexOf('luna'));    // -1
+
+// .includes(subcadena) — retorna true o false
+console.log(frase.includes('sol'));    // true
+console.log(frase.includes('luna'));   // false
+
+// .startsWith(texto) y .endsWith(texto)
+console.log(frase.startsWith('el'));     // true
+console.log(frase.endsWith('fuerte'));   // true
+```
+
+`indexOf()` retorna el **índice numérico** de la primera aparición de la subcadena. Si no la encuentra, retorna `-1`. Por otro lado, `includes()` solo retorna `true` o `false` sin indicar posición.
+
+
+---
+
+### Transformación de strings
+
+```js
+let saludo = '  Hola Mundo  ';
+
+// .toUpperCase() — convierte todo a mayúsculas (retorna nuevo string)
+console.log('hola'.toUpperCase());          // 'HOLA'
+
+// .toLowerCase() — convierte todo a minúsculas
+console.log('HOLA'.toLowerCase());          // 'hola'
+
+// .trim() — elimina espacios, tabulaciones y saltos de línea del inicio y final
+console.log(saludo.trim());                 // 'Hola Mundo'
+// No elimina los espacios entre palabras, solo los del inicio y final
+
+// .replace(buscar, reemplazo) — reemplaza SOLO la primera coincidencia
+let txt = 'Hola Hola';
+console.log(txt.replace('Hola', 'Adiós'));  // 'Adiós Hola'
+
+// .replaceAll(buscar, reemplazo) — reemplaza TODAS las coincidencias
+console.log(txt.replaceAll('Hola', 'Adiós')); // 'Adiós Adiós'
+```
+
+Recuerda: los strings son inmutables. Todos estos métodos retornan un **nuevo string** sin modificar el original.
+
+
+---
+
+### Extracción de subcadenas
+
+```js
+let str = 'JavaScript';
+
+// .slice(inicio, fin) — extrae desde 'inicio' hasta 'fin' (sin incluir fin)
+console.log(str.slice(4));       // 'Script' (desde índice 4 hasta el final)
+console.log(str.slice(0, 4));    // 'Java'
+
+// .substring(inicio, fin) — similar a slice, pero no acepta índices negativos
+console.log(str.substring(4, 10)); // 'Script'
+```
+
+Tanto `slice(4)` como `substring(4, 10)` retornan `'Script'`. La diferencia principal es que `slice()` soporta índices negativos y `substring()` no.
+
+
+---
+
+### De string a array: split()
+
+```js
+let csv = 'manzana,banana,cereza';
+
+// .split(separador) — divide el string en un array
+console.log(csv.split(','));    // ['manzana', 'banana', 'cereza']
+
+let frase = 'Hola Mundo';
+console.log(frase.split(' ')); // ['Hola', 'Mundo']
+console.log(frase.split(''));  // ['H','o','l','a',' ','M','u','n','d','o']
+```
+
+
+---
+
+
+## Conversión de tipos: String a Número
+
+JavaScript ofrece varias formas de convertir strings a números:
+
+```js
+// parseInt(string) — convierte a entero, ignora caracteres no numéricos al final
+console.log(parseInt('10px'));    // 10
+console.log(parseInt('3.14'));    // 3 (descarta los decimales)
+console.log(parseInt('abc'));     // NaN
+
+// parseFloat(string) — convierte a decimal
+console.log(parseFloat('3.14')); // 3.14
+
+// Number(string) — conversión estricta de todo el string
+console.log(Number('10'));       // 10
+console.log(Number('10px'));     // NaN (no puede convertir todo el string)
+console.log(Number(''));         // 0 (string vacío se convierte a 0)
+console.log(Number(null));       // 0
+console.log(Number(undefined));  // NaN
+```
+
+La diferencia clave: `parseInt('10px')` retorna `10` porque parsea de izquierda a derecha y se detiene al encontrar un carácter no numérico. `Number('10px')` intenta convertir **todo** el string y al fallar retorna `NaN`.
+
+
+---
+
+
+## El valor especial NaN
+
+`NaN` (Not a Number) es un valor numérico especial que representa un resultado matemático inválido.
+
+```js
+// typeof NaN es 'number' (irónicamente)
+console.log(typeof NaN);      // 'number'
+
+// NaN NO es igual a sí mismo (es el ÚNICO valor en JS con esta propiedad)
+console.log(NaN === NaN);     // false
+console.log(NaN == NaN);      // false
+
+// Para verificar si un valor es NaN, usa Number.isNaN() o isNaN()
+console.log(Number.isNaN(NaN));       // true
+console.log(Number.isNaN('hola'));     // false
+console.log(isNaN('hola'));           // true (convierte primero a número)
+```
+
+Dado que `NaN` no es igual a sí mismo, **nunca** uses `=== NaN` para verificar; siempre usa la función `Number.isNaN(valor)` o `isNaN(valor)`.
+
+
+---
+
+
+## Wrapper Objects (Objetos Envoltorio)
+
+Los strings, numbers y booleans son tipos primitivos, pero podemos acceder a propiedades y métodos como `.length` o `.toUpperCase()`. ¿Cómo es esto posible?
+
+```js
+console.log('Hola'.length);         // 4
+console.log('Hola'.toUpperCase());  // 'HOLA'
+```
+
+Cuando intentas acceder a una propiedad de un primitivo, JavaScript crea **temporalmente** un objeto envoltorio (Wrapper Object) alrededor del valor (`new String('Hola')`), accede a la propiedad o método solicitado, y luego lo descarta inmediatamente. Esto se conoce como **auto-boxing**. El primitivo original nunca se convierte permanentemente en un objeto.

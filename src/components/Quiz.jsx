@@ -14,10 +14,12 @@ export default function Quiz({ questions, moduleId, courseId }) {
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [errors, setErrors] = useState(0);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const isFinalExam = moduleId === '30';
   const totalQuestions = isFinalExam ? 30 : 10;
   const passingScore = isFinalExam ? 24 : 8;
+  const maxErrors = totalQuestions - passingScore;
   const initialTime = isFinalExam ? 900 : 300;
 
   const [timeLeft, setTimeLeft] = useState(initialTime);
@@ -32,6 +34,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
     setSelectedOption(null);
     setIsAnswered(false);
     setScore(0);
+    setErrors(0);
     setIsFinished(false);
     setTimeLeft(initialTime);
     setQuizKey(prev => prev + 1);
@@ -88,10 +91,18 @@ export default function Quiz({ questions, moduleId, courseId }) {
     
     if (index === currentQuestion.correctAnswer) {
       setScore(score + 1);
+    } else {
+      const newErrors = errors + 1;
+      setErrors(newErrors);
     }
   };
 
   const handleNext = () => {
+    // If max errors exceeded, finish immediately
+    if (errors > maxErrors) {
+      finishQuiz();
+      return;
+    }
     if (currentQuestionIndex < shuffledQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedOption(null);

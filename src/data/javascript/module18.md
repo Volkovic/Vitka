@@ -247,8 +247,23 @@ Sin embargo, hay que tener cuidado con el rendimiento. Si tienes tres peticiones
 - **`Promise.all([promesa1, promesa2])`**: Toma un array de Promesas simultáneas y retorna UNA SOLA promesa maestra que se resuelve ÚNICAMENTE cuando todas y cada una de las promesas del array han terminado con éxito. Tiene una política de "Todo o Nada": si una sola promesa falla y entra en estado *Rejected*, el `Promise.all` entero se autodescarta, entra en cortocircuito y salta instantáneamente al bloque Catch de rechazo, perdiendo todo el trabajo.
 - **`Promise.allSettled()`**: Introducido en ES2020, es el método moderno que deberías utilizar si quieres que todas las peticiones terminen y recopilar tanto los éxitos como los fallos detallados sin que un solo fallo derrumbe el resto.
 - **`Promise.race([p1, p2, p3])`**: Ejecuta una carrera de promesas y se resuelve (o rechaza) estrictamente con el resultado de la PRIMERA promesa que logre finalizar (la más veloz), ignorando a las perdedoras. Es ideal para programar patrones de tiempo de expiración (Timeout Patterns).
+- **`.finally()`**: Se ejecuta siempre al finalizar una promesa, sin importar si fue resuelta o rechazada. Es ideal para tareas de limpieza como ocultar un spinner de carga.
 
----
+```js
+// Ejemplo: ejecutar 3 fetch en paralelo con Promise.all
+const urls = [
+  'https://api.ejemplo.com/usuarios',
+  'https://api.ejemplo.com/productos',
+  'https://api.ejemplo.com/pedidos'
+];
+
+Promise.all(urls.map(url => fetch(url).then(r => r.json())))
+  .then(([usuarios, productos, pedidos]) => {
+    console.log('Todos los datos cargados:', usuarios, productos, pedidos);
+  })
+  .catch(error => console.error('Al menos una petición falló:', error))
+  .finally(() => console.log('Carga finalizada (éxito o fallo)'));
+```
 
 ## 💻 Ejercicios Prácticos (Promesas y APIs)
 

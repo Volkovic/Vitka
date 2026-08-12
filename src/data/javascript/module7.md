@@ -529,6 +529,8 @@ console.log("Weight of an object in Newton: ", weightOfObject(100, 1.62)); // gr
 
 **Sobrescritura de Funciones:** JavaScript no soporta la 'Sobrecarga de Métodos' (Method Overloading). Si defines dos funciones con el mismo nombre en el mismo archivo o ámbito global, JavaScript aplicará 'Hoisting' a ambas y la SEGUNDA definición sobrescribirá (machacará) a la primera de forma silenciosa.
 
+**Callbacks (Funciones de Retorno):** Un **callback** es simplemente una función que se pasa como argumento a otra función, para que esta última la "llame de vuelta" (call back) en algún momento posterior. Por ejemplo, si pasas una función a `setTimeout(miFuncion, 1000)`, esa `miFuncion` es un callback que se ejecutará después de 1 segundo. Los callbacks son la base de la programación asíncrona en JavaScript y se utilizan extensamente en métodos como `.forEach()`, `.map()`, `.filter()` y en la gestión de eventos del DOM.
+
 **Funciones Anidadas y Closures:** JavaScript permite el anidamiento libre de funciones. Puedes declarar una función dentro del cuerpo de otra función, y las funciones interiores pueden acceder a las variables de su función exterior. A este poderoso comportamiento se le conoce como **Clausuras (Closures)**.
 
 **Recursión:** Si una función se devuelve a sí misma invocándose dentro de su propio bloque de código (ej. `return miFuncion();`), a esta técnica se le llama **Recursión** (o llamada recursiva). Es muy útil para resolver problemas iterativos, siempre y cuando se defina una condición de salida para evitar un bucle infinito.

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { MessageSquare, X, Send, Settings, Sparkles, Trash2, ChevronDown, ChevronRight, ChevronLeft, MoreVertical } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -230,7 +231,8 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: systemInstruction }] },
-            contents: geminiMessages
+            contents: geminiMessages,
+            generationConfig: { maxOutputTokens: 8192 }
           }),
           signal: controller.signal,
         });
@@ -251,6 +253,7 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
             provider,
             apiKey,
             messages: apiMessages,
+            max_tokens: 8192,
           }),
           signal: controller.signal,
         });
@@ -267,8 +270,8 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
       let buffer = '';
       let isDone = false;
 
-      // Read stream with inactivity timeout — if no new chunk arrives in 5s, assume stream is finished
-      const INACTIVITY_TIMEOUT_MS = 5000;
+      // Read stream with inactivity timeout — if no new chunk arrives in 30s, assume stream is finished
+      const INACTIVITY_TIMEOUT_MS = 30000;
 
       while (reader && !isDone) {
         let timeoutId;
@@ -514,7 +517,19 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
                           <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                         </div>
                       ) : (
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            table: ({ node, ...props }) => (
+                              <div className="overflow-x-auto my-2 rounded-lg border border-gray-700">
+                                <table className="w-full text-sm border-collapse" {...props} />
+                              </div>
+                            ),
+                            thead: ({ node, ...props }) => <thead className="bg-gray-700/60" {...props} />,
+                            th: ({ node, ...props }) => <th className="px-3 py-2 text-left text-xs font-semibold text-gray-200 border-b border-gray-600" {...props} />,
+                            td: ({ node, ...props }) => <td className="px-3 py-2 text-gray-300 border-b border-gray-700/50" {...props} />,
+                          }}
+                        >{msg.content}</ReactMarkdown>
                       )
                     )}
                   </div>
@@ -676,7 +691,19 @@ export default function AiChat({ isOpen, onToggle, slideContent, courseId, modul
                               <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                             </div>
                           ) : (
-                            <ReactMarkdown>{msg.content}</ReactMarkdown>
+                            <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            table: ({ node, ...props }) => (
+                              <div className="overflow-x-auto my-2 rounded-lg border border-gray-700">
+                                <table className="w-full text-sm border-collapse" {...props} />
+                              </div>
+                            ),
+                            thead: ({ node, ...props }) => <thead className="bg-gray-700/60" {...props} />,
+                            th: ({ node, ...props }) => <th className="px-3 py-2 text-left text-xs font-semibold text-gray-200 border-b border-gray-600" {...props} />,
+                            td: ({ node, ...props }) => <td className="px-3 py-2 text-gray-300 border-b border-gray-700/50" {...props} />,
+                          }}
+                        >{msg.content}</ReactMarkdown>
                           )
                         )}
                       </div>
