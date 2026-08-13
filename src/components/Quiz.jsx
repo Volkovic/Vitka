@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, XCircle, Clock, X, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -23,6 +23,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
   const initialTime = isFinalExam ? 900 : 300;
 
   const [timeLeft, setTimeLeft] = useState(initialTime);
+  const failedEarlyRef = useRef(false);
 
   const shuffledQuestions = useMemo(() => {
     return [...questions].sort(() => 0.5 - Math.random()).slice(0, totalQuestions);
@@ -38,6 +39,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
     setIsFinished(false);
     setTimeLeft(initialTime);
     setQuizKey(prev => prev + 1);
+    failedEarlyRef.current = false;
   }, [initialTime]);
 
   const finishQuiz = useCallback(() => {
@@ -89,17 +91,27 @@ export default function Quiz({ questions, moduleId, courseId }) {
     setSelectedOption(index);
     setIsAnswered(true);
     
+    let newScore = score;
+    let newErrors = errors;
+
     if (index === currentQuestion.correctAnswer) {
-      setScore(score + 1);
+      newScore = score + 1;
+      setScore(newScore);
     } else {
-      const newErrors = errors + 1;
+      newErrors = errors + 1;
       setErrors(newErrors);
+    }
+
+    // Check if error budget is exhausted
+    if (newErrors >= maxErrors) {
+      failedEarlyRef.current = true;
     }
   };
 
   const handleNext = () => {
-    // If max errors exceeded, finish immediately
-    if (errors > maxErrors) {
+    // If passing is impossible, finish after showing the justification
+    if (failedEarlyRef.current) {
+      failedEarlyRef.current = false;
       finishQuiz();
       return;
     }

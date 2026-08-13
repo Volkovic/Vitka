@@ -527,6 +527,3 @@ const minutes = now.getMinutes(); // return minutos (0 -59)
 
 console.log(`${date}/${month}/${year} ${hours}:${minutes}`); // 4/1/2020 0:56
 ```
-
-
-[<< Da 2](../dia_02_tipos_de_datos.md) | [Da 4 >>](../dia_04_Condicionales/dia_04_Condicionales.md)

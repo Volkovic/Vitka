@@ -22,6 +22,7 @@ export default function ModuleView() {
   useEffect(() => {
     async function loadData() {
       setLoading(true);
+      setCurrentSlideIndex(0);
       try {
         const markdownFiles = import.meta.glob('../data/*/*.md', { query: '?raw', import: 'default' });
         const jsonFiles = import.meta.glob('../data/*/quizzes.json', { import: 'default' });

@@ -46,6 +46,11 @@ export default function SlideView({ content, moduleQuiz, moduleId, courseId, mod
 
   const [currentSlide, setCurrentSlide] = useState(validInitialSlide);
 
+  // Reset slide to 0 when navigating to a different module
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [courseId, moduleId]);
+
   // Save progress to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem(storageKey, currentSlide.toString());
