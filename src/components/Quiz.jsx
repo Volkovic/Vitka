@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CheckCircle, XCircle, Clock, X, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import { getCourseTotalModules } from '../data/courseTitles';
 
 export default function Quiz({ questions, moduleId, courseId }) {
   const { user } = useAuth();
@@ -16,7 +17,8 @@ export default function Quiz({ questions, moduleId, courseId }) {
   const [isFinished, setIsFinished] = useState(false);
   const [errors, setErrors] = useState(0);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
-  const isFinalExam = moduleId === '30';
+  const isFinalExam = courseId === 'python' && moduleId === '30';
+  const isLastModule = parseInt(moduleId, 10) === getCourseTotalModules(courseId);
   const totalQuestions = isFinalExam ? 30 : 10;
   const passingScore = isFinalExam ? 24 : 8;
   const maxErrors = totalQuestions - passingScore;
@@ -234,10 +236,10 @@ export default function Quiz({ questions, moduleId, courseId }) {
                   Volver a la Ruta
                 </button>
                 <button 
-                  onClick={() => { resetQuiz(); navigate(isFinalExam ? `/${courseId}` : `/${courseId}/module/${parseInt(moduleId) + 1}`); }}
+                  onClick={() => { resetQuiz(); navigate(isLastModule ? `/${courseId}` : `/${courseId}/module/${parseInt(moduleId) + 1}`); }}
                   className="px-6 py-2.5 bg-primary text-background-dark font-bold rounded-lg hover:bg-primary/90 transition-colors"
                 >
-                  {isFinalExam ? 'Finalizar Curso' : 'Siguiente Lección'}
+                  {isLastModule ? 'Finalizar Curso' : 'Siguiente Lección'}
                 </button>
               </>
             )}

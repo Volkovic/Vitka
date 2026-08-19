@@ -1,0 +1,214 @@
+{
+  "module1": [
+    {
+      "id": 1,
+      "question": "¿Qué es el DOM Virtual en la arquitectura de React?",
+      "options": [
+        "Un navegador alternativo que debes instalar para ver sitios de React.",
+        "Una copia ligera del DOM real mantenida en la memoria de JavaScript, utilizada para calcular las diferencias mínimas y aplicar parches eficientes a la pantalla.",
+        "Una base de datos local del navegador.",
+        "Un nuevo estándar de HTML5."
+      ],
+      "correctAnswer": 1,
+      "justification": "El Virtual DOM es el secreto del rendimiento de React. Al evitar re-dibujar toda la pantalla nativa constantemente, React compara su copia en memoria con la versión anterior y solo actualiza los nodos estrictamente necesarios."
+    },
+    {
+      "id": 2,
+      "question": "¿Por qué en JSX debes usar 'className' en lugar de 'class' para añadir estilos CSS a una etiqueta?",
+      "options": [
+        "Porque React usa un motor de CSS propio que solo reconoce className.",
+        "Porque 'class' está reservado para componentes basados en clases antiguas.",
+        "Porque JSX se transpila a JavaScript puro, y 'class' es una palabra reservada del lenguaje JS para la Programación Orientada a Objetos.",
+        "Es falso, ambas funcionan exactamente igual sin problemas."
+      ],
+      "correctAnswer": 2,
+      "justification": "JSX no es HTML, es azúcar sintáctico de JS. Para evitar conflictos internos en el motor de JavaScript cuando lea tu código compilado, el equipo de React decidió mapear la propiedad HTML 'class' a 'className'."
+    }
+  ],
+  "module2": [
+    {
+      "id": 3,
+      "question": "¿Qué es un Componente funcional en React moderno?",
+      "options": [
+        "Una Clase que hereda de React.Component.",
+        "Un archivo HTML especial.",
+        "Una simple función de JavaScript que empieza con mayúscula y retorna código JSX.",
+        "Un archivo JSON con configuraciones visuales."
+      ],
+      "correctAnswer": 2,
+      "justification": "Hoy en día, construir UIs en React es tan simple como crear funciones puras de JavaScript que devuelven el HTML (JSX) que quieres dibujar, permitiendo una gran modularidad y testeo."
+    },
+    {
+      "id": 4,
+      "question": "Las 'Props' permiten pasar datos de un componente Padre a un Hijo. ¿Puede el Hijo modificar directamente estas Props?",
+      "options": [
+        "Sí, si las desestructura primero.",
+        "No, las Props son estrictamente de Solo Lectura (Inmutables) para mantener el flujo de datos unidireccional.",
+        "Sí, usando la palabra clave 'mut'.",
+        "Solo si se declaran con 'let' en la interfaz."
+      ],
+      "correctAnswer": 1,
+      "justification": "React protege la integridad del origen de los datos. Un hijo no tiene autoridad para cambiar lo que el padre le da. Si necesita modificarlo, el padre debe pasarle una función (callback) a través de las mismas props para que el hijo la invoque."
+    }
+  ],
+  "module3": [
+    {
+      "id": 5,
+      "question": "¿Por qué no usamos variables normales (`let cuenta = 0`) para guardar información dinámica en un componente?",
+      "options": [
+        "Porque 'let' es muy lento en navegadores modernos.",
+        "Porque cuando una variable normal muta, React no se entera y por ende no re-renderiza (actualiza) la pantalla.",
+        "Porque las variables normales no soportan números grandes.",
+        "No hay problema, se pueden usar perfectamente en lugar de useState."
+      ],
+      "correctAnswer": 1,
+      "justification": "React necesita un 'aviso' para saber que debe redibujar la UI. El setter de useState (`setCuenta`) no solo cambia el valor en memoria, sino que funciona como un disparador (trigger) que avisa al motor de React para que vuelva a pintar el componente."
+    },
+    {
+      "id": 6,
+      "question": "Acabas de llamar a `setValor(5)` en la línea anterior. Si haces `console.log(valor)` en la siguiente línea exacta de código, ¿verás un 5 en la consola?",
+      "options": [
+        "Sí, las actualizaciones son instantáneas.",
+        "No, verás el valor antiguo. Las actualizaciones de estado en React son asíncronas y ocurren por lotes (Batching) al terminar el ciclo de renderizado actual.",
+        "Verás undefined.",
+        "Dará un error de ejecución."
+      ],
+      "correctAnswer": 1,
+      "justification": "Es uno de los 'gotchas' más comunes. El setter del estado no detiene el hilo principal. React anota el nuevo valor y planifica una actualización para el futuro (milisegundos después). El valor de la variable en tu función actual no muta en tiempo real."
+    }
+  ],
+  "module4": [
+    {
+      "id": 7,
+      "question": "Al usar la función `.map()` para renderizar una lista de elementos HTML, ¿por qué React te obliga a ponerles un atributo único `key`?",
+      "options": [
+        "Para que CSS Grid funcione correctamente.",
+        "Para que la Base de Datos pueda indexarlos.",
+        "Para que el Virtual DOM pueda identificar unívocamente cada elemento, facilitando inserciones, reordenamientos y eliminaciones sin re-dibujar toda la lista.",
+        "Es un requerimiento opcional solo para accesibilidad (Screen Readers)."
+      ],
+      "correctAnswer": 2,
+      "justification": "Sin el atributo 'key', si eliminas el primer ítem de una lista de 100, React se confundiría e intentaría mutar los 99 restantes. Con la llave única, React sabe exactamente qué nodo del DOM destruir o mover."
+    },
+    {
+      "id": 8,
+      "question": "¿Es una buena práctica usar el índice numérico del bucle map (`index` 0, 1, 2) como `key` si la lista es dinámica y permite eliminar elementos?",
+      "options": [
+        "Sí, es la opción más recomendada y rápida.",
+        "No. Si eliminas el índice 0, todos los demás índices rotan. Esto confunde brutalmente al Virtual DOM y causará cruce de datos y bugs visuales severos.",
+        "Solo es mala práctica en TypeScript, en JavaScript puro está bien.",
+        "Da igual, React lo ignorará."
+      ],
+      "correctAnswer": 1,
+      "justification": "Los índices son posicionales. Si tu lista muta, el índice de los datos cambia, destruyendo la fiabilidad de la llave. Siempre debes usar IDs únicos provenientes de tus datos reales (ej. id de la base de datos)."
+    }
+  ],
+  "module5": [
+    {
+      "id": 9,
+      "question": "¿Qué es un Componente Controlado en el contexto de Formularios en React?",
+      "options": [
+        "Un componente que requiere contraseña para renderizarse.",
+        "Un formulario donde los inputs delegan su valor (value) y su actualización (onChange) completamente al Estado (useState) de React, convirtiendo a React en la única fuente de verdad.",
+        "Un formulario que usa el estado nativo del navegador sin intervención de React.",
+        "Un formulario manejado por Redux."
+      ],
+      "correctAnswer": 1,
+      "justification": "En HTML estándar, el input guarda lo que escribes en el DOM. En React, queremos forzar al input a mostrar únicamente lo que dice nuestra variable de estado, interceptando cada tecla para actualizar el estado central."
+    },
+    {
+      "id": 10,
+      "question": "Para evitar que la página entera se recargue (pantalla blanca) al hacer submit en un formulario, ¿qué método vital debes invocar en el objeto Evento dentro del manejador `onSubmit`?",
+      "options": [
+        "event.stopPropagation()",
+        "event.cancelSubmit()",
+        "event.preventDefault()",
+        "event.stopLoading()"
+      ],
+      "correctAnswer": 2,
+      "justification": "El comportamiento por defecto del navegador ante un <form> es hacer una petición HTTP al servidor y recargar la pestaña. Con 'preventDefault()', detenemos eso para que JavaScript (React) tome el control de enviar los datos mediante Fetch/Axios en segundo plano."
+    }
+  ],
+  "module6": [
+    {
+      "id": 11,
+      "question": "Tienes un componente <HijoA /> y un componente <HijoB />. Ninguno es padre del otro. Ambos necesitan acceder y editar una misma lista de tareas. ¿Cómo resuelves esto sin Context API?",
+      "options": [
+        "Levantando el Estado (Lifting State Up): Poniendo el useState en el Ancestro/Padre común de ambos y pasándoles la información y el setter por Props.",
+        "Creando un túnel de datos directo entre HijoA y HijoB usando Refs.",
+        "Usando el objeto window global del navegador.",
+        "No se puede, es obligatorio usar Context o Redux."
+      ],
+      "correctAnswer": 0,
+      "justification": "La elevación de estado es un patrón fundamental. Si el estado vive en el Padre, este puede enviar el Array de lectura al HijoA y la función 'setter' al HijoB. Así ambos comparten el mismo espacio de memoria."
+    }
+  ],
+  "module7": [
+    {
+      "id": 12,
+      "question": "¿Para qué sirve el Hook `useEffect` principalmente?",
+      "options": [
+        "Para aplicar animaciones CSS avanzadas a la UI.",
+        "Para manejar Efectos Secundarios: Operaciones que suceden fuera del flujo de renderizado puro de React, como Fetch de datos, Timers o Suscripciones.",
+        "Para validar formularios automáticamente.",
+        "Para aumentar los FPS (Frames Per Second) de la aplicación."
+      ],
+      "correctAnswer": 1,
+      "justification": "Las funciones de los componentes deben ser puras (dado el mismo input, retornar el mismo JSX). Si necesitas 'tocar el mundo exterior' (una API de backend o la API nativa del ratón en el DOM), debes hacerlo dentro de un useEffect para no bloquear la pintura de la UI."
+    },
+    {
+      "id": 13,
+      "question": "Si declaras un useEffect pero NO le pasas el segundo argumento (el Array de Dependencias vacías `[]`), ¿cuándo se ejecutará el código de su interior?",
+      "options": [
+        "Solo la primera vez que el componente se monta (carga).",
+        "Nunca se ejecutará.",
+        "Después de TODOS y cada uno de los re-renderizados del componente, creando un alto riesgo de Bucle Infinito si modificas el estado adentro.",
+        "Solo cuando se desmonte (destruya) el componente."
+      ],
+      "correctAnswer": 2,
+      "justification": "Al omitir el array `[]`, React asume que ese efecto debe correr en cada render. Si dentro del efecto llamas a `setState`, forzarás otro render, lo que invocará el efecto de nuevo, infinitamente. Siempre usa al menos un array vacío para que corra solo 'al nacer'."
+    }
+  ],
+  "module8": [
+    {
+      "id": 14,
+      "question": "¿Qué problema arquitectónico viene a solucionar la Context API?",
+      "options": [
+        "El tamaño excesivo del archivo index.js.",
+        "La inyección SQL en el lado del cliente.",
+        "El 'Prop Drilling': El infierno de pasar props de un Padre a un Hijo a 15 niveles de profundidad, obligando a componentes intermedios a conocer datos que no necesitan.",
+        "La falta de tipado en TypeScript."
+      ],
+      "correctAnswer": 2,
+      "justification": "El Contexto permite crear una variable 'Global' a un árbol de componentes. El Padre más alto lo 'Provee' (Provider) y cualquier hijo, sin importar lo enterrado que esté en la estructura, puede 'Consumirlo' directamente con useContext."
+    }
+  ],
+  "module9": [
+    {
+      "id": 15,
+      "question": "Creas un Custom Hook `useContador` y lo invocas dentro del `<Menu />` y dentro del `<Footer />`. Si sumas +5 en el Footer, ¿el Menú también mostrará un +5?",
+      "options": [
+        "Sí, porque los Custom Hooks comparten el estado globalmente en memoria.",
+        "No. Los Custom Hooks solo reutilizan la LÓGICA, no el espacio de memoria. Cada vez que invocas el Hook, obtienes una instancia completamente aislada de los estados internos (useState).",
+        "Dará error porque un Hook no puede llamarse en dos lugares.",
+        "Solo si usas React Router."
+      ],
+      "correctAnswer": 1,
+      "justification": "Es un error común creer que los Custom Hooks actúan como estado global. No lo hacen. Son simples funciones. Llamar a `useContador()` te devuelve variables privadas para ese componente específico, totalmente ajenas a las del otro componente."
+    }
+  ],
+  "module10": [
+    {
+      "id": 16,
+      "question": "¿Cuál es la característica principal de una Single Page Application (SPA) construida con React y React Router?",
+      "options": [
+        "Que requiere un servidor Node.js backend potente y costoso para renderizar HTML.",
+        "Que en cada clic de navegación se contacta al servidor pidiendo un archivo HTML diferente (.php, .html).",
+        "Que el servidor entrega un ÚNICO archivo HTML al inicio. Luego, React intercepta los clics de navegación y simplemente intercambia componentes usando JS instantáneamente, sin recargar (F5) la página entera.",
+        "Que toda la web está escrita en un único bloque de CSS."
+      ],
+      "correctAnswer": 2,
+      "justification": "Esta arquitectura elimina los molestos 'flashbacks' blancos o tiempos muertos de recarga de la web tradicional. Para el servidor, tu aplicación completa es solo un index.html; la magia del ruteo visual la hace la librería React Router manipulando el historial del navegador."
+    }
+  ]
+}

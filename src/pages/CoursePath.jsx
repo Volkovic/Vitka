@@ -1,10 +1,10 @@
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Lock, ArrowRight, Code2, Terminal, Database, GitBranch, Loader2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Lock, ArrowRight, Code2, Terminal, Database, GitBranch, Loader2, FileCode2, Atom, Server, Palette } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { useState, useEffect } from 'react';
 
-import { pythonTitles, javascriptTitles, sqlTitles, gitTitles } from '../data/courseTitles';
+import { pythonTitles, javascriptTitles, sqlTitles, gitTitles, typescriptTitles, nodeTitles, reactTitles, tailwindTitles } from '../data/courseTitles';
 
 export default function CoursePath() {
   const { courseId } = useParams();
@@ -37,17 +37,21 @@ export default function CoursePath() {
     loadProgress();
   }, [user, courseId]);
 
-  if (courseId !== 'python' && courseId !== 'javascript' && courseId !== 'sql' && courseId !== 'git') {
+  if (courseId !== 'python' && courseId !== 'javascript' && courseId !== 'sql' && courseId !== 'git' && courseId !== 'typescript' && courseId !== 'node' && courseId !== 'react' && courseId !== 'tailwind') {
     return <Navigate to="/" />;
   }
 
   const isPython = courseId === 'python';
   const isSql = courseId === 'sql';
   const isGit = courseId === 'git';
+  const isTypescript = courseId === 'typescript';
+  const isNode = courseId === 'node';
+  const isReact = courseId === 'react';
+  const isTailwind = courseId === 'tailwind';
   
-  const moduleTitles = isPython ? pythonTitles : (isSql ? sqlTitles : (isGit ? gitTitles : javascriptTitles));
-  const courseName = isPython ? 'Python' : (isSql ? 'SQL' : (isGit ? 'Git/GitHub' : 'JavaScript'));
-  const Icon = isPython ? Terminal : (isSql ? Database : (isGit ? GitBranch : Code2));
+  const moduleTitles = isPython ? pythonTitles : (isSql ? sqlTitles : (isGit ? gitTitles : (isTypescript ? typescriptTitles : (isNode ? nodeTitles : (isReact ? reactTitles : (isTailwind ? tailwindTitles : javascriptTitles))))));
+  const courseName = isPython ? 'Python' : (isSql ? 'SQL + Supabase' : (isGit ? 'Git/GitHub' : (isTypescript ? 'TypeScript' : (isNode ? 'Node.js' : (isReact ? 'React' : (isTailwind ? 'Tailwind CSS' : 'JavaScript'))))));
+  const Icon = isPython ? Terminal : (isSql ? Database : (isGit ? GitBranch : (isTypescript ? FileCode2 : (isNode ? Server : (isReact ? Atom : (isTailwind ? Palette : Code2))))));
 
   if (authLoading || loading) {
     return <div className="flex items-center justify-center min-h-[50vh]"><Loader2 className="animate-spin text-primary" size={48}/></div>;

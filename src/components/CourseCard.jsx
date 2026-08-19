@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
-export default function CourseCard({ title, badge, description, icon: Icon, to, isAvailable = true, progress = 0 }) {
+export default function CourseCard({ title, badge, description, icon: Icon, to, isAvailable = true, progress = 0, themeColor }) {
   const CardComponent = isAvailable ? Link : 'div';
   const linkProps = isAvailable ? { to } : {};
 
@@ -17,10 +17,10 @@ export default function CourseCard({ title, badge, description, icon: Icon, to, 
       <div className="relative z-10 flex flex-col h-full">
         <div className="flex items-center justify-between mb-4">
           <div className="p-3 bg-gray-800/50 rounded-xl w-fit">
-            <Icon className="text-primary" size={24} />
+            <Icon className={!themeColor ? "text-primary" : ""} style={themeColor ? { color: themeColor } : {}} size={24} />
           </div>
           {isAvailable && (
-            <ArrowRight className="text-primary opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0" size={24} />
+            <ArrowRight className={`opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0 ${!themeColor ? "text-primary" : ""}`} style={themeColor ? { color: themeColor } : {}} size={24} />
           )}
         </div>
         
@@ -38,12 +38,12 @@ export default function CourseCard({ title, badge, description, icon: Icon, to, 
           <div className="mt-auto space-y-2">
             <div className="flex justify-between text-sm font-medium">
               <span className="text-text-muted">Progreso</span>
-              <span className="text-primary">{progress}%</span>
+              <span className={!themeColor ? "text-primary" : ""} style={themeColor ? { color: themeColor } : {}}>{progress}%</span>
             </div>
             <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
               <div 
-                className="bg-primary h-2 rounded-full transition-all duration-500" 
-                style={{ width: `${progress}%` }}
+                className={`h-2 rounded-full transition-all duration-500 ${!themeColor ? "bg-primary" : ""}`}
+                style={{ width: `${progress}%`, ...(themeColor ? { backgroundColor: themeColor } : {}) }}
               ></div>
             </div>
           </div>

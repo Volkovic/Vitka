@@ -1,0 +1,198 @@
+{
+  "module1": [
+    {
+      "id": 1,
+      "question": "¿TypeScript se ejecuta directamente en el navegador?",
+      "options": [
+        "Sí, todos los navegadores modernos lo soportan nativamente.",
+        "No, siempre debe transpilarse a JavaScript puro antes de ejecutarse.",
+        "Solo en Node.js, no en el navegador.",
+        "Depende de la configuración de tsconfig.json."
+      ],
+      "correctAnswer": 1,
+      "justification": "TypeScript es una capa de herramientas de desarrollo. El navegador o Node.js solo entienden JavaScript puro, por lo que el código TS siempre debe compilarse a JS primero."
+    },
+    {
+      "id": 2,
+      "question": "¿Qué sucede si reasignas una variable con un tipo de dato diferente cuando TypeScript usó Inferencia de tipos?",
+      "options": [
+        "No pasa nada, TypeScript es dinámico.",
+        "Arroja un error de compilación indicando que los tipos no coinciden.",
+        "Convierte automáticamente el nuevo valor al tipo original.",
+        "Borra la variable y crea una nueva."
+      ],
+      "correctAnswer": 1,
+      "justification": "Incluso si no anotaste explícitamente el tipo, TS infiere el tipo basándose en el primer valor asignado y protegerá esa variable contra reasignaciones de tipos diferentes."
+    },
+    {
+      "id": 3,
+      "question": "¿Cuál es la principal diferencia entre 'any' y 'unknown'?",
+      "options": [
+        "No hay diferencia, son sinónimos.",
+        "unknown apaga el chequeo de tipos, any te obliga a validarlo.",
+        "any apaga el chequeo de tipos, unknown te obliga a validarlo antes de operarlo.",
+        "unknown solo sirve para variables no definidas."
+      ],
+      "correctAnswer": 2,
+      "justification": "El tipo 'any' permite que hagas cualquier cosa con la variable, eliminando la seguridad. 'unknown' es más seguro porque TS te exige verificar el tipo exacto antes de invocar métodos sobre él."
+    },
+    {
+      "id": 4,
+      "question": "¿Qué hace la opción 'strict: true' en tsconfig.json?",
+      "options": [
+        "Evita que el programa se cuelgue.",
+        "Habilita el nivel máximo de chequeos de tipado para evitar errores silenciosos.",
+        "Prohíbe usar console.log.",
+        "Solo compila a versiones antiguas de JS."
+      ],
+      "correctAnswer": 1,
+      "justification": "La opción strict enciende toda la suite de validaciones fuertes de TypeScript."
+    }
+  ],
+  "module2": [
+    {
+      "id": 5,
+      "question": "En Interfaces, ¿para qué se utiliza el modificador 'readonly'?",
+      "options": [
+        "Para que la propiedad solo sea visible, pero no utilizable.",
+        "Para evitar que el valor de la propiedad sea modificado después de la creación del objeto.",
+        "Para que solo administradores puedan cambiar la propiedad.",
+        "Para encriptar la propiedad."
+      ],
+      "correctAnswer": 1,
+      "justification": "Como indica el módulo 2, 'readonly' asegura que una propiedad no pueda reasignarse una vez que el objeto ha sido inicializado."
+    },
+    {
+      "id": 6,
+      "question": "¿Cómo indicamos que una propiedad en una interfaz es opcional?",
+      "options": [
+        "Con la palabra clave 'optional'.",
+        "Agregando el símbolo '?' justo antes de los dos puntos.",
+        "Poniendo el tipo como 'any'.",
+        "No se puede hacer opcional."
+      ],
+      "correctAnswer": 1,
+      "justification": "Añadiendo '?' en el nombre de la propiedad le decimos a TS que esa propiedad puede ser del tipo indicado o 'undefined'."
+    }
+  ],
+  "module3": [
+    {
+      "id": 7,
+      "question": "¿Qué permite hacer un Union Type (|)?",
+      "options": [
+        "Que una variable sea de varios tipos al mismo tiempo.",
+        "Que una variable pueda ser de uno de varios tipos posibles.",
+        "Unir dos variables en un solo string.",
+        "Crear una base de datos relacional."
+      ],
+      "correctAnswer": 1,
+      "justification": "El operador de unión '|' actúa como un 'OR' lógico, permitiendo que una variable acepte, por ejemplo, valores numéricos O de texto."
+    },
+    {
+      "id": 8,
+      "question": "¿Qué es el 'Type Narrowing'?",
+      "options": [
+        "Hacer los tipos de datos más pequeños en memoria.",
+        "Comprobar dinámicamente el tipo de un Union Type usando typeof o instanceof para operar de forma segura.",
+        "Reducir el tamaño del archivo tsconfig.json.",
+        "Borrar variables que ya no se usan."
+      ],
+      "correctAnswer": 1,
+      "justification": "El Type Narrowing consiste en usar condicionales (if typeof === 'string') para 'estrechar' o reducir las posibilidades y que TS sepa qué métodos son seguros usar en ese bloque."
+    }
+  ],
+  "module4": [
+    {
+      "id": 9,
+      "question": "¿Qué tipo de retorno indicamos cuando una función no devuelve nada?",
+      "options": [
+        "null",
+        "undefined",
+        "void",
+        "empty"
+      ],
+      "correctAnswer": 2,
+      "justification": "La palabra clave 'void' se usa en la firma de la función para declarar que no retorna ningún valor al finalizar su ejecución."
+    }
+  ],
+  "module5": [
+    {
+      "id": 10,
+      "question": "¿Qué ventaja principal ofrece un enum de strings sobre uno numérico?",
+      "options": [
+        "Es más rápido.",
+        "Ocupa menos memoria.",
+        "Es más legible y útil para depuración porque en consola ves el nombre en lugar de un número.",
+        "Soporta herencia."
+      ],
+      "correctAnswer": 2,
+      "justification": "Si imprimes un enum numérico, verás valores como 0 o 1, lo cual pierde contexto. Un enum de strings te permite ver el valor real (ej. 'ADMIN'), facilitando el debuggin."
+    }
+  ],
+  "module6": [
+    {
+      "id": 11,
+      "question": "¿Qué palabra clave se usa para obligar a una clase a cumplir con el contrato de una interfaz?",
+      "options": [
+        "extends",
+        "implements",
+        "requires",
+        "satisfies"
+      ],
+      "correctAnswer": 1,
+      "justification": "Se utiliza 'implements'. La clase queda obligada por el compilador a proporcionar la estructura exacta (métodos y propiedades) definida en la interfaz."
+    }
+  ],
+  "module7": [
+    {
+      "id": 12,
+      "question": "¿Para qué sirven los Genéricos en TypeScript?",
+      "options": [
+        "Para generar código aleatorio.",
+        "Para compilar más rápido.",
+        "Para crear componentes, funciones o clases que funcionen dinámicamente con múltiples tipos manteniendo el tipado estricto.",
+        "Para importar librerías externas genéricas."
+      ],
+      "correctAnswer": 2,
+      "justification": "Los genéricos (<T>) actúan como 'variables' para los tipos, permitiéndote reutilizar código sin perder la seguridad de que TS sepa exactamente qué tipo entra y sale."
+    }
+  ],
+  "module8": [
+    {
+      "id": 13,
+      "question": "¿Qué hace el Utility Type Partial<T>?",
+      "options": [
+        "Borra partes del objeto.",
+        "Hace que todas las propiedades de una interfaz se vuelvan obligatorias.",
+        "Hace que todas las propiedades de una interfaz o tipo se vuelvan opcionales.",
+        "Parte el código en dos archivos."
+      ],
+      "correctAnswer": 2,
+      "justification": "Partial toma una interfaz T y genera una copia donde todos sus campos tienen el operador '?', haciéndolos opcionales."
+    },
+    {
+      "id": 14,
+      "question": "¿Cuál es el opuesto del Utility Type Pick<T>?",
+      "options": [
+        "Drop<T>",
+        "Remove<T>",
+        "Delete<T>",
+        "Omit<T>"
+      ],
+      "correctAnswer": 3,
+      "justification": "Mientras que Pick extrae únicamente las propiedades indicadas, Omit hace lo contrario: toma todas las propiedades excepto las que le indiques omitir."
+    },
+    {
+      "id": 15,
+      "question": "¿Para qué se utiliza el Utility Type Record<Keys, Type>?",
+      "options": [
+        "Para grabar audio en el navegador.",
+        "Para registrar errores en un archivo log.",
+        "Para definir un objeto/mapa donde las llaves y sus valores sean de tipos estrictamente predefinidos.",
+        "Para conectar TypeScript con una base de datos."
+      ],
+      "correctAnswer": 2,
+      "justification": "Record<string, number> garantiza que estás creando un diccionario donde todas las propiedades (sin importar su nombre) son strings, y todos los valores son números."
+    }
+  ]
+}

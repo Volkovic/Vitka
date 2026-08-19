@@ -11,8 +11,12 @@ import { supabase } from '../lib/supabase';
 const TOTAL_MODULES = {
   python: 30,
   javascript: 23,
-  sql: 15,
-  git: 8
+  sql: 22,
+  git: 8,
+  typescript: 8,
+  node: 4,
+  react: 10,
+  tailwind: 5
 };
 
 export default function Dashboard() {
@@ -21,7 +25,11 @@ export default function Dashboard() {
     python: 0,
     javascript: 0,
     sql: 0,
-    git: 0
+    git: 0,
+    typescript: 0,
+    node: 0,
+    react: 0,
+    tailwind: 0
   });
 
   useEffect(() => {
@@ -38,7 +46,11 @@ export default function Dashboard() {
           python: 0,
           javascript: 0,
           sql: 0,
-          git: 0
+          git: 0,
+          typescript: 0,
+          node: 0,
+          react: 0,
+          tailwind: 0
         };
         
         data.forEach(row => {
@@ -51,7 +63,11 @@ export default function Dashboard() {
           python: Math.round((maxModules.python / TOTAL_MODULES.python) * 100),
           javascript: Math.round((maxModules.javascript / TOTAL_MODULES.javascript) * 100),
           sql: Math.round((maxModules.sql / TOTAL_MODULES.sql) * 100),
-          git: Math.round((maxModules.git / TOTAL_MODULES.git) * 100)
+          git: Math.round((maxModules.git / TOTAL_MODULES.git) * 100),
+          typescript: Math.round((maxModules.typescript / TOTAL_MODULES.typescript) * 100),
+          node: Math.round((maxModules.node / TOTAL_MODULES.node) * 100),
+          react: Math.round((maxModules.react / TOTAL_MODULES.react) * 100),
+          tailwind: Math.round((maxModules.tailwind / TOTAL_MODULES.tailwind) * 100)
         });
       }
     }
@@ -123,17 +139,23 @@ export default function Dashboard() {
         },
         {
           title: "TypeScript",
+          badge: "8 Módulos",
           description: "JavaScript con superpoderes: tipado estático, interfaces y más seguridad.",
           icon: FileCode2,
           to: "/typescript",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "typescript",
+          themeColor: "#3178C6"
         },
         {
           title: "Node/npm/vite",
+          badge: "4 Módulos",
           description: "Entorno de ejecución, gestión de paquetes y bundlers modernos.",
           icon: Server,
           to: "/node",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "node",
+          themeColor: "#339933"
         }
       ]
     },
@@ -144,17 +166,23 @@ export default function Dashboard() {
       cards: [
         {
           title: "React",
+          badge: "10 Módulos",
           description: "Crea interfaces de usuario interactivas y dinámicas basadas en componentes.",
           icon: Atom,
           to: "/react",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "react",
+          themeColor: "#61DAFB"
         },
         {
           title: "Tailwind + shadcn",
-          description: "Estilos rápidos y componentes accesibles para un diseño moderno.",
+          badge: "5 Módulos",
+          description: "Sistemas de diseño utility-first y componentes de UI accesibles.",
           icon: Palette,
           to: "/tailwind",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "tailwind",
+          themeColor: "#38bdf8"
         }
       ]
     },
@@ -164,20 +192,14 @@ export default function Dashboard() {
       description: "La forma rápida y moderna de guardar datos sin configurar servidores.",
       cards: [
         {
-          title: "SQL",
-          badge: "15 Módulos",
-          description: "Bases de datos relacionales, consultas complejas y modelado de datos.",
+          title: "SQL + Supabase",
+          badge: "22 Módulos",
+          description: "De consultas puras al Backend as a Service. Bases de datos, autenticación y storage.",
           icon: Database,
           to: "/sql",
           isAvailable: true,
-          progressId: "sql"
-        },
-        {
-          title: "Supabase",
-          description: "Backend as a Service: bases de datos, autenticación y storage.",
-          icon: Database,
-          to: "/supabase",
-          isAvailable: false
+          progressId: "sql",
+          themeColor: "#3ECF8E"
         }
       ]
     },
@@ -295,6 +317,7 @@ export default function Dashboard() {
                   to={card.to} 
                   isAvailable={card.isAvailable}
                   progress={card.completed ? 100 : (card.progressId ? progress[card.progressId] : 0)}
+                  themeColor={card.themeColor}
                 />
               ))}
             </div>

@@ -19,11 +19,14 @@ export const javascriptTitles = [
 ];
 
 export const sqlTitles = [
-  'Introducción a SQL y SELECT', 'Filtros con WHERE (Pt. 1)', 'Filtros con WHERE (Pt. 2)', 
-  'Ordenamiento, Límites y Únicos', 'Multi-tabla con JOINs', 'OUTER JOINs', 
-  'NULLs en SQL', 'Expresiones y Alias', 'Funciones de Agregación (Pt. 1)', 
-  'Agregación con GROUP BY', 'Orden de Ejecución', 'INSERT INTO', 
-  'UPDATE y DELETE', 'CREATE TABLE', 'ALTER y DROP TABLE'
+  'Introducción a SQL y SELECT', 'Filtrado Avanzado (WHERE, LIKE, IN)', 'Ordenamiento y Paginación (ORDER BY, LIMIT)',
+  'Diseño de Tablas (CREATE TABLE)', 'Tipos de Datos Principales', 'Llaves Primarias (PRIMARY KEY)',
+  'Relaciones y Llaves Foráneas (FOREIGN KEY)', 'Uniones Básicas (INNER JOIN)', 'Uniones Avanzadas (LEFT/RIGHT JOIN)',
+  'Insertar Datos (INSERT)', 'Consultas de Actualización (UPDATE)', 'Borrar Datos (DELETE)', 
+  'Constraints Avanzados', 'Funciones de Agregación', 'Subconsultas Básicas',
+  '¿Qué es un BaaS y Supabase?', 'El Cliente Supabase en React', 'CRUD sin escribir SQL',
+  'Autenticación (Auth)', 'Seguridad a Nivel de Fila (RLS)', 'Bases de Datos en Tiempo Real',
+  'Almacenamiento (Supabase Storage)'
 ];
 
 export const gitTitles = [
@@ -33,11 +36,50 @@ export const gitTitles = [
   'GitHub Actions y CI/CD'
 ];
 
+export const typescriptTitles = [
+  'Introducción y Tipado Básico', 'Interfaces y Types', 'Union e Intersection Types',
+  'Tipado de Funciones', 'Arrays, Tuplas y Enums', 'Clases y OOP en TS',
+  'Genéricos (Generics)', 'Tipos de Utilidad (Utility Types)'
+];
+
+export const nodeTitles = [
+  '¿Qué es Node.js?', 'NPM y package.json', 'Sistemas de Módulos', 'Vite y Bundlers'
+];
+
+export const reactTitles = [
+  'Filosofía de React y JSX', 'Componentes y Props', 'Estado Local (useState)',
+  'Renderizado Condicional y Listas', 'Eventos y Formularios', 'Elevación del Estado',
+  'Efectos Secundarios (useEffect)', 'Estado Global (Context API)', 'Hooks Personalizados',
+  'Arquitectura SPA'
+];
+
+export const tailwindTitles = [
+  'El Paradigma Utility-First', 'Sistemas de Diseño Restringidos',
+  'El Compilador JIT (Just-In-Time) y Estados', 'La Filosofía shadcn/ui: La Anti-Librería',
+  'Arquitectura Headless y Accesibilidad'
+];
+
 export function getModuleTitle(courseId, moduleId) {
   const index = parseInt(moduleId, 10) - 1;
   if (courseId === 'python') return pythonTitles[index] || `Módulo ${moduleId}`;
   if (courseId === 'javascript') return javascriptTitles[index] || `Módulo ${moduleId}`;
   if (courseId === 'sql') return sqlTitles[index] || `Módulo ${moduleId}`;
   if (courseId === 'git') return gitTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'typescript') return typescriptTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'node') return nodeTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'react') return reactTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'tailwind') return tailwindTitles[index] || `Módulo ${moduleId}`;
   return `Módulo ${moduleId}`;
+}
+
+export function getCourseTotalModules(courseId) {
+  if (courseId === 'python') return pythonTitles.length;
+  if (courseId === 'javascript') return javascriptTitles.length;
+  if (courseId === 'sql') return sqlTitles.length;
+  if (courseId === 'git') return gitTitles.length;
+  if (courseId === 'typescript') return typescriptTitles.length;
+  if (courseId === 'node') return nodeTitles.length;
+  if (courseId === 'react') return reactTitles.length;
+  if (courseId === 'tailwind') return tailwindTitles.length;
+  return 0;
 }

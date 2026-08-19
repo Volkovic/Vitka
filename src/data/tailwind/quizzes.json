@@ -1,0 +1,72 @@
+{
+  "module1": [
+    {
+      "id": 5001,
+      "question": "¿Cuál es la principal ventaja arquitectónica del enfoque 'Utility-First' de Tailwind frente al CSS global tradicional?",
+      "options": [
+        "Reduce la cantidad de atributos en el HTML.",
+        "Permite que los diseñadores no tengan que escribir código CSS.",
+        "Elimina por completo el código CSS muerto. Si eliminas un componente de React, las clases CSS utilizadas desaparecen con él, evitando que las hojas de estilo crezcan infinitamente.",
+        "Genera animaciones 3D más rápido."
+      ],
+      "correctAnswer": 2,
+      "justification": "En metodologías tradicionales, el código CSS solo crece (Append-only) por el miedo a borrar clases globales que puedan romper otras vistas. Al inyectar utilidades directamente en el componente, Tailwind asegura una portabilidad total sin efectos colaterales ocultos."
+    }
+  ],
+  "module2": [
+    {
+      "id": 5002,
+      "question": "¿Por qué un Sistema de Diseño restrictivo (como los tamaños predefinidos de Tailwind) es superior a usar CSS puro donde el desarrollador puede escribir cualquier valor (ej. `margin-top: 17px`)?",
+      "options": [
+        "Porque fuerza la consistencia matemática de la UI a lo largo de todo el proyecto, eliminando el caos de colores y espaciados aleatorios creados 'a ojo'.",
+        "Porque compila mucho más rápido en Vite.",
+        "Porque permite que los sitios web se vean idénticos en Safari y Chrome.",
+        "No es superior, es una limitación de Tailwind."
+      ],
+      "correctAnswer": 0,
+      "justification": "Los 'Números Mágicos' degradan la calidad visual de un producto y complican el mantenimiento. Limitar a los programadores a un conjunto predefinido de reglas de diseño asegura una aplicación simétrica, profesional y cohesiva sin requerir habilidades de diseñador."
+    }
+  ],
+  "module3": [
+    {
+      "id": 5003,
+      "question": "¿Cómo solucionó Tailwind el problema de generar archivos CSS de producción excesivamente masivos en sus últimas versiones?",
+      "options": [
+        "Implementando un algoritmo de compresión Zip en el navegador.",
+        "Eliminando el soporte para Dark Mode.",
+        "Obligando al usuario a escribir CSS puro para casos complejos.",
+        "Introduciendo el Compilador JIT (Just-In-Time), el cual escanea el código fuente estáticamente e inyecta al CSS únicamente las clases exactas que han sido utilizadas."
+      ],
+      "correctAnswer": 3,
+      "justification": "Antes del JIT, Tailwind pre-generaba miles de combinaciones pesadas por si acaso se utilizaban. JIT cambió la arquitectura para construir bajo demanda, resultando en archivos de producción ínfimos (casi siempre menores a 10kb)."
+    }
+  ],
+  "module4": [
+    {
+      "id": 5004,
+      "question": "¿Cuál es la premisa central del paradigma de 'Ownership' (Propiedad del código) promovido por shadcn/ui?",
+      "options": [
+        "Comprar licencias privativas para los componentes.",
+        "Depender exclusivamente de paquetes NPM actualizables.",
+        "Copiar físicamente el código fuente del componente al propio repositorio del desarrollador, dándole control absoluto para modificar la lógica interna y evitar pelear contra dependencias cerradas.",
+        "Ocultar el código en servidores en la nube."
+      ],
+      "correctAnswer": 2,
+      "justification": "Las librerías tradicionales como Material UI te atan a las decisiones de los creadores. Si necesitas un comportamiento que la librería no soporta nativamente, es muy difícil extenderlo. Al copiar el código fuente, shadcn/ui te devuelve el poder total a cambio de asumir la responsabilidad de su mantenimiento."
+    }
+  ],
+  "module5": [
+    {
+      "id": 5005,
+      "question": "¿Por qué la simbiosis de la arquitectura Headless (Radix UI) combinada con el cascarón estético (Tailwind CSS) es la piedra angular técnica de shadcn/ui?",
+      "options": [
+        "Porque Radix UI es el motor que compila Tailwind más rápido.",
+        "Porque permite que el usuario elija entre usar clases o estilos en línea.",
+        "Porque Radix absorbe toda la complejidad titánica de la accesibilidad (navegación por teclado, lectores de pantalla) sin imponer ningún estilo visual, permitiendo que Tailwind adorne el componente con total libertad estética.",
+        "Ambas herramientas fueron creadas por la misma persona."
+      ],
+      "correctAnswer": 2,
+      "justification": "Crear componentes web no es solo pintar rectángulos de colores. El manejo del Focus Trap, ARIA roles, y la gestión del teclado es ingeniería de alto nivel. Radix provee este 'cerebro' invisible, y Tailwind actúa como la 'piel' visible y hermosa, siendo ensamblados bajo el concepto de shadcn."
+    }
+  ]
+}

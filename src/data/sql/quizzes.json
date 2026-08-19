@@ -3628,5 +3628,103 @@
       "correctAnswer": 0,
       "justification": "En migraciones: primero se destruye la versión vieja (DROP IF EXISTS para evitar errores), luego se crea la nueva estructura (CREATE TABLE), y finalmente se insertan los datos."
     }
+  ],
+  "module16": [
+    {
+      "id": 1601,
+      "question": "¿Cuál es la filosofía principal detrás de usar un BaaS como Supabase en una arquitectura Frontend?",
+      "options": [
+        "Reescribir todo el Frontend en PostgreSQL.",
+        "Ahorrar meses de desarrollo evitando construir, asegurar y mantener un servidor Backend (API) intermediario personalizado.",
+        "Ocultar el código de React en el servidor.",
+        "Crear bases de datos NoSQL automáticamente."
+      ],
+      "correctAnswer": 1,
+      "justification": "Esa es la ventaja del BaaS: Te regala una base de datos expuesta de forma segura a través de una API pre-construida, permitiendo que el Frontend hable directamente con los datos bajo estrictas reglas de seguridad."
+    }
+  ],
+  "module17": [
+    {
+      "id": 1701,
+      "question": "¿Por qué es seguro colocar la clave 'anon' (pública) de Supabase en tu código de React, sabiendo que cualquier usuario podría leerla?",
+      "options": [
+        "Porque React encripta automáticamente el código al hacer build.",
+        "Porque la clave anon rota cada 24 horas automáticamente.",
+        "Porque la verdadera seguridad reside en las reglas de PostgreSQL (Row Level Security). La clave anon solo identifica el proyecto, pero la base de datos rechazará cualquier consulta no autorizada explícitamente.",
+        "Porque Supabase rastrea la IP y bloquea hackers."
+      ],
+      "correctAnswer": 2,
+      "justification": "La seguridad perimetral es un mito en el frontend moderno. La seguridad real se delega al motor de la base de datos mediante RLS, el cual evalúa el contexto del usuario (quién es) antes de retornar los datos."
+    }
+  ],
+  "module18": [
+    {
+      "id": 1801,
+      "question": "¿Qué método del ORM de JavaScript de Supabase se utiliza para añadir una condición equivalente a la cláusula WHERE de SQL?",
+      "options": [
+        ".where()",
+        ".filter()",
+        ".eq(), .gte(), .in()",
+        ".condition()"
+      ],
+      "correctAnswer": 2,
+      "justification": "PostgREST (el motor detrás de la API de Supabase) utiliza métodos descriptivos como .eq() (equals), .gte() (greater than or equal) para aplicar los filtros WHERE."
+    }
+  ],
+  "module19": [
+    {
+      "id": 1901,
+      "question": "Un usuario se registra usando `supabase.auth.signUp()`. ¿En qué lugar de la base de datos se guarda su información de login de manera nativa?",
+      "options": [
+        "En la tabla pública `public.users`.",
+        "En el archivo localStorage del navegador.",
+        "En una tabla privada en el esquema `auth.users`, a la cual el cliente no tiene acceso directo por seguridad.",
+        "En un servidor diferente de Firebase."
+      ],
+      "correctAnswer": 2,
+      "justification": "Por seguridad estricta, el esquema 'auth' maneja los hashes de las contraseñas y las identidades. Si deseas una tabla de perfiles pública, debes crearla tú en 'public' y sincronizarla con 'auth.users' mediante Triggers de SQL."
+    }
+  ],
+  "module20": [
+    {
+      "id": 2001,
+      "question": "Tienes el Row Level Security (RLS) habilitado en la tabla `usuarios` y un frontend intentando hacer un `SELECT *`. Si NO has creado ninguna Política (Policy) SQL, ¿cuál será el resultado?",
+      "options": [
+        "Devolverá todos los usuarios porque eres el dueño del proyecto.",
+        "Devolverá un error de sintaxis 500.",
+        "La consulta funcionará pero devolverá un array vacío []. El RLS actúa como una pared de ladrillos por defecto.",
+        "Devolverá solo al usuario actual."
+      ],
+      "correctAnswer": 2,
+      "justification": "La negación por defecto (Default Deny) es la esencia del RLS. Si la tabla tiene RLS activo pero no hay políticas permisivas explícitas, nadie puede leer, insertar o alterar absolutamente nada."
+    }
+  ],
+  "module21": [
+    {
+      "id": 2101,
+      "question": "¿Qué requisito previo necesitas configurar en el panel de tu base de datos Supabase para que tu app de React reciba eventos de Realtime (WebSockets) cuando ocurre un INSERT?",
+      "options": [
+        "Instalar la librería Socket.io.",
+        "Habilitar manualmente la tabla específica en la configuración de 'Replicación Lógica' (Realtime) del motor PostgreSQL.",
+        "Añadir la palabra 'realtime' al final de tu URL.",
+        "Pagar el plan Pro."
+      ],
+      "correctAnswer": 1,
+      "justification": "Transmitir cada cambio a miles de clientes consume enormes recursos de servidor. Por defecto, ninguna tabla emite cambios por Realtime hasta que tú lo habilitas explícitamente en la configuración de la tabla."
+    }
+  ],
+  "module22": [
+    {
+      "id": 2201,
+      "question": "¿Por qué es una mala práctica guardar la imagen de avatar del usuario codificada en Base64 dentro de la tabla de la base de datos PostgreSQL?",
+      "options": [
+        "Porque Base64 tiene copyright.",
+        "Porque PostgreSQL no soporta strings largos.",
+        "Porque los archivos binarios masivos ralentizarán gravemente las consultas y consumirán excesivo almacenamiento costoso de BD. Se debe usar Storage (Buckets) y guardar solo la URL en la tabla.",
+        "No es una mala práctica, es lo más seguro."
+      ],
+      "correctAnswer": 2,
+      "justification": "Las bases de datos relacionales están optimizadas para buscar y relacionar datos estructurados rápidamente. Guardar megabytes de imágenes en las columnas destruye el rendimiento. Storage separa los archivos pesados y te devuelve una simple URL para la BD."
+    }
   ]
 }

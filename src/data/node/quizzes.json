@@ -1,0 +1,154 @@
+{
+  "module1": [
+    {
+      "id": 1,
+      "question": "¿Qué es fundamentalmente Node.js?",
+      "options": [
+        "Un nuevo lenguaje de programación basado en JavaScript.",
+        "Un entorno de ejecución (Runtime) que toma el motor V8 de Chrome y lo instala en tu sistema operativo.",
+        "Un framework para construir aplicaciones de React.",
+        "Una base de datos NoSQL muy rápida."
+      ],
+      "correctAnswer": 1,
+      "justification": "Node.js no es un lenguaje, es el 'vehículo' que saca a JavaScript del navegador web (donde estaba limitado) y le permite correr nativamente en tu computadora a través del motor V8 de Google."
+    },
+    {
+      "id": 2,
+      "question": "En el contexto de Node.js, ¿por qué fallaría la ejecución de `document.getElementById('btn')`?",
+      "options": [
+        "Porque falta importar la librería de React.",
+        "Porque Node es case-sensitive y se debe escribir Document.",
+        "Porque Node se ejecuta en el sistema operativo, donde no existe el DOM ni el objeto 'window' o 'document' propio de los navegadores web.",
+        "Porque Node solo acepta IDs numéricos."
+      ],
+      "correctAnswer": 2,
+      "justification": "Node corre en la terminal o consola. Al no haber una ventana gráfica ni HTML renderizándose, los objetos globales del navegador como 'window' o 'document' simplemente no existen en este entorno."
+    },
+    {
+      "id": 3,
+      "question": "¿Cómo maneja Node.js múltiples conexiones si solo tiene un 'hilo' (Single-Threaded)?",
+      "options": [
+        "No puede manejar múltiples conexiones al mismo tiempo.",
+        "Levanta un hilo nuevo (Thread) por cada usuario que se conecta.",
+        "Obliga a los usuarios a esperar en una cola FIFO.",
+        "Usa el Event Loop, delegando tareas pesadas de entrada/salida (I/O) al sistema operativo y atendiendo otros clientes mediante asincronía y callbacks."
+      ],
+      "correctAnswer": 3,
+      "justification": "A diferencia de lenguajes tradicionales que consumen un hilo completo por petición, Node delega el tiempo de espera (I/O asíncrono) al SO, manteniendo su único hilo principal libre para recibir miles de otras conexiones simultáneamente."
+    }
+  ],
+  "module2": [
+    {
+      "id": 4,
+      "question": "¿Cuál es el propósito principal del archivo 'package.json'?",
+      "options": [
+        "Compilar automáticamente el código JavaScript.",
+        "Actuar como el documento de identidad del proyecto, registrando dependencias y metadatos críticos.",
+        "Almacenar el código fuente de las librerías descargadas.",
+        "Ser el servidor web que responde a las peticiones."
+      ],
+      "correctAnswer": 1,
+      "justification": "El package.json es el manifiesto del proyecto. Le dice a NPM qué paquetes necesita tu app para funcionar, para que cualquiera pueda replicar tu entorno con solo correr 'npm install'."
+    },
+    {
+      "id": 5,
+      "question": "¿Qué deberías hacer si clonas un proyecto web desde GitHub que no incluye la carpeta 'node_modules'?",
+      "options": [
+        "Crear la carpeta manualmente y copiar los archivos de otro proyecto.",
+        "Pedirle a tu colega que vuelva a hacer push incluyendo la carpeta node_modules.",
+        "Ejecutar el comando 'npm install' en la terminal para que NPM descargue todo automáticamente leyendo el package.json.",
+        "Ignorar el error y correr el servidor de todas formas."
+      ],
+      "correctAnswer": 2,
+      "justification": "La carpeta node_modules NUNCA se sube a control de versiones por su inmenso peso. 'npm install' reconstruye esa carpeta al 100% basándose en las reglas anotadas en tu package.json."
+    },
+    {
+      "id": 6,
+      "question": "¿Qué diferencia crítica existe entre 'dependencies' y 'devDependencies'?",
+      "options": [
+        "Ninguna, es solo por convención visual.",
+        "Las dependencies son de pago, las devDependencies son gratis.",
+        "Las dependencies son necesarias para que la app corra en producción; las devDependencies (ej. TypeScript) son herramientas que se descartan al desplegar el código final.",
+        "Las devDependencies solo funcionan en Mac y Linux."
+      ],
+      "correctAnswer": 2,
+      "justification": "Herramientas de testing, formateadores (Prettier) o el compilador de TypeScript son devDependencies. El usuario final nunca necesita esto. React o librerías de UI, en cambio, sí viajan a producción como dependencias puras."
+    }
+  ],
+  "module3": [
+    {
+      "id": 7,
+      "question": "¿Qué palabra clave es el sello distintivo del antiguo sistema de módulos 'CommonJS' creado por Node?",
+      "options": [
+        "import",
+        "require()",
+        "include()",
+        "load()"
+      ],
+      "correctAnswer": 1,
+      "justification": "CommonJS (pre-2015) utiliza la función síncrona `require()` para importar dependencias, y `module.exports` para exportarlas."
+    },
+    {
+      "id": 8,
+      "question": "En el estándar moderno de JS (ES Modules), ¿cómo solucionas este error al importar: `import myComponent from './file.ts'` si la exportación era Named?",
+      "options": [
+        "Cambiando la extensión a .js.",
+        "Añadiendo llaves de desestructuración: import { myComponent } from './file.ts'.",
+        "Usando require().",
+        "Borrando la palabra 'export'."
+      ],
+      "correctAnswer": 1,
+      "justification": "Si una función fue exportada como 'export function miFuncion()', NO es la exportación por defecto (default). Por ende, debe importarse por su nombre exacto envuelto en llaves."
+    },
+    {
+      "id": 9,
+      "question": "¿Cómo le indicas a Node.js que quieres usar la sintaxis moderna 'import/export' (ESM) en lugar del viejo CommonJS?",
+      "options": [
+        "Node es lo suficientemente inteligente para deducirlo automáticamente.",
+        "Cambiando el nombre del archivo a .esm",
+        "Añadiendo '\"type\": \"module\"' en la raíz de tu archivo package.json.",
+        "Ejecutando node con la bandera --esm."
+      ],
+      "correctAnswer": 2,
+      "justification": "Para proteger la retrocompatibilidad con millones de proyectos viejos, Node sigue usando CommonJS por defecto. Debes declarar explícitamente en el package.json que tu proyecto usa ES Modules."
+    }
+  ],
+  "module4": [
+    {
+      "id": 10,
+      "question": "¿Por qué es estrictamente necesario usar un 'Bundler' (Empaquetador) como Vite al programar en React/TypeScript?",
+      "options": [
+        "Porque el código fuente moderno (TSX, SCSS) es ilegal o incomprensible para un navegador web clásico; el Bundler debe compilarlo y traducirlo a HTML/JS/CSS plano.",
+        "Para comprimir imágenes exclusivamente.",
+        "Para que el código se ejecute más rápido en el servidor backend.",
+        "Para conectar automáticamente a una base de datos SQL."
+      ],
+      "correctAnswer": 0,
+      "justification": "Un navegador, sin importar cuán moderno sea, no sabe ejecutar TypeScript nativamente ni sabe qué hacer con sintaxis JSX de React. Vite es el 'traductor' y 'optimizador' que genera código web estándar."
+    },
+    {
+      "id": 11,
+      "question": "¿Qué significa el concepto de Hot Module Replacement (HMR) usado por Vite?",
+      "options": [
+        "Que la computadora debe reiniciarse cada 10 módulos.",
+        "Que Vite reemplaza componentes quemados (hardware).",
+        "Que Vite recompila y actualiza módulos específicos 'en vivo' en el navegador cuando guardas el archivo, sin necesidad de forzar un F5 (recarga completa).",
+        "Que el código se reemplaza por IA."
+      ],
+      "correctAnswer": 2,
+      "justification": "El HMR es vital para la Experiencia de Desarrollo (Developer Experience). Mantiene el estado de tu app intacto mientras inyecta solo los pedacitos de código que acabas de modificar."
+    },
+    {
+      "id": 12,
+      "question": "Terminaste tu App de React y quieres que los usuarios la vean. ¿Debes alojar la carpeta '/src' llena de tus archivos TypeScript en el servidor público (ej. Vercel o AWS)?",
+      "options": [
+        "Sí, siempre.",
+        "No, debes subir solo el package.json.",
+        "No, los servidores de producción sirven estáticos web puros. Debes ejecutar tu comando de compilación ('npm run build') y alojar únicamente el resultado final optimizado.",
+        "Depende de si usaste Tailwind o no."
+      ],
+      "correctAnswer": 2,
+      "justification": "Nunca se sirve la carpeta de desarrollo al usuario final. La fase de compilación ('build') aplasta y optimiza el proyecto completo en una carpeta pequeña (usualmente llamada 'dist' o 'build') que es la que se sube a internet."
+    }
+  ]
+}
