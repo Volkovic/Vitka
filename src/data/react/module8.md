@@ -1,62 +1,152 @@
-# 🌐 Estado Global (Context API)
+# Controlled vs Uncontrolled Input
 
-En el Módulo 6 aprendimos a elevar el estado para compartir información. Pero en aplicaciones gigantes (como un E-Commerce), hay información que **todos** los componentes necesitan, sin importar dónde estén: por ejemplo, si el usuario está Logueado o el Tema Oscuro/Claro.
+# Uncotrolled Components
+
+In the previous day challenge we have covered controlled inputs. In react most of the time we use controlled inputs as recommended on the official [documentation of React](https://reactjs.org/docs/uncontrolled-components.html).
+
+To write an uncontrolled component, instead of writing an event handler for every state update, you can use a ref to get form values from the DOM. In uncontrolled input we get data from input fields like traditional HTML form data handling.
+
+An example of uncontrolled component
+
 
 ---
 
-## 🏔️ El Problema del Prop Drilling
+## Getting data from an uncontrolled input
 
-Si tienes un estado en tu archivo `App.jsx` y quieres pasárselo a un simple Botón que está oculto a 15 niveles de profundidad, tendrías que pasar esa prop por cada uno de los 14 componentes intermedios, aunque ellos no la necesiten. 
+```js
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 
-A esto se le llama **Prop Drilling** (Perforación de Props) y es un infierno de mantener.
+class App extends Component {
+  firstName = React.createRef()
 
----
+  handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(this.firstName.current.value)
+  }
 
-## 📡 Context API: Teletransportando Datos
-
-React creó la **Context API** para solucionar esto sin usar librerías externas. Funciona como una antena de radio: un componente en lo más alto emite la señal, y cualquier componente en lo más profundo puede sintonizarla directamente, saltándose a los intermediarios.
-
-### 1. Crear el Contexto (La estación de radio)
-```tsx
-import { createContext } from 'react';
-
-// Se crea afuera de los componentes
-export const TemaContext = createContext("claro");
-```
-
-### 2. Proveer el Dato (Emitir la señal)
-Se usa un "Provider" para envolver a toda tu aplicación y decirle cuál es el valor actual que vamos a transmitir.
-```tsx
-function App() {
-  const [tema, setTema] = useState("oscuro");
-
-  return (
-    <TemaContext.Provider value={tema}>
-      <LayoutPadre /> {/* Dentro hay muchos componentes anidados */}
-    </TemaContext.Provider>
-  );
+  render() {
+    return (
+      <div className='App'>
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor='firstName'>First Name: </label>
+          <input
+            type='text'
+            id='firstName'
+            name='firstName'
+            placeholder='First Name'
+            ref={this.firstName}
+          />
+          <button type='submit'>Submit</button>
+        </form>
+      </div>
+    )
+  }
 }
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
 ```
 
-### 3. Consumir el Dato (`useContext`) (Sintonizar la radio)
-En un componente oculto súper profundo:
-```tsx
-import { useContext } from 'react';
-import { TemaContext } from './App'; // Importamos el contexto
-
-export default function BotonProfundo() {
-  // Atrapamos el valor directamente
-  const temaActual = useContext(TemaContext);
-
-  return <button className={temaActual === 'oscuro' ? 'bg-black' : 'bg-white'}>Clic</button>;
-}
-```
 
 ---
 
-## 🛠️ Ejercicio In-line
+## Getting multiple input data from form
 
-**Pregunta:** Si utilizas `useContext(MiContexto)` en un componente, pero **olvidaste** envolver al padre de ese componente en un `<MiContexto.Provider>`, ¿React arrojará un error de compilación? ¿Qué valor recibirás?
+We can grab multiple input data from DOM. We are not directly targeting the DOM but React is getting data from DOM using ref.
+
+```js
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends Component {
+  firstName = React.createRef()
+  lastName = React.createRef()
+  country = React.createRef()
+  title = React.createRef()
+
+  handleSubmit = (e) => {
+    // stops the default behavior of form element specifically refreshing of page
+    e.preventDefault()
+
+    console.log(this.firstName.current.value)
+    console.log(this.lastName.current.value)
+    console.log(this.title.current.value)
+    console.log(this.country.current.value)
+
+    const data = {
+      firstName: this.firstName.current.value,
+      lastName: this.lastName.current.value,
+      title: this.title.current.value,
+      country: this.country.current.value,
+    }
+    // the is the place we connect backend api to send the data to the database
+    console.log(data)
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        <h3>Add Student</h3>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <input
+              type='text'
+              name='firstName'
+              placeholder='First Name'
+              ref={this.firstName}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div>
+            <input
+              type='text'
+              name='lastName'
+              placeholder='Last Name'
+              ref={this.lastName}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div>
+            <input
+              type='text'
+              name='country'
+              placeholder='Country'
+              ref={this.country}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div>
+            <input
+              type='text'
+              name='title'
+              placeholder='Title'
+              ref={this.title}
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <button className='btn btn-success'>Submit</button>
+        </form>
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+Most of the time we use controlled input instead of uncontrolled input. In case if you want to target some element on the DOM you will use ref to get the content of that element. Don't touch directly using pure JavaScript. When you develop a React application do not touch the DOM directly because React has its own way of handling the DOM manipulation.
+
+# Exercises
+
+
+---
+
+## 🛠️ Ejercicio In-line de Análisis
+
+**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
 
 **Respuesta y Justificación:**
-No dará error. Si React no encuentra ningún Proveedor (Provider) en la cadena de ancestros superiores, simplemente devolverá **el valor por defecto** que le asignaste al contexto cuando lo creaste con `createContext(valorPorDefecto)`.
+React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.

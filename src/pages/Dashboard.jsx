@@ -15,7 +15,7 @@ const TOTAL_MODULES = {
   git: 8,
   typescript: 8,
   node: 4,
-  react: 10,
+  react: 17,
   tailwind: 5
 };
 

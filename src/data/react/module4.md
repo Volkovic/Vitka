@@ -1,76 +1,477 @@
-# 🔀 Renderizado Condicional y Listas
+# States
 
-Las aplicaciones dinámicas raramente muestran todos sus elementos estáticos. Casi siempre necesitas mostrar cosas diferentes dependiendo del estado (Ej. Ocultar el botón de Login si el usuario ya ingresó), o renderizar listas enteras traídas de una Base de Datos.
+# States
+
 
 ---
 
-## 🤔 If/Else en JSX
+## What is State?
 
-En JSX no puedes escribir un bloque `if () {}` tradicional dentro del HTML. Para renderizar cosas dinámicamente, utilizamos características propias de JavaScript: **El operador ternario** y el **operador lógico AND (`&&`)**.
+What is state ? The English meaning of state is _the particular condition that someone or something is in at a specific time_.
 
-```tsx
-export default function Perfil({ isLogged, nombre }) {
-  return (
+Let us see some states being something - Are you happy or sad? - Is light on or off ? Is present or absent ? - Is full or empty ? For instance, I am happy because I am enjoying creating 30 Days Of React challenge. I believe that you are happy too.
+
+State is an object in react which let the component re-render when state data changes.
+
+
+---
+
+## How to set a state
+
+We set an initial state inside the constructor or outside the constructor of a class based component. We do not directly change or mutate the state but we use the _setState()_ method to reset to a new state. . As you can see below in the state object we have count with initial value 0. We can access the state object using _this.state_ and the property name. See the example below.
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends React.Component {
+  // declaring state
+  state = {
+    count: 0,
+  }
+  render() {
+    // accessing the state value
+    const count = this.state.count
+    return (
+      <div className='App'>
+        <h1>{count} </h1>
+      </div>
+    )
+  }
+}
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+If you run the above code you will see zero on the browser. We can increase or decrease the value the state by changing the value of the state using JavaScript method.
+
+
+---
+
+## Resetting a state using a JavaScript method
+
+Now, let's add some methods which increase or decrease the value of count by clicking a button. Let us add a button to increase and a button to decrease the value of count. To set the state we use react method _this.setState_. See the example below
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+class App extends React.Component {
+  // declaring state
+  state = {
+    count: 0,
+  }
+  render() {
+    // accessing the state value
+    const count = this.state.count
+    return (
+      <div className='App'>
+        <h1>{count} </h1>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Add One
+        </button>
+      </div>
+    )
+  }
+}
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+If you understand the above example, adding minus one method will be easy. Let us add the minus one method on the click event.
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+class App extends React.Component {
+  // declaring state
+  state = {
+    count: 0,
+  }
+  render() {
+    // accessing the state value
+    const count = this.state.count
+    return (
+      <div className='App'>
+        <h1>{count} </h1>
+
+        <div>
+          <button
+            onClick={() => this.setState({ count: this.state.count + 1 })}
+          >
+            Add One
+          </button>{' '}
+          <button
+            onClick={() => this.setState({ count: this.state.count - 1 })}
+          >
+            Minus One
+          </button>
+        </div>
+      </div>
+    )
+  }
+}
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+Both button work well, but we need to re-structure the code well. Let us create separate methods in the component.
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+class App extends React.Component {
+  // declaring state
+  state = {
+    count: 0,
+  }
+  // method which add one to the state
+
+  addOne = () => {
+    this.setState({ count: this.state.count + 1 })
+  }
+
+  // method which subtract one to the state
+  minusOne = () => {
+    this.setState({ count: this.state.count - 1 })
+  }
+  render() {
+    // accessing the state value
+    const count = this.state.count
+    return (
+      <div className='App'>
+        <h1>{count} </h1>
+
+        <div>
+          <button className='btn btn-add' onClick={this.addOne}>
+            +1
+          </button>{' '}
+          <button className='btn btn-minus' onClick={this.minusOne}>
+            -1
+          </button>
+        </div>
+      </div>
+    )
+  }
+}
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+Let us do more example about state, in the following example we will develop small application which shows either a dog or cat.
+We can start by setting the initial state with cat then when it is clicked it will show dog and alternatively. We need one method which changes the animal alternatively. See the code below. If you want to see live click [here](https://codepen.io/Asabeneh/full/LYVxKpq).
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+class App extends React.Component {
+  // declaring state
+  state = {
+    image: 'https://www.smithsstationah.com/imagebank/eVetSites/Feline/01.jpg',
+  }
+  changeAnimal = () => {
+    let dogURL =
+      'https://static.onecms.io/wp-content/uploads/sites/12/2015/04/dogs-pembroke-welsh-corgi-400x400.jpg'
+    let catURL =
+      'https://www.smithsstationah.com/imagebank/eVetSites/Feline/01.jpg'
+    let image = this.state.image === catURL ? dogURL : catURL
+    this.setState({ image })
+  }
+
+  render() {
+    // accessing the state value
+    const count = this.state.count
+    return (
+      <div className='App'>
+        <h1>30 Days Of React</h1>
+        <div className='animal'>
+          <img src={this.state.image} alt='animal' />
+        </div>
+
+        <button onClick={this.changeAnimal} class='btn btn-add'>
+          Change
+        </button>
+      </div>
+    )
+  }
+}
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+Now, let's put all the codes we have so far and also let's implement state when it is necessary.
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import asabenehImage from './images/asabeneh.jpg'
+
+// Fuction to show month date year
+
+const showDate = (time) => {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+
+  const month = months[time.getMonth()].slice(0, 3)
+  const year = time.getFullYear()
+  const date = time.getDate()
+  return ` ${month} ${date}, ${year}`
+}
+
+// User Card Component
+const UserCard = ({ user: { firstName, lastName, image } }) => (
+  <div className='user-card'>
+    <img src={image} alt={firstName} />
+    <h2>
+      {firstName}
+      {lastName}
+    </h2>
+  </div>
+)
+
+// A button component
+const Button = ({ text, onClick, style }) => (
+  <button style={style} onClick={onClick}>
+    {text}
+  </button>
+)
+
+// CSS styles in JavaScript Object
+const buttonStyles = {
+  backgroundColor: '#61dbfb',
+  padding: 10,
+  border: 'none',
+  borderRadius: 5,
+  margin: 3,
+  cursor: 'pointer',
+  fontSize: 18,
+  color: 'white',
+}
+
+// class based component
+class Header extends React.Component {
+  constructor(props) {
+    super(props)
+    // the code inside the constructor run before any other code
+  }
+  render() {
+    console.log(this.props.data)
+    const {
+      welcome,
+      title,
+      subtitle,
+      author: { firstName, lastName },
+      date,
+    } = this.props.data
+
+    return (
+      <header style={this.props.styles}>
+        <div className='header-wrapper'>
+          <h1>{welcome}</h1>
+          <h2>{title}</h2>
+          <h3>{subtitle}</h3>
+          <p>
+            {firstName} {lastName}
+          </p>
+          <small>{date}</small>
+        </div>
+      </header>
+    )
+  }
+}
+
+const Count = ({ count, addOne, minusOne }) => (
+  <div>
+    <h1>{count} </h1>
     <div>
-      {/* 1. Ternario: Si isLogged es true muestra A, sino B */}
-      {isLogged ? <h1>Bienvenido {nombre}</h1> : <h1>Inicia sesión</h1>}
-
-      {/* 2. Operador AND (Cortocircuito): Si isLogged es true, renderiza el botón. Si es false, React ignora todo */}
-      {isLogged && <button>Cerrar Sesión</button>}
+      <Button text='+1' onClick={addOne} style={buttonStyles} />
+      <Button text='-1' onClick={minusOne} style={buttonStyles} />
     </div>
-  );
+  </div>
+)
+
+// TechList Component
+// class base component
+class TechList extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const { techs } = this.props
+    const techsFormatted = techs.map((tech) => <li key={tech}>{tech}</li>)
+    return techsFormatted
+  }
 }
-```
 
----
-
-## 📋 Renderizando Listas (`.map()`)
-
-React brilla cuando tiene que pintar listas masivas de datos. En lugar de usar bucles `for`, en React utilizamos estrictamente la función `.map()` de los arreglos.
-
-El `.map()` toma un Array de datos, y lo transforma en un Array de "JSX" (HTML).
-
-```tsx
-const frameworks = ["React", "Vue", "Angular"];
-
-export default function ListaTech() {
-  return (
-    <ul>
-      {frameworks.map((fw) => (
-        <li key={fw}>{fw}</li>
-      ))}
-    </ul>
-  );
+// Main Component
+// Class Component
+class Main extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const {
+      techs,
+      user,
+      greetPeople,
+      handleTime,
+      changeBackground,
+      count,
+      addOne,
+      minusOne,
+    } = this.props
+    return (
+      <main>
+        <div className='main-wrapper'>
+          <p>Prerequisite to get started react.js:</p>
+          <ul>
+            <TechList techs={techs} />
+          </ul>
+          <UserCard user={user} />
+          <Button
+            text='Greet People'
+            onClick={greetPeople}
+            style={buttonStyles}
+          />
+          <Button text='Show Time' onClick={handleTime} style={buttonStyles} />
+          <Button
+            text='Change Background'
+            onClick={changeBackground}
+            style={buttonStyles}
+          />
+          <Count count={count} addOne={addOne} minusOne={minusOne} />
+        </div>
+      </main>
+    )
+  }
 }
+
+// Footer Component
+// Class component
+class Footer extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <footer>
+        <div className='footer-wrapper'>
+          <p>Copyright {this.props.date.getFullYear()}</p>
+        </div>
+      </footer>
+    )
+  }
+}
+
+class App extends React.Component {
+  state = {
+    count: 0,
+    styles: {
+      backgroundColor: '',
+      color: '',
+    },
+  }
+  showDate = (time) => {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ]
+
+    const month = months[time.getMonth()].slice(0, 3)
+    const year = time.getFullYear()
+    const date = time.getDate()
+    return ` ${month} ${date}, ${year}`
+  }
+  addOne = () => {
+    this.setState({ count: this.state.count + 1 })
+  }
+
+  // method which subtract one to the state
+  minusOne = () => {
+    this.setState({ count: this.state.count - 1 })
+  }
+  handleTime = () => {
+    alert(this.showDate(new Date()))
+  }
+  greetPeople = () => {
+    alert('Welcome to 30 Days Of React Challenge, 2020')
+  }
+  changeBackground = () => {}
+  render() {
+    const data = {
+      welcome: 'Welcome to 30 Days Of React',
+      title: 'Getting Started React',
+      subtitle: 'JavaScript Library',
+      author: {
+        firstName: 'Asabeneh',
+        lastName: 'Yetayeh',
+      },
+      date: 'Oct 7, 2020',
+    }
+    const techs = ['HTML', 'CSS', 'JavaScript']
+    const date = new Date()
+    // copying the author from data object to user variable using spread operator
+    const user = { ...data.author, image: asabenehImage }
+
+    return (
+      <div className='app'>
+        {this.state.backgroundColor}
+        <Header data={data} />
+        <Main
+          user={user}
+          techs={techs}
+          handleTime={this.handleTime}
+          greetPeople={this.greetPeople}
+          changeBackground={this.changeBackground}
+          addOne={this.addOne}
+          minusOne={this.minusOne}
+          count={this.state.count}
+        />
+        <Footer date={new Date()} />
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
 ```
+
+I believe that now you have a very good understanding of state. After this, we will use state in other sections too because state and props is the core of a react application.
+
 
 ---
 
-## 🗝️ La Propiedad `key` (El DNI de los elementos)
+## 🛠️ Ejercicio In-line de Análisis
 
-Habrás notado un atributo `key={fw}` en el ejemplo anterior. 
-Cada vez que renderices una lista con `.map()`, React **te obliga** a pasarle una prop especial llamada `key` al elemento de más arriba del mapeo.
-
-Esta llave debe ser **única e irrepetible** (usualmente se usa el `id` de la base de datos).
-
-**¿Por qué?**
-Para ayudar al Virtual DOM. Si tienes una lista de 1000 elementos y el usuario elimina uno del medio, React usaría la `key` para saber exactamente cuál borrar sin tener que re-dibujar la lista entera.
-
----
-
-## 🛠️ Ejercicio In-line
-
-**Pregunta:** Tienes una base de datos de usuarios donde a veces el usuario no tiene foto, por lo que el objeto viene sin `id`. Para renderizar tu lista rápida y sin errores de consola, decides usar el "índice" del bucle map como key:
-
-```tsx
-<ul>
-  {usuarios.map((user, index) => (
-    <li key={index}>{user.nombre}</li>
-  ))}
-</ul>
-```
-¿Es esta una buena práctica si la lista tiene botones para "Eliminar" elementos o si la lista se puede reordenar?
+**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
 
 **Respuesta y Justificación:**
-**No, es un antipatrón sumamente peligroso.**
-Si utilizas el `index` (0, 1, 2) y el usuario elimina el elemento en la posición 0, todos los demás elementos "subirán" de índice. El que era 1 pasará a ser 0. Esto confundirá brutalmente al Virtual DOM de React, haciendo que cruce los datos y muestre información incorrecta o bugueada. El `index` solo debe usarse si la lista es 100% estática y de solo lectura.
+React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.

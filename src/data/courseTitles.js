@@ -47,10 +47,11 @@ export const nodeTitles = [
 ];
 
 export const reactTitles = [
-  'Filosofía de React y JSX', 'Componentes y Props', 'Estado Local (useState)',
-  'Renderizado Condicional y Listas', 'Eventos y Formularios', 'Elevación del Estado',
-  'Efectos Secundarios (useEffect)', 'Estado Global (Context API)', 'Hooks Personalizados',
-  'Arquitectura SPA'
+  'Components & Class Legacy', 'Props', 'Map, List & Keys', 'States',
+  'Conditional Rendering', 'Events', 'Forms', 'Controlled vs Uncontrolled Input',
+  'Higher Order Component', 'React Router', 'Fetch And Axios',
+  'Introducing Hooks & Life Cycles', 'Form Using Hooks', 'Fetching Data Using Hooks',
+  'Custom Hooks', 'Context', 'Ref (useRef)'
 ];
 
 export const tailwindTitles = [

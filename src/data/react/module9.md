@@ -1,71 +1,179 @@
-# 🪝 Hooks Personalizados (Custom Hooks)
+# Higher Order Component
 
-React viene con Hooks integrados (`useState`, `useEffect`, `useContext`), pero su poder real es que te permite construir **tus propios Hooks** para reutilizar lógica compleja entre múltiples componentes.
+# Higher Order Component
 
----
+The term higher order component is similar to higher order function in JavaScript. In JavaScript, a higher order function is a function that takes another function as a parameter or return another function.
 
-## ♻️ El Principio DRY (Don't Repeat Yourself)
+Similar to higher order function, a higher order component takes a component and return another component.
+This definition will make sense with examples. Look at the example below for better understand.
 
-Supón que tienes dos componentes distintos (ej. Perfil y Productos) que necesitan conectarse a una API, mostrar un loader mientras esperan, y guardar los datos en el estado local una vez que lleguen.
-
-Si escribes el mismo `useState` de "loading" y el mismo `useEffect` con el "fetch" en ambos componentes, estás violando el principio DRY.
-
----
-
-## 🛠️ Creando un Custom Hook
-
-Un Custom Hook es simplemente una función JavaScript normal, pero con dos reglas de oro:
-1. **Su nombre debe empezar con `use`** (ej. `useFetch`, `useAuth`). Esto le indica al linter de React que dentro de esa función vas a invocar Hooks nativos.
-2. **Puede usar otros Hooks en su interior.**
-
-```tsx
-import { useState, useEffect } from 'react';
-
-// 1. Nombramos la función empezando con "use"
-export function useFetch(url: string) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  // 2. Extraemos la lógica repetitiva aquí adentro
-  useEffect(() => {
-    setLoading(true);
-    fetch(url)
-      .then(res => res.json())
-      .then(info => {
-        setData(info);
-        setLoading(false);
-      });
-  }, [url]);
-
-  // 3. Retornamos lo que el componente final necesitará usar
-  return { data, loading };
+```js
+// One way of writing a Higher Order Component(HOC)
+import React from 'react'
+const higherOrderComponent = (Component) => {
+  return (props) => {
+    return <Component {...props} />
+  }
 }
 ```
 
----
+Most of the time third party libraries use higher order component. For instance redux, react-router-dom and material-u use higher order component.
 
-## 🚀 Consumiendo nuestro Hook
+```js
+import React from 'react'
 
-Ahora, en cualquier componente donde necesitemos datos de una API, reducimos 15 líneas de código a una sola:
-
-```tsx
-import { useFetch } from './hooks/useFetch';
-
-export default function Perfil() {
-  // Magia pura: Lógica limpia y reutilizable
-  const { data, loading } = useFetch('https://api.com/perfil/1');
-
-  if (loading) return <p>Cargando...</p>;
-  return <h1>Hola {data.nombre}</h1>;
+const Button = ({ onClick, text, style }) => {
+  return (
+    <button onClick={onClick} style={style}>
+      {text}
+    </button>
+  )
 }
+
+const buttonWithStyle = (CompParam) => {
+  const buttonStyles = {
+    backgroundColor: '#61dbfb',
+    padding: '10px 25px',
+    border: 'none',
+    borderRadius: 5,
+    margin: 3,
+    cursor: 'pointer',
+    fontSize: 18,
+    color: 'white',
+  }
+  return (props) => {
+    return <CompParam {...props} style={buttonStyles} />
+  }
+}
+const NewButton = buttonWithSuperPower(Button)
+
+class App extends Component {
+  render() {
+    return (
+      <div className='App'>
+        <Button text='No Style' />
+        <NewButton text='Styled Button' />
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
 ```
 
+Let's make the buttonWithStyle higher order take more parameter in addition to the component.
+
+```js
+import React from 'react'
+
+const Button = ({ onClick, text, style }) => {
+  return (
+    <button onClick={onClick} style={style}>
+      {text}
+    </button>
+  )
+}
+
+const buttonWithStyles = (CompParam, name = 'default') => {
+  const colors = [
+    {
+      name: 'default',
+      backgroundColor: '#e7e7e7',
+      color: '#000000',
+    },
+    {
+      name: 'react',
+      backgroundColor: '#61dbfb',
+      color: '#ffffff',
+    },
+    {
+      name: 'success',
+      backgroundColor: '#4CAF50',
+      color: '#ffffff',
+    },
+    {
+      name: 'info',
+      backgroundColor: '#2196F3',
+      color: '#ffffff',
+    },
+    {
+      name: 'warning',
+      backgroundColor: '#ff9800',
+      color: '#ffffff',
+    },
+    {
+      name: 'danger',
+      backgroundColor: '#f44336',
+      color: '#ffffff',
+    },
+  ]
+  const { backgroundColor, color } = colors.find((c) => c.name === name)
+
+  const buttonStyles = {
+    backgroundColor,
+    padding: '10px 45px',
+    border: 'none',
+    borderRadius: 3,
+    margin: 3,
+    cursor: 'pointer',
+    fontSize: '1.25rem',
+    color,
+  }
+  return (props) => {
+    return <CompParam {...props} style={buttonStyles} />
+  }
+}
+
+const NewButton = buttonWithSuperPower(Button)
+const ReactButton = buttonWithSuperPower(Button, 'react')
+const InfoButton = buttonWithSuperPower(Button, 'info')
+const SuccessButton = buttonWithSuperPower(Button, 'success')
+const WarningButton = buttonWithSuperPower(Button, 'warning')
+const DangerButton = buttonWithSuperPower(Button, 'danger')
+
+class App extends Component {
+  render() {
+    return (
+      <div className='App'>
+        <Button text='No Style' onClick={() => alert('I am not styled yet')} />
+        <NewButton
+          text='Styled Button'
+          onClick={() => alert('I am the default style')}
+        />
+        <ReactButton text='React' onClick={() => alert('I have react color')} />
+        <InfoButton
+          text='Info'
+          onClick={() => alert('I am styled with info color')}
+        />
+        <SuccessButton text='Success' onClick={() => alert('I am successful')} />
+        <WarningButton
+          text='Warning'
+          onClick={() => alert('I warn you many times')}
+        />
+        <DangerButton
+          text='Danger'
+          onClick={() => alert('Oh no, you can not restore it')}
+        />
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+The is above example is one use case of Higher Order Component. However, its use case is is more than just styling simple button. It has enormous use cases, it allow us to reuse component and enhance a component with style and functionality. In the coming sections, we will cover React Router and we will use HOC and you will not be surprised when you see one component wrap another component.
+
+# Exercises
+
+
 ---
 
-## 🛠️ Ejercicio In-line
+## 🛠️ Ejercicio In-line de Análisis
 
-**Pregunta:** Tienes un Hook llamado `useTemporizador`. Lo importas en dos componentes distintos: `<Header />` y `<Sidebar />`. Si el contador interno del Hook llega a "10" en el `<Header />`, ¿qué valor tendrá el contador en el `<Sidebar />`?
+**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
 
 **Respuesta y Justificación:**
-¡Tendrá su propio valor independiente (probablemente 0 si acaba de montar)! 
-**Los Custom Hooks reutilizan la *lógica* de estado, NO el estado en sí mismo.** Cada vez que invocas un Hook en un componente, obtienes una instancia completamente aislada e independiente de los estados (`useState`) definidos en su interior. Si necesitas compartir el mismo dato exacto entre ellos, debes usar la Context API o Gestores Globales.
+React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.

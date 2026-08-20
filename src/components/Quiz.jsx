@@ -19,17 +19,18 @@ export default function Quiz({ questions, moduleId, courseId }) {
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const isFinalExam = courseId === 'python' && moduleId === '30';
   const isLastModule = parseInt(moduleId, 10) === getCourseTotalModules(courseId);
-  const totalQuestions = isFinalExam ? 30 : 10;
-  const passingScore = isFinalExam ? 24 : 8;
-  const maxErrors = totalQuestions - passingScore;
+  const totalQuestionsToAsk = isFinalExam ? 30 : 10;
+  const actualTotalQuestions = Math.min(totalQuestionsToAsk, questions.length);
+  const passingScore = Math.ceil(actualTotalQuestions * 0.8);
+  const maxErrors = actualTotalQuestions - passingScore;
   const initialTime = isFinalExam ? 900 : 300;
 
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const failedEarlyRef = useRef(false);
 
   const shuffledQuestions = useMemo(() => {
-    return [...questions].sort(() => 0.5 - Math.random()).slice(0, totalQuestions);
-  }, [questions, quizKey, totalQuestions]);
+    return [...questions].sort(() => 0.5 - Math.random()).slice(0, actualTotalQuestions);
+  }, [questions, quizKey, actualTotalQuestions]);
 
   const resetQuiz = useCallback(() => {
     setIsStarted(false);
@@ -105,7 +106,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
     }
 
     // Check if error budget is exhausted
-    if (newErrors >= maxErrors) {
+    if (newErrors > maxErrors) {
       failedEarlyRef.current = true;
     }
   };
@@ -137,7 +138,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
       <div className="p-8 rounded-2xl bg-gray-900 border border-gray-800 text-center space-y-6">
         <h3 className="text-2xl font-bold">Evaluación del Módulo {moduleId}</h3>
         <p className="text-gray-400">
-          Demuestra lo que has aprendido. Tienes <strong className="text-white">{Math.floor(initialTime / 60)} minutos</strong> para completar {totalQuestions} preguntas. 
+          Demuestra lo que has aprendido. Tienes <strong className="text-white">{Math.floor(initialTime / 60)} minutos</strong> para completar {actualTotalQuestions} preguntas. 
           Una vez iniciado, no podrás volver atrás sin perder tu progreso.
         </p>
         <button 
@@ -207,8 +208,8 @@ export default function Quiz({ questions, moduleId, courseId }) {
           <p className="text-7xl font-black text-primary">{score} / {shuffledQuestions.length}</p>
           <div className={`p-4 rounded-xl font-medium ${score >= passingScore ? 'bg-green-900/30 text-green-400 border border-green-800' : 'bg-red-900/30 text-red-400 border border-red-800'}`}>
             {score >= passingScore 
-              ? `¡Felicidades! Has superado el puntaje mínimo de ${passingScore}/${totalQuestions} y completaste este desafío con éxito.` 
-              : `No has alcanzado el puntaje mínimo de ${passingScore}/${totalQuestions}. Repasa la teoría e inténtalo de nuevo.`}
+              ? `¡Felicidades! Has superado el puntaje mínimo del 80% (${passingScore}/${actualTotalQuestions}) y completaste este desafío con éxito.` 
+              : `No has alcanzado el puntaje mínimo del 80% (${passingScore}/${actualTotalQuestions}). Repasa la teoría e inténtalo de nuevo.`}
           </div>
           
           <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
