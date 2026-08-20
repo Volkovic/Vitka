@@ -1,19 +1,18 @@
-# Ref (useRef)
+# Ref (usarRef)
 
-# useRef
+# usoRef
 
-In this challenge we have covered, how to handle uncontrolled input data. In this section, we will use the useRef hooks to get input data or to access any DOM element in your React application.
+En este desafío hemos cubierto cómo manejar datos de entrada no controlados. En esta sección, usaremos los ganchos useRef para obtener datos de entrada o para acceder a cualquier elemento DOM en su aplicación React.
 
-The useRef returns a mutable ref object whose .current property is initialized to the passed argument (initialValue). The returned object will persist for the full lifetime of the component.
+useRef devuelve un objeto de referencia mutable cuya propiedad .current se inicializa con el argumento pasado (initialValue). El objeto devuelto persistirá durante toda la vida útil del componente.
 
-In the following example, we see how to get data from input and access elements from the DOM tree using useRef hook.
+En el siguiente ejemplo, vemos cómo obtener datos de entrada y acceder a elementos del árbol DOM usando el gancho useRef.
 
+***
 
----
+## Obtener datos de la entrada
 
-## Getting Data from input
-
-Let's get data from uncontrolled input element.
+Obtengamos datos del elemento de entrada no controlado.
 
 ```js
 import React, { useRef } from 'react'
@@ -39,12 +38,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
+***
 
----
+## Enfocar
 
-## Focus
-
-Using the useRef we can trigger the focus event on input.
+Usando useRef podemos activar el evento de enfoque en la entrada.
 
 ```js
 import React, { useRef } from 'react'
@@ -69,12 +67,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
+***
 
----
+## Obtener contenido del árbol DOM
 
-## Getting Content from DOM tree
-
-Don't touch the DOM when you develop a React application because React has its own way to manipulate the DOM using the virtual DOM. In case, we get interested to get some content from the DOM tree we can use the useRef hook. See the example:
+No toque el DOM cuando desarrolle una aplicación React porque React tiene su propia forma de manipular el DOM utilizando el DOM virtual. En caso de que estemos interesados ​​en obtener algún contenido del árbol DOM, podemos usar el gancho useRef. Vea el ejemplo:
 
 ```js
 import React, { useRef } from 'react'
@@ -99,12 +96,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
+***
 
----
+## Acceder y diseñar un elemento DOM
 
-## Accessing and Styling a DOM element
-
-We can access and style an element from the DOM tree. See the example below:
+Podemos acceder y diseñar un elemento del árbol DOM. Vea el ejemplo a continuación:
 
 ```js
 import React, { useRef } from 'react'
@@ -128,19 +124,3 @@ const App = (props) => {
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement
 ```
-
-# Exercises
-
-1. Develop the following [application](https://www.30daysofreact.com/day-27/hexadecimal-colors). The application generates 27 hexadecimal colors by default. If the generate button get clicked it will generate another new 27 hexadecimal colors.
-
-🎉 CONGRATULATIONS ! 🎉
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.

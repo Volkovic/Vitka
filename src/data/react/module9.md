@@ -1,11 +1,11 @@
-# Higher Order Component
+# Componente de orden superior
 
-# Higher Order Component
+# Componente de orden superior
 
-The term higher order component is similar to higher order function in JavaScript. In JavaScript, a higher order function is a function that takes another function as a parameter or return another function.
+El término componente de orden superior es similar a función de orden superior en JavaScript. En JavaScript, una función de orden superior es una función que toma otra función como parámetro o devuelve otra función.
 
-Similar to higher order function, a higher order component takes a component and return another component.
-This definition will make sense with examples. Look at the example below for better understand.
+Similar a la función de orden superior, un componente de orden superior toma un componente y devuelve otro componente.
+Esta definición tendrá sentido con ejemplos. Mire el siguiente ejemplo para comprenderlo mejor.
 
 ```js
 // One way of writing a Higher Order Component(HOC)
@@ -17,7 +17,7 @@ const higherOrderComponent = (Component) => {
 }
 ```
 
-Most of the time third party libraries use higher order component. For instance redux, react-router-dom and material-u use higher order component.
+La mayoría de las veces, las bibliotecas de terceros utilizan componentes de orden superior. Por ejemplo, redux, react-router-dom y material-u utilizan componentes de orden superior.
 
 ```js
 import React from 'react'
@@ -62,7 +62,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Let's make the buttonWithStyle higher order take more parameter in addition to the component.
+Hagamos que el orden superior de buttonWithStyle tome más parámetros además del componente.
 
 ```js
 import React from 'react'
@@ -164,16 +164,4 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-The is above example is one use case of Higher Order Component. However, its use case is is more than just styling simple button. It has enormous use cases, it allow us to reuse component and enhance a component with style and functionality. In the coming sections, we will cover React Router and we will use HOC and you will not be surprised when you see one component wrap another component.
-
-# Exercises
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.
+El ejemplo anterior es un caso de uso de componente de orden superior. Sin embargo, su caso de uso es más que simplemente diseñar un botón simple. Tiene enormes casos de uso, nos permite reutilizar componentes y mejorarlos con estilo y funcionalidad. En las próximas secciones, cubriremos React Router y usaremos HOC y no se sorprenderá cuando vea un componente envolviendo otro componente.

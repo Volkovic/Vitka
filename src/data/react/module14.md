@@ -1,8 +1,8 @@
-# Fetching Data Using Hooks
+# Obteniendo datos usando ganchos
 
-# Fetching Data Using Hooks
+# Obteniendo datos usando ganchos
 
-In the previous sections, you have learned how to fetch data using fetch and axios. In this section , we will use the useEffect hook to fetch data. We can use fetch or axios but I prefer to use axios. In React hooks, you don't have to use componentDidMount life cycle separately to fetch data. The useEffect has incorporate the React life cycle methods(mounting, updating and unmounting). Let's convert the code we wrote on day 18 to React hooks. We need to import the useEffect from react. The useEffect takes to argument that is a callback and an array. If the array is empty it behaves as componentDidMount life cycle where if the array has other properties, it will behave as updating too.
+En las secciones anteriores, aprendió cómo recuperar datos usando fetch y axios. En esta sección, usaremos el gancho useEffect para recuperar datos. Podemos usar fetch o axios pero yo prefiero usar axios. En los enlaces de React, no es necesario utilizar el ciclo de vida de componenteDidMount por separado para recuperar datos. UseEffect ha incorporado los métodos del ciclo de vida de React (montaje, actualización y desmontaje). Convirtamos el código que escribimos el día 18 en ganchos de React. Necesitamos importar el useEffect de reaccionar. UseEffect lleva como argumento una devolución de llamada y una matriz. Si la matriz está vacía, se comporta como el ciclo de vida de componenteDidMount, donde si la matriz tiene otras propiedades, también se comportará como una actualización.
 
 ```js
 import React, { useState, useEffect } from 'react'
@@ -64,17 +64,3 @@ const App = (props) => {
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
-
-# Exercises
-
-🎉 CONGRATULATIONS ! 🎉
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.

@@ -1,24 +1,22 @@
-# States
+# Estados
 
-# States
+# Estados
 
+***
 
----
+## ¿Qué es el Estado?
 
-## What is State?
+¿Qué es el estado? El significado en inglés de estado es *la condición particular en la que alguien o algo se encuentra en un momento específico*.
 
-What is state ? The English meaning of state is _the particular condition that someone or something is in at a specific time_.
+Veamos algunos estados siendo algo: ¿Estás feliz o triste? - ¿La luz está encendida o apagada? ¿Está presente o ausente? - ¿Está lleno o vacío? Por ejemplo, estoy feliz porque disfruto creando el desafío 30 Days Of React. Creo que tú también eres feliz.
 
-Let us see some states being something - Are you happy or sad? - Is light on or off ? Is present or absent ? - Is full or empty ? For instance, I am happy because I am enjoying creating 30 Days Of React challenge. I believe that you are happy too.
+El estado es un objeto en reacción que permite que el componente se vuelva a representar cuando cambian los datos de estado.
 
-State is an object in react which let the component re-render when state data changes.
+***
 
+## Cómo establecer un estado
 
----
-
-## How to set a state
-
-We set an initial state inside the constructor or outside the constructor of a class based component. We do not directly change or mutate the state but we use the _setState()_ method to reset to a new state. . As you can see below in the state object we have count with initial value 0. We can access the state object using _this.state_ and the property name. See the example below.
+Establecemos un estado inicial dentro o fuera del constructor de un componente basado en clases. No cambiamos ni mutamos directamente el estado, pero utilizamos el método *setState()* para restablecerlo a un nuevo estado. . Como puede ver a continuación, en el objeto de estado contamos con el valor inicial 0. Podemos acceder al objeto de estado usando *this.state* y el nombre de la propiedad. Vea el ejemplo a continuación.
 
 ```js
 // index.js
@@ -44,14 +42,13 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-If you run the above code you will see zero on the browser. We can increase or decrease the value the state by changing the value of the state using JavaScript method.
+Si ejecuta el código anterior, verá cero en el navegador. Podemos aumentar o disminuir el valor del estado cambiando el valor del estado usando el método JavaScript.
 
+***
 
----
+## Restablecer un estado usando un método JavaScript
 
-## Resetting a state using a JavaScript method
-
-Now, let's add some methods which increase or decrease the value of count by clicking a button. Let us add a button to increase and a button to decrease the value of count. To set the state we use react method _this.setState_. See the example below
+Ahora, agreguemos algunos métodos que aumentan o disminuyen el valor del recuento haciendo clic en un botón. Agreguemos un botón para aumentar y un botón para disminuir el valor del conteo. Para establecer el estado utilizamos el método de reacción *this.setState*. Vea el ejemplo a continuación
 
 ```js
 // index.js
@@ -79,7 +76,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-If you understand the above example, adding minus one method will be easy. Let us add the minus one method on the click event.
+Si comprende el ejemplo anterior, agregar menos uno será fácil. Agreguemos el método menos uno en el evento de clic.
 
 ```js
 // index.js
@@ -117,7 +114,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Both button work well, but we need to re-structure the code well. Let us create separate methods in the component.
+Ambos botones funcionan bien, pero necesitamos reestructurar bien el código. Creemos métodos separados en el componente.
 
 ```js
 // index.js
@@ -161,8 +158,8 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Let us do more example about state, in the following example we will develop small application which shows either a dog or cat.
-We can start by setting the initial state with cat then when it is clicked it will show dog and alternatively. We need one method which changes the animal alternatively. See the code below. If you want to see live click [here](https://codepen.io/Asabeneh/full/LYVxKpq).
+Hagamos más ejemplos sobre el estado; en el siguiente ejemplo desarrollaremos una pequeña aplicación que muestra un perro o un gato.
+Podemos comenzar configurando el estado inicial con gato y luego, cuando se haga clic en él, se mostrará perro y, alternativamente. Necesitamos un método que cambie al animal alternativamente. Vea el código a continuación. Si quieres ver en vivo haz clic [aquí](https://codepen.io/Asabeneh/full/LYVxKpq).
 
 ```js
 // index.js
@@ -203,7 +200,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Now, let's put all the codes we have so far and also let's implement state when it is necessary.
+Ahora, pongamos todos los códigos que tenemos hasta ahora y también implementemos el estado cuando sea necesario.
 
 ```js
 // index.js
@@ -464,10 +461,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-I believe that now you have a very good understanding of state. After this, we will use state in other sections too because state and props is the core of a react application.
+Creo que ahora tienes una muy buena comprensión del estado. Después de esto, también usaremos el estado en otras secciones porque el estado y los accesorios son el núcleo de una aplicación de reacción.
 
-
----
+***
 
 ## 🛠️ Ejercicio In-line de Análisis
 

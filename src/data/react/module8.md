@@ -1,17 +1,16 @@
-# Controlled vs Uncontrolled Input
+# Entrada controlada versus no controlada
 
-# Uncotrolled Components
+# Componentes no controlados
 
-In the previous day challenge we have covered controlled inputs. In react most of the time we use controlled inputs as recommended on the official [documentation of React](https://reactjs.org/docs/uncontrolled-components.html).
+En el desafío del día anterior cubrimos los insumos controlados. En React la mayor parte del tiempo utilizamos entradas controladas como se recomienda en la \[documentación de React] oficial (https://reactjs.org/docs/uncontrolled-components.html).
 
-To write an uncontrolled component, instead of writing an event handler for every state update, you can use a ref to get form values from the DOM. In uncontrolled input we get data from input fields like traditional HTML form data handling.
+Para escribir un componente no controlado, en lugar de escribir un controlador de eventos para cada actualización de estado, puede usar una referencia para obtener valores de formulario del DOM. En la entrada no controlada obtenemos datos de los campos de entrada, como el manejo de datos de los formularios HTML tradicionales.
 
-An example of uncontrolled component
+Un ejemplo de componente no controlado
 
+***
 
----
-
-## Getting data from an uncontrolled input
+## Obtener datos de una entrada no controlada
 
 ```js
 import React, { Component } from 'react'
@@ -48,12 +47,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
+***
 
----
+## Obtener múltiples datos de entrada del formulario
 
-## Getting multiple input data from form
-
-We can grab multiple input data from DOM. We are not directly targeting the DOM but React is getting data from DOM using ref.
+Podemos tomar múltiples datos de entrada de DOM. No estamos apuntando directamente al DOM, pero React obtiene datos del DOM usando la referencia.
 
 ```js
 import React, { Component } from 'react'
@@ -137,16 +135,4 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Most of the time we use controlled input instead of uncontrolled input. In case if you want to target some element on the DOM you will use ref to get the content of that element. Don't touch directly using pure JavaScript. When you develop a React application do not touch the DOM directly because React has its own way of handling the DOM manipulation.
-
-# Exercises
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.
+La mayoría de las veces utilizamos entradas controladas en lugar de entradas no controladas. En caso de que desee apuntar a algún elemento en el DOM, utilizará ref para obtener el contenido de ese elemento. No toque directamente usando JavaScript puro. Cuando desarrolle una aplicación React, no toque el DOM directamente porque React tiene su propia forma de manejar la manipulación del DOM.

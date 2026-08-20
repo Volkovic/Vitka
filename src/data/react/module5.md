@@ -1,15 +1,14 @@
-# Conditional Rendering
+# Representación condicional
 
-# Conditional Rendering
+# Representación condicional
 
-As we can understand from the term, conditional rendering is a way to render different JSX or component at different condition. We can implement conditional rendering using regular if and else statement, ternary operator and &&. Let's implement a different conditional rendering.
+Como podemos entender por el término, la representación condicional es una forma de representar diferentes JSX o componentes en diferentes condiciones. Podemos implementar la representación condicional usando declaraciones if y else, operadores ternarios y &&. Implementemos una representación condicional diferente.
 
+***
 
----
+## Representación condicional usando declaraciones If y Else
 
-## Conditional Rendering using If and Else statement
-
-In the code below, we have an initial state of loggedIn which is false. If the state is false we inform user to log in otherwise we welcome the user.
+En el código siguiente, tenemos un estado inicial de login que es falso. Si el estado es falso, le informamos al usuario que inicie sesión; de lo contrario, le damos la bienvenida.
 
 ```js
 // index.js
@@ -84,7 +83,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Let's add a method which allow as to toggle the status of the user. We should have a button to handle event for logging in and logging out.
+Agreguemos un método que permita alternar el estado del usuario. Deberíamos tener un botón para manejar eventos para iniciar y cerrar sesión.
 
 ```js
 // index.js
@@ -185,14 +184,13 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-How about if our condition is more than two? Like pure JavaScript we can use if else if statement. In general, conditional rendering is not different from pure JavaScript conditional statement.
+¿Qué tal si nuestra condición es más de dos? Al igual que JavaScript puro, podemos usar la declaración if else if. En general, la representación condicional no es diferente de la declaración condicional pura de JavaScript.
 
+***
 
----
+## Representación condicional usando operadora ternaria
 
-## Conditional Rendering using Ternary Operator
-
-Ternary operator is an an alternative for if else statement. However, there is more use cases for ternary operator than if else statement. For example, use can use ternary operator inside styles, className or many places in a component than regular if else statement.
+El operador ternario es una alternativa a la declaración if else. Sin embargo, hay más casos de uso para el operador ternario que para la declaración if else. Por ejemplo, el uso puede utilizar un operador ternario dentro de estilos, nombre de clase o muchos lugares en un componente que la declaración if else normal.
 
 ```js
 // index.js
@@ -291,7 +289,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-In addition to JSX, we can also conditionally render a component. Let's change the above conditional JSX to a component.
+Además de JSX, también podemos renderizar un componente de forma condicional. Cambiemos el JSX condicional anterior a un componente.
 
 ```js
 // index.js
@@ -397,12 +395,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
+***
 
----
+## Representación condicional usando && Operadora
 
-## Conditional Rendering using && Operator
-
-The && operator render the right JSX operand if the left operand(expression) is true.
+El operador && representa el operando JSX derecho si el operando izquierdo (expresión) es verdadero.
 
 ```js
 // index.js
@@ -522,7 +519,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-In the previous section, we used alert box to greet people and also to display time. Let's render the greeting and time on browser DOM instead of displaying on alert box.
+En la sección anterior, utilizamos el cuadro de alerta para saludar a las personas y también para mostrar la hora. Representemos el saludo y la hora en el DOM del navegador en lugar de mostrarlos en el cuadro de alerta.
 
 ```js
 // index.js
@@ -749,13 +746,13 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
----
+***
 
-## Testimony
-Now it is time to express your thoughts about the Author and 30DaysOfReact. You can leave your testimonial on this [link](https://www.asabeneh.com/testimonials)
+## Testimonio
 
+Ahora es el momento de expresar su opinión sobre el autor y 30DaysOfReact. Puedes dejar tu testimonio en este [enlace](https://www.asabeneh.com/testimonials)
 
----
+***
 
 ## 🛠️ Ejercicio In-line de Análisis
 

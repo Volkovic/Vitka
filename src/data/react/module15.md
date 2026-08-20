@@ -1,10 +1,10 @@
-# Custom Hooks
+# Ganchos personalizados
 
-# Custom Hooks
+# Ganchos personalizados
 
-It is possible to make a custom hook on top of the available React hooks. For instance, when we fetch data we with use either fetch or axios to send an HTTP request and useEffect hooks to manage the React life cycle. Let's build useFetch custom hook on top of useEffect and useState.
+Es posible crear un gancho personalizado encima de los ganchos de React disponibles. Por ejemplo, cuando recuperamos datos, usamos fetch o axios para enviar una solicitud HTTP y usamos enlaces Effect para administrar el ciclo de vida de React. Construyamos el gancho personalizado useFetch además de useEffect y useState.
 
-We wrote this snippet of code in the previous section and we use useEffect hooks to fetch data from API. Now, let's convert this code to a custom hook. The naming convention for a custom hook is camelCase and it starts with the word use that is why we called our custom hook, useFetch.
+Escribimos este fragmento de código en la sección anterior y usamos ganchos useEffect para recuperar datos de la API. Ahora, conviertamos este código en un gancho personalizado. La convención de nomenclatura para un gancho personalizado es camelCase y comienza con la palabra uso, por eso llamamos a nuestro gancho personalizado useFetch.
 
 ```js
 import React, { useState, useEffect } from 'react'
@@ -67,7 +67,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Create a file name useFetch.js, and import useState and useEffect. Then transfer the state, useEffect and fetchData function part of the above code to the useFetch.js.
+Cree un nombre de archivo useFetch.js e importe useState y useEffect. Luego transfiera la parte de las funciones state, useEffect y fetchData del código anterior a useFetch.js.
 
 ```js
 import { useState, useEffect } from 'react'
@@ -92,7 +92,7 @@ const useFetch = () => {
 }
 ```
 
-Then let's make the useFetch function to take a parameter. When we fetch data the only thing which changes is the API therefore let's pass a URL parameter for the function.
+Luego hagamos que la función useFetch tome un parámetro. Cuando recuperamos datos, lo único que cambia es la API, por lo tanto, pasemos un parámetro de URL para la función.
 
 ```js
 import { useState, useEffect } from 'react'
@@ -118,7 +118,7 @@ const useFetch = (url) => {
 export default useFetch
 ```
 
-With the above code, we should manage to fetch the data but it is advisable to put the function in the useEffect and let's move the function code the useEffect.
+Con el código anterior, deberíamos lograr recuperar los datos, pero es recomendable poner la función en useEffect y mover el código de función a useEffect.
 
 ```js
 import { useState, useEffect } from 'react'
@@ -145,7 +145,7 @@ export const useFetch = (url) => {
 export default useFetch
 ```
 
-Now, let's combine everything and make it work.
+Ahora, combinemos todo y hagamos que funcione.
 
 ```js
 // index.js
@@ -196,23 +196,4 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-The useState and useEffect hooks are most common React hooks which you use on daily bases. In addition to the basic hook, there are additional hooks which are not used often. You do not have to know how to use all the hooks. The useState, useEffect and useRef are very important hooks and it is recommended to know how to use them.
-
-# Exercises
-
-Note: Continue building the countries application
-
-1 Build the following application using [countries API](https://restcountries.eu/rest/v2/all).
-[DEMO](https://www.30daysofreact.com/day-23/countries-data)
-
-🎉 CONGRATULATIONS ! 🎉
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.
+Los ganchos useState y useEffect son los ganchos de React más comunes que se utilizan a diario. Además del gancho básico, hay ganchos adicionales que no se utilizan con frecuencia. No es necesario saber utilizar todos los ganchos. Los useState, useEffect y useRef son ganchos muy importantes y se recomienda saber cómo utilizarlos.

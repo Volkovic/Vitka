@@ -1,13 +1,12 @@
-# Fetch And Axios
+# Recuperar y Axios
 
-# Fetch and Axios
+# Recuperar y Axios
 
+***
 
----
+## Buscar
 
-## Fetch
-
-Currently, JavaScript provides a fetch API to make HTTP requests. Fetch might not be supported by all browsers therefore we have install addition package for browser supports. However, if we use Axios we do not need to use additional package for browser support. Axios code seems neater than fetch. In this section we will see the difference between fetch and axios. May be if you want to know the browser support of fetch you check out on [caniuse](https://caniuse.com/ciu/index) website. As of today, it has 95.62% browser support.
+Actualmente, JavaScript proporciona una API de recuperación para realizar solicitudes HTTP. Es posible que Fetch no sea compatible con todos los navegadores, por lo que hemos instalado un paquete adicional para la compatibilidad con los navegadores. Sin embargo, si usamos Axios no necesitamos usar un paquete adicional para soporte del navegador. El código de Axios parece más claro que la recuperación. En esta sección veremos la diferencia entre fetch y axios. Si desea conocer la compatibilidad del navegador con Fetch, puede consultar el sitio web [caniuse](https://caniuse.com/ciu/index). A día de hoy, tiene un 95,62% de compatibilidad con navegadores.
 
 ```js
 import React, { Component } from 'react'
@@ -96,7 +95,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-We can implement async and await and make the above code short and clean.
+Podemos implementar async y await y hacer que el código anterior sea breve y limpio.
 
 ```js
 import React, { Component } from 'react'
@@ -181,7 +180,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-If we use async and await we handle the error using try and catch. Let's apply a try catch block in the above code.
+Si usamos async y await, manejamos el error usando try and catch. Apliquemos un bloque try catch en el código anterior.
 
 ```js
 import React, { Component } from 'react'
@@ -252,16 +251,15 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Now, let's see how to do the same API call using axios.
+Ahora, veamos cómo hacer la misma llamada API usando axios.
 
-How can do fetch if we have multiple API two call ?
+¿Cómo se puede recuperar si tenemos varias llamadas API dos?
 
-
----
+***
 
 ## Axios
 
-Axios is a third party package and we need to install it using npm. It is the most popular way to make HTTP requests(GET, POST, PUT, PATCH, DELETE). In this example, we will cover only a get request.
+Axios es un paquete de terceros y debemos instalarlo usando npm. Es la forma más popular de realizar solicitudes HTTP (GET, POST, PUT, PATCH, DELETE). En este ejemplo, cubriremos solo una solicitud de obtención.
 
 ```js
 import React, { Component } from 'react'
@@ -329,7 +327,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Let's also implement the axios fetching using async and await.
+Implementemos también la búsqueda de axios usando async y await.
 
 ```js
 import React, { Component } from 'react'
@@ -396,16 +394,4 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-As you have seen, there is no much difference between fetch and axios. But I recommend you to use more axios than fetch because of browser support and easy of use.
-
-# Exercises
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.
+Como has visto, no hay mucha diferencia entre fetch y axios. Pero te recomiendo que uses más axios que fetch debido a la compatibilidad del navegador y su facilidad de uso.

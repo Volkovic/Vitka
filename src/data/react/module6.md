@@ -1,22 +1,21 @@
-# Events
+# Eventos
 
-# Events
+# Eventos
 
+***
 
----
+## ¿Qué es un evento?
 
-## What is an event?
+Un evento es una acción o suceso reconocido por un software. Para aclarar un evento, usemos las actividades diarias que realizamos cuando usamos una computadora, como hacer clic en un botón, pasar el cursor sobre una imagen, presionar un teclado, desplazar la rueda del mouse, etc. En esta sección, nos centraremos solo en algunos de los eventos del mouse y el teclado. La documentación de reacción ya tiene una nota detallada sobre [eventos](https://reactjs.org/docs/handling-events.html).
 
-An event is an action or occurrence recognized by a software. To make an event more clear let's use the daily activities we do when we use a computer such as clicking on a button, hover on an image, pressing a keyboard, scrolling the mouse wheel and etc. In this section, we will focus only some of the mouse and keyboard events. The react documentation has already a detail note about [events](https://reactjs.org/docs/handling-events.html).
+Manejar eventos en React es muy similar a manejar elementos en elementos DOM usando JavaScript puro. Algunas de las diferencias de sintaxis entre el manejo de eventos en React y JavaScript puro:
 
-Handling events in React is very similar to handling elements on DOM elements using pure JavaScript. Some of the syntax difference between handling event in React and pure JavaScript:
+* Los eventos de React se nombran usando camelCase, en lugar de minúsculas.
+* Con JSX pasas una función como controlador de eventos, en lugar de una cadena.
 
-- React events are named using camelCase, rather than lowercase.
-- With JSX you pass a function as the event handler, rather than a string.
+Veamos algunos ejemplos para entender el manejo de eventos.
 
-Let's see some examples to understand event handling.
-
-Event handling in HTML
+Manejo de eventos en HTML
 
 ```html
 <!DOCTYPE html>
@@ -36,7 +35,7 @@ Event handling in HTML
 </html>
 ```
 
-In React, it is slightly different
+En React, es ligeramente diferente.
 
 ```js
 import React from 'react'
@@ -62,9 +61,9 @@ class App extends Component {
 }
 ```
 
-Another difference between HTML and React event is that you cannot return false to prevent default behavior in React. You must call preventDefault explicitly. For example, with plain HTML, to prevent the default link behavior of opening a new page, you can write:
+Otra diferencia entre el evento HTML y React es que no puede devolver falso para evitar el comportamiento predeterminado en React. Debes llamar a preventDefault explícitamente. Por ejemplo, con HTML simple, para evitar que el enlace predeterminado abra una nueva página, puede escribir:
 
-Plain HTML
+HTML simple
 
 ```html
 <a href="#" onclick="console.log('The link was clicked.'); return false">
@@ -72,7 +71,7 @@ Plain HTML
 </a>
 ```
 
-However, in React it could be as follows:
+Sin embargo, en React podría ser el siguiente:
 
 ```js
 import React, { Component } from 'react'
@@ -91,10 +90,10 @@ class App extends Component {
 }
 ```
 
-Event handling is a very vast topic and in this challenge we will focus on the most common event types. We may use the following mouse and keyboard events.
-_onMouseMove, onMouseEnter, onMouseLeave, onMouseOut, onClick, onKeyDown, onKeyPress, onKeyUp, onCopy, onCut, onDrag, onChange,onBlur,onInput, onSubmit_
+El manejo de eventos es un tema muy amplio y en este desafío nos centraremos en los tipos de eventos más comunes. Podremos utilizar los siguientes eventos de mouse y teclado.
+*onMouseMove, onMouseEnter, onMouseLeave, onMouseOut, onClick, onKeyDown, onKeyPress, onKeyUp, onCopy, onCut, onDrag, onChange, onBlur, onInput, onSubmit*
 
-Let's implement some more mouse and keyboard events.
+Implementemos algunos eventos más de mouse y teclado.
 
 ```js
 // index.js
@@ -186,15 +185,3 @@ const rootElement = document.getElementById('root')
 // we render the JSX element using the ReactDOM package
 ReactDOM.render(<App />, rootElement)
 ```
-
-# Exercises
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.

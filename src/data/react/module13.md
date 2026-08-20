@@ -1,8 +1,8 @@
-# Form Using Hooks
+# Formulario usando ganchos
 
-# Forms
+# formularios
 
-Form is used to collect data from a user. Once in a while we use form to fill our information on a paper or on a website. Either to sign up, sign in or to apply for a job, we fill different form fields to submit our data to remote database. We encounter different form fields when we fill a form such as simple text, email, password, telephone, date, checkbox, radio button, option selection and text area field. Currently, HTML5 has provide quite a lot of field types. You may have a look at the following available HTML5 input types.
+El formulario se utiliza para recopilar datos de un usuario. De vez en cuando utilizamos formularios para completar nuestra información en un documento o en un sitio web. Ya sea para registrarnos, iniciar sesión o solicitar un trabajo, completamos diferentes campos del formulario para enviar nuestros datos a una base de datos remota. Nos encontramos con diferentes campos de formulario cuando completamos un formulario, como texto simple, correo electrónico, contraseña, teléfono, fecha, casilla de verificación, botón de opción, selección de opciones y campo de área de texto. Actualmente, HTML5 proporciona bastantes tipos de campos. Puede echar un vistazo a los siguientes tipos de entrada HTML5 disponibles.
 
 ```html
 <input type="text" />
@@ -36,7 +36,7 @@ Form is used to collect data from a user. Once in a while we use form to fill ou
 <input type="button" />
 ```
 
-Another HTML fields to get data from a form are textarea and select with options elements.
+Otros campos HTML para obtener datos de un formulario son el área de texto y los elementos de selección con opciones.
 
 ```html
 <textarea>Please write your comment ...</textarea>
@@ -51,16 +51,15 @@ Another HTML fields to get data from a form are textarea and select with options
 </select>
 ```
 
-Now, you know most of the fields we need to get data from a form. Let's start with an input with type text field. In the previous lessons, we saw different types of events and today we will focus on more of _onChange_ event type which triggers whenever an input field data changes. Input field has by default a memory to store input data but in this section we control that using state and we implement a controlled input. Today we will implement a controlled input.
+Ahora ya conoce la mayoría de los campos que necesitamos para obtener datos de un formulario. Comencemos con una entrada con campo de tipo texto. En las lecciones anteriores, vimos diferentes tipos de eventos y hoy nos centraremos en más tipos de eventos *onChange* que se activan cada vez que cambian los datos de un campo de entrada. El campo de entrada tiene por defecto una memoria para almacenar datos de entrada, pero en esta sección controlamos ese estado usando e implementamos una entrada controlada. Hoy implementaremos una entrada controlada.
 
+***
 
----
+## Obtener datos de un campo de entrada
 
-## Getting data from an input field
+Hasta ahora se utilizan componentes basados ​​en clases para usar el estado y obtener datos de una entrada controlada, pero en esta sección usaremos ganchos useState. Ahora es el momento de aprender cómo obtener datos de un campo de entrada usando ganchos. Necesitamos un campo de entrada, un detector de eventos (onChange) y un estado para obtener datos de una entrada controlada. Vea el ejemplo a continuación. El elemento h1 debajo de la etiqueta de entrada muestra lo que escribimos en la entrada. Consulte la \[demostración] en vivo (https://codepen.io/Asabeneh/full/jOrVqbv).
 
-So far used class based components to use state and to get data from controlled input but in this section we will use useState hooks. Now, it is time to learn how to get data from an input field using hooks. We need an input field, event listener (onChange) and state to get data from a controlled input. See the example below. The h1 element below the input tag display what we write on the input. Check live [demo](https://codepen.io/Asabeneh/full/jOrVqbv).
-
-The input element has many attributes such as value, name, id, placeholder, type and event handler. In addition, we can link a label and an input field using an id of input field and htmlFor of the label.If label and input are linked it will focus the input when we click on label. Look at the example give below.
+El elemento de entrada tiene muchos atributos como valor, nombre, identificación, marcador de posición, tipo y controlador de eventos. Además, podemos vincular una etiqueta y un campo de entrada usando una identificación del campo de entrada y htmlFor de la etiqueta. Si la etiqueta y la entrada están vinculadas, enfocará la entrada cuando hagamos clic en la etiqueta. Mire el ejemplo que se muestra a continuación.
 
 ```js
 import React, { useState } from 'react'
@@ -93,16 +92,15 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-We usually use form to handle user information. Let us move to form section and make use the form element.
+Generalmente utilizamos formularios para manejar la información del usuario. Pasemos a la sección de formulario y usemos el elemento de formulario.
 
+***
 
----
+## Obtener múltiples datos de entrada del formulario
 
-## Getting multiple input data from form
+En este apartado desarrollaremos un pequeño formulario en el que se recogerá información del usuario. Nuestro usuario es un estudiante. Utilizamos un elemento de formulario principal y una cierta cantidad de elementos de entrada para recopilar información del usuario. Además de eso tendremos un detector de eventos para el formulario (onSubmit) y para las entradas (onChange). Vea el siguiente ejemplo y trate de ver los comunes también. También puede consultar la \[demostración] en vivo (https://codepen.io/Asabeneh/full/eYNvJda).
 
-In this section we will develop a small form which collect user information. Our user is a student. We use a parent form element and certain number of input elements to collect user information. In addition to that we will have event listener for the form (onSubmit) and for the inputs (onChange). See the following example try to see the commonts too. You can also check the live [demo](https://codepen.io/Asabeneh/full/eYNvJda).
-
-As you can see we have four fields, if you we create a separate method to update all the fields we will have method for updating(firstName, lastName, country and title) instead let's have one method which can update all.
+Como puede ver, tenemos cuatro campos, si creamos un método separado para actualizar todos los campos, tendremos un método para actualizar (nombre, apellido, país y título), en lugar de eso, tengamos un método que pueda actualizar todos.
 
 ```js
 import React, { useState } from 'react'
@@ -189,12 +187,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-The above form handles only text types but do have different input field types. Let's do another form which handle all the different input field types.
+El formulario anterior solo maneja tipos de texto pero tiene diferentes tipos de campos de entrada. Hagamos otro formulario que maneje todos los diferentes tipos de campos de entrada.
 
+***
 
----
-
-## Get data from different input field types
+## Obtener datos de diferentes tipos de campos de entrada
 
 ```js
 // index.js
@@ -537,33 +534,29 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
+***
 
----
+## Validación de formulario
 
-## Form Validation
+***
 
+## ¿Qué es la validación?
 
----
+La acción o proceso de verificar o probar la validez o exactitud de algo en este caso datos.
 
-## What is validation?
+***
 
-The action or process of checking or proving the validity or accuracy of something in this case data.
+## ¿Cuál es el propósito de la validación?
 
+El objetivo principal de la validación es obtener los datos deseados de los usuarios. Además, para evitar usuarios y datos maliciosos.
 
----
+***
 
-## What is the purpose of validation
+## Tipos de validación
 
-The main purpose to validation is to get a desired data from users. In addition, to prevent malicious users and data.
+La validación se puede realizar en el lado del cliente o en el lado del servidor. Por el momento, estamos usando React, que es una tecnología de interfaz de usuario y usamos validación del lado del cliente. Una validación se puede implementar usando la validación incorporada de HTML5 o usando JavaScript (usando expresiones regulares).
 
-
----
-
-## Validation Types
-
-Validation can be done in client side or sever side. At the moment, we are using React which is a front end technology and we use client side validation.A validation can implement using HTML5 built-in validation or using JavaScript(using regular expression).
-
-In the following snippet of code, a validation has been implemented the first field. Try to understand how it works. The onBlur event has been used to check validity when the input is not focused.
+En el siguiente fragmento de código, se implementó una validación en el primer campo. Intenta entender cómo funciona. El evento onBlur se ha utilizado para comprobar la validez cuando la entrada no está enfocada.
 
 ```js
 // index.js
@@ -933,15 +926,3 @@ const App = (props) => {
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
-
-# Exercises
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.

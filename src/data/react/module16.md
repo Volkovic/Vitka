@@ -1,32 +1,17 @@
-# Context
+# Contexto
 
-# Context
+# Contexto
 
-Context allow as to pass data through the component tree without having to pass props down manually to every child component at every level.
+El contexto permite pasar datos a través del árbol de componentes sin tener que pasar accesorios manualmente a cada componente secundario en cada nivel.
 
-In React, data is passed top-down (parent to child) via props, but this can be cumbersome for certain types of props (e.g. locale preference, UI theme) that are required by many components within an application. Context provides a way to share values like these between components without having to explicitly pass a prop through every level of the tree.
+En React, los datos se pasan de arriba hacia abajo (de padre a hijo) a través de accesorios, pero esto puede resultar engorroso para ciertos tipos de accesorios (por ejemplo, preferencia de configuración regional, tema de interfaz de usuario) que son requeridos por muchos componentes dentro de una aplicación. El contexto proporciona una manera de compartir valores como estos entre componentes sin tener que pasar explícitamente un accesorio por cada nivel del árbol.
 
+***
 
----
+## Cuándo utilizar el contexto
 
-## When to Use Context
+El contexto está diseñado para compartir datos que pueden considerarse "globales" para un árbol de componentes de React, como el usuario autenticado actual, el tema o el idioma preferido. Por ejemplo, en el código siguiente, pasamos manualmente un accesorio de "tema" para darle estilo al componente Botón:
 
-Context is designed to share data that can be considered “global” for a tree of React components, such as the current authenticated user, theme, or preferred language. For example, in the code below we manually thread through a “theme” prop in order to style the Button component:
+El texto anterior se tomó de [documentación de reacción](https://reactjs.org/docs/context.html) sin ningún cambio.
 
-The above text has been taken from [react documentation](https://reactjs.org/docs/context.html) without any change.
-
-It seems the react documentation has pretty good information about context, you can go through the [react documentation](https://reactjs.org/docs/context.html).
-
-# Exercises
-
-🎉 CONGRATULATIONS ! 🎉
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.
+Parece que la documentación de reacción tiene bastante buena información sobre el contexto, puede consultar la [documentación de reacción](https://reactjs.org/docs/context.html).

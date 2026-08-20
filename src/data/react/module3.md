@@ -1,17 +1,16 @@
-# Map, List & Keys
+# Mapa, lista y claves
 
-# Mapping arrays
+# Mapeo de matrices
 
-An array is the most frequently used data structure to handle many kinds of problems. In React, we use map to modify an array to list of JSX by adding a certain HTML elements to each element of an array.
+Una matriz es la estructura de datos más utilizada para manejar muchos tipos de problemas. En React, usamos map para modificar una matriz a una lista de JSX agregando ciertos elementos HTML a cada elemento de una matriz.
 
+***
 
----
+## Mapeo y renderizado de matrices
 
-## Mapping and rendering arrays
+La mayoría de las veces los datos tienen la forma de una matriz o una matriz de objetos. Para renderizar este arreglo o arreglo de objetos la mayor parte del tiempo modificamos los datos usando *map*. En la sección anterior, representamos la lista de técnicos utilizando un método de mapa. En esta sección veremos más ejemplos.
 
-Most of the time data is in the form of an array or an array of objects. To render this array or array of objects most of the time we modify the data using _map_. In the previous section, we have rendered the techs list using a map method. In this section, we will see more examples.
-
-In the following examples, you will see how we render an array of numbers, an array of strings, an array of countries and an array of skills on the browser.
+En los siguientes ejemplos, verá cómo representamos una serie de números, una serie de cadenas, una serie de países y una serie de habilidades en el navegador.
 
 ```js
 import React from 'react'
@@ -31,9 +30,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-If you check the browser, you will see the numbers are attached together in one line. To avoid this, we modify the array and change the array elements to JSX element. See the example below, the array has been modified to a list of JSX elements.
+Si revisa el navegador, verá que los números están unidos en una línea. Para evitar esto, modificamos la matriz y cambiamos los elementos de la matriz a elementos JSX. Vea el ejemplo a continuación, la matriz se ha modificado a una lista de elementos JSX.
 
-### Mapping array of numbers
+### Mapeo de matriz de números
 
 ```js
 import React from 'react'
@@ -66,9 +65,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-### Mapping array of arrays
+### Mapeo de matriz de matrices
 
-Let's see how to map array of arrays
+Veamos cómo mapear una matriz de matrices.
 
 ```js
 import React from 'react'
@@ -110,9 +109,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-### Mapping array of objects
+### Mapeo de matriz de objetos
 
-Rendering array of objects
+Representación de una matriz de objetos
 
 ```js
 import React from 'react'
@@ -155,9 +154,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-### Key in mapping arrays
+### Clave en matrices de mapeo
 
-Keys help React to identify items which have changed, added, or removed. Keys should be given to the elements inside the array to give the elements a stable identity. The key should be unique. Mostly data will come with as an id and we can use id as key. If we do not pass key to React during mapping it raises a warning on the browser. If the data does not have an id we have to find a way to create a unique identifier for each element when we map it. See the following example:
+Las claves ayudan a React a identificar elementos que han cambiado, agregado o eliminado. Se deben proporcionar claves a los elementos dentro de la matriz para darles una identidad estable. La clave debe ser única. La mayoría de los datos vendrán como una identificación y podemos usar la identificación como clave. Si no pasamos la clave a React durante el mapeo, aparece una advertencia en el navegador. Si los datos no tienen una identificación, tenemos que encontrar una manera de crear un identificador único para cada elemento cuando lo asignamos. Vea el siguiente ejemplo:
 
 ```js
 import React from 'react'
@@ -188,7 +187,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Let's also add in key in countries mapping example.
+Agreguemos también la clave en el ejemplo de mapeo de países.
 
 ```js
 import React from 'react'
@@ -231,15 +230,3 @@ const App = () => (
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
-
-# Exercises
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.

@@ -1,23 +1,22 @@
-# React Router
+# Reaccionar enrutador
 
-# React Router
+# Reaccionar enrutador
 
+***
 
----
+## ¿Qué es el enrutador React?
 
-## What is React Router ?
+Es posible que no haya oído hablar antes de la palabra ruta o enrutador y puede que sea necesario definirla aquí. El significado literal de ruta es un camino o una manera de llegar a algún lugar. El significado en React también es similar al significado literal. React Router es en sí mismo un componente de React que le permite navegar entre los componentes de React.
 
-You may have not heard of the word route or router before and it might be necessary to define it here. The literal meaning of route is a path or a way to get to somewhere. The meaning in React is also similar to the literal meaning. React Router is by itself a React component which allows you to navigate between React components.
+En esta sección, comenzará a usar el enrutador React, pero es posible que no tenga mucha información al respecto. En caso de que prefiera obtener información del sitio web oficial de React Router, puede obtenerlo [aquí](https://reactrouter.com/web/guides/quick-start).
 
-In this section, you will get started how to use React router but it may not have plenty of information about it. In case you prefer to learn from the official website of React Router you can get [here](https://reactrouter.com/web/guides/quick-start).
-
-As we have cleared out the very beginning that React is a single page application which has only one index.html page in the entire application. When we implement a React Router the different components get render on the index.html page at same time or different time base on different logic and conditions. React Router has different versions and the latest version is React Router 5. We will use React Router version 4 for this challenge. Let's get started by installing the React Router packages.
+Como hemos aclarado desde el principio, React es una aplicación de una sola página que tiene solo una página index.html en toda la aplicación. Cuando implementamos un React Router, los diferentes componentes se representan en la página index.html al mismo tiempo o en diferentes tiempos según diferentes lógicas y condiciones. React Router tiene diferentes versiones y la última versión es React Router 5. Usaremos React Router versión 4 para este desafío. Comencemos instalando los paquetes de React Router.
 
 ```js
 Asabeneh@DESKTOP-KGC1AKC MINGW64 ~/Desktop/30-days-of-react$ npm install react-router-dom
 ```
 
-Let's implement a simple routing using the boilerplate codes we have been creating in the previous days. First of all, import the _react-router-dom_ and we can extract all the necessary components we need for routing from react-router-dom.
+Implementemos un enrutamiento simple utilizando los códigos repetitivos que hemos estado creando en los días anteriores. En primer lugar, importe *react-router-dom* y podremos extraer todos los componentes necesarios para el enrutamiento desde reaccionar-router-dom.
 
 ```js
 import React from 'react'
@@ -32,21 +31,20 @@ import {
 } from 'react-router-dom'
 ```
 
-We may not all these components in every project but it is good to know that it exists.
+Puede que no tengamos todos estos componentes en cada proyecto pero es bueno saber que existe.
 
+***
 
----
+## NavegadorEnrutador
 
-## BroswerRouter
-
-BrowerRouter is a parent component which allows to wrap the application route. Using the BrowserRouter we can access the browser history. Sometimes it can renames as router.
+BrowerRouter es un componente principal que permite ajustar la ruta de la aplicación. Usando BrowserRouter podemos acceder al historial del navegador. A veces puede cambiar el nombre a enrutador.
 
 ```js
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 ```
 
-Let's make make use of BrowserRouter to make a navigation for a React application.
+Utilicemos BrowserRouter para realizar una navegación para una aplicación React.
 
 ```js
 import React, { Component } from 'react'
@@ -69,16 +67,15 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-We wrapped our application with BrowserRouter or Router and it works smoothly as it used to be. Let's create Home, About, Contact, Challenge component and route to the different components. In addition to the components, we should import the Route component from react-router-dom.
+Completamos nuestra aplicación con BrowserRouter o Router y funciona sin problemas como solía ser. Creemos el componente Inicio, Acerca de, Contacto, Desafío y enrutaremos a los diferentes componentes. Además de los componentes, debemos importar el componente Ruta desde reaccionar-router-dom.
 
+***
 
----
+## Ruta
 
-## Route
-
-The Route component allows to navigate between components. It is a pathway from one component to another.
-The Route component has two required props: the path and component or render.
-The path props is where the component has to be rendered and the component props is the component which has to be rendered in that specific path. To see your component try to request /home route.
+El componente Ruta permite navegar entre componentes. Es un camino de un componente a otro.
+El componente Ruta tiene dos accesorios requeridos: la ruta y el componente o renderizado.
+Los accesorios de la ruta es donde se debe representar el componente y los accesorios del componente son el componente que se debe representar en esa ruta específica. Para ver su componente intente solicitar la ruta /home.
 
 ```js
 import React, { Component } from 'react'
@@ -104,7 +101,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Let's add some more components to our route.
+Agreguemos algunos componentes más a nuestra ruta.
 
 ```js
 import React, { Component } from 'react'
@@ -143,7 +140,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-As you can see the above example, all the routes have slush(/). We usually make the home with just slush(/), then let's use the slush(/) for home.
+Como puede ver en el ejemplo anterior, todas las rutas tienen slush(/). Generalmente hacemos el hogar solo con slush(/), luego usemos slush(/) para el hogar.
 
 ```js
 import React, { Component } from 'react'
@@ -182,7 +179,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Now if you try to navigate by writing / or /about you will see the home page all the time. The home route has (/) which common to other routes. Since the home is lingering let's find a way to avoid this. We can solve in three ways. One with an attribute exact. If we don't like a URL to have a trailing slush(/about/) we can use strict attribute in addition to exact.
+Ahora, si intentas navegar escribiendo / o /about verás la página de inicio todo el tiempo. La ruta de inicio tiene (/) que es común a otras rutas. Dado que el hogar se demora, busquemos una manera de evitarlo. Podemos resolver de tres maneras. Uno con un atributo exacto. Si no nos gusta que una URL tenga un final aguanieve (/acerca de/), podemos usar el atributo estricto además de exacto.
 
 ```js
 import React, { Component } from 'react'
@@ -221,7 +218,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-If we don't like a URL to have a trailing slush, for instance(/about/), we can use strict attribute in addition to exact.
+Si no nos gusta que una URL tenga un final, por ejemplo (/acerca de/), podemos usar el atributo estricto además de exacto.
 
 ```js
 import React, { Component } from 'react'
@@ -260,14 +257,13 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-The other way to avoid the lingering home page is rearranging the routing order and Switch component. Just putting the home route at the bottom.
+La otra forma de evitar la página de inicio persistente es reorganizar el orden de enrutamiento y el componente Switch. Simplemente poniendo la ruta de inicio en la parte inferior.
 
+***
 
----
+## Cambiar
 
-## Switch
-
-The Switch component allows only on component to be rendered.
+El componente Switch solo permite renderizar un componente.
 
 ```js
 import React, { Component } from 'react'
@@ -308,14 +304,13 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-The route is a kind of ready but so far we are navigating manually by writing each specific route. Let's make use of the NavLink component to be forwarded to each specific route.
+La ruta está lista, pero hasta ahora estamos navegando manualmente escribiendo cada ruta específica. Hagamos uso del componente NavLink para reenviarnos a cada ruta específica.
 
+***
 
----
+## Enlace de navegación
 
-## NavLink
-
-The NavLink component allow us to navigate each component. It takes a to required props. The NavLink is a component on top of anchor tag. Clicking on a NavLink does not do a page refresh which is one of the best quality of using a router. See the example below. First, let's implement a navigation for the home page.
+El componente NavLink nos permite navegar por cada componente. Se necesitan accesorios necesarios. NavLink es un componente situado encima de la etiqueta de anclaje. Al hacer clic en NavLink no se actualiza la página, que es una de las mejores cualidades del uso de un enrutador. Vea el ejemplo a continuación. Primero, implementemos una navegación para la página de inicio.
 
 ```js
 import React, { Component } from 'react'
@@ -367,7 +362,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Now, lets' implement navigation for all the components.
+Ahora, implementemos la navegación para todos los componentes.
 
 ```js
 import React, { Component } from 'react'
@@ -428,7 +423,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Our route and navigation works perfectly as long as the route is found. However, if a route is not found it falls to last component. In order to avoid this problem, lets create a separate not found component and put it inside our routing.
+Nuestra ruta y navegación funciona perfectamente siempre y cuando se encuentre la ruta. Sin embargo, si no se encuentra una ruta, pasa al último componente. Para evitar este problema, creemos un componente no encontrado separado y lo colocaremos dentro de nuestra ruta.
 
 ```js
 import React, { Component } from 'react'
@@ -490,7 +485,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Let's make a separate component which is responsible for the navigation.
+Hagamos un componente separado que sea responsable de la navegación.
 
 ```js
 import React, { Component } from 'react'
@@ -554,12 +549,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
+***
 
----
+## Enrutamiento anidado
 
-## Nested Routing
-
-We have implemented a simple navigation using React Router. Now, let's see how we can also nest a route. It possible to have a nested route in React.
+Hemos implementado una navegación simple usando React Router. Ahora veamos cómo también podemos anidar una ruta. Es posible tener una ruta anidada en React.
 
 ```js
 import React, { Component } from 'react'
@@ -788,14 +782,13 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-In next part will will cover Prompt, Redirect and withRouter component.
+En la siguiente parte cubriremos los componentes Prompt, Redirect y withRouter.
 
+***
 
----
+## Redirigir
 
-## Redirect
-
-Redirect can help us to redirect a route to a certain path based some condition. For instance if a user is logged in we redirect it to the dashboard otherwise to the login page. Let's implement a fake login in above snippet of code. If a user logged in it will redirected to the challenges otherwise we suggest the user to login.
+Redirigir puede ayudarnos a redirigir una ruta a una ruta determinada en función de alguna condición. Por ejemplo, si un usuario ha iniciado sesión, lo redireccionamos al panel de control, de lo contrario, a la página de inicio de sesión. Implementemos un inicio de sesión falso en el fragmento de código anterior. Si un usuario inició sesión, será redirigido a los desafíos; de lo contrario, le sugerimos que inicie sesión.
 
 ```js
 import React, { Component } from 'react'
@@ -1092,14 +1085,13 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
+***
 
----
+## Inmediato
 
-## Prompt
+A veces, cuando un usuario intenta abandonar una página, es posible que deseemos informarle que tiene una tarea pendiente. Para hacer eso podemos usar el componente Prompt. El componente Mensaje toma dos accesorios que son cuando y mensaje(\<Preguntar cuando = {true ? 'Happy':'Sad'} mensaje = 'Cuando incluso yo estoy feliz' />). Implementemos esto en el código anterior.
 
-Sometimes when a user try to leave a page we may like to inform that he has unfinished task. In order to do that we can use the Prompt component. The Prompt component takes two props which are when and message(<Prompt when = {true ? 'Happy':'Sad'} message = 'When even I am happy' />). Let's implement this in the previous code.
-
-In the following code a Prompt has been implemented without when therefore it will check all the routes.
+En el siguiente código se ha implementado un Prompt sin cuándo, por lo que comprobará todas las rutas.
 
 ```js
 import React, { Component } from 'react'
@@ -1399,7 +1391,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Instead of without condition, let's inform the user if he really wants to log out by adding checking some condition using a call back function inside the message.
+En lugar de sin condición, informemos al usuario si realmente desea cerrar sesión agregando verificar alguna condición usando una función de devolución de llamada dentro del mensaje.
 
 ```js
 import React, { Component } from 'react'
@@ -1706,15 +1698,3 @@ class App extends Component {
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
-
-# Exercises
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.
