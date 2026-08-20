@@ -166,7 +166,7 @@ export default function Dashboard() {
       cards: [
         {
           title: "React",
-          badge: "10 Módulos",
+          badge: "17 Módulos",
           description: "Crea interfaces de usuario interactivas y dinámicas basadas en componentes.",
           icon: Atom,
           to: "/react",
