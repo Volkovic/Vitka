@@ -1,35 +1,35 @@
-# Components & Class Legacy
+# Componentes y Legado de Clases
 
-# Components
+# Componentes
 
-A React component is a small, reusable code, which is responsible for one part of the application UI. A React application is an aggregation of components. React can help us to build reusable components. The following diagram shows different components. All the components have different border colors. In React we assemble different components together to create an application. We use JavaScript functions or classes to make components. If we use a function, the component will be a functional component, but if we use a class, the component will be a class-based component.
+Un componente de React es un fragmento de código pequeño y reutilizable, responsable de una parte de la interfaz de usuario (UI) de la aplicación. Una aplicación de React es una agregación de componentes. React nos ayuda a construir componentes reutilizables. El siguiente diagrama muestra diferentes componentes. Todos los componentes tienen colores de borde diferentes. En React, ensamblamos diferentes componentes juntos para crear una aplicación. Usamos funciones o clases de JavaScript para crear componentes. Si usamos una función, el componente será un componente funcional, pero si usamos una clase, será un componente basado en clases.
 
-Components can be:
+Los componentes pueden ser:
 
-- Functional Component / Presentational Component / Stateless Component / Dumb Component
-- Class Component / Container Component/ Statefull Component / Smart Component
+- Componente Funcional / Componente de Presentación / Componente sin Estado / Componente Tonto
+- Componente de Clase / Componente Contenedor / Componente con Estado / Componente Inteligente
 
-The classification of components above does not work for the latest version of React, but it is good to know the former definition and how the previous versions work.
+La clasificación de componentes anterior no se aplica a la última versión de React, pero es bueno conocer la definición anterior y cómo funcionaban las versiones previas.
 
-So, let us change all the JSX to components. Components in React are JavaScript functions or classes, that return a JSX. Component name must start with an uppercase, and if the name is two words, it should be CamelCase - a camel with two humps.
-
-
----
-
-## Big picture of components
-
-In the previous section we agreed, that a website or an application is made of buttons, forms, texts, media objects, header, section, article and footer. If we have a million-dollar button, we can use this button all the time, instead of recreating it all over again, whenever we need a button. The same goes for input fields, forms, header or footer. That is where the power of the component comes. In the following diagram, the header, main and footer are components. Inside the main there is also a user card component and a text section component. All the different colors represent different components. How many colors do you see? Each color represent a single component. We have five components in this diagram.
-
-![Components](../images/components_example.png)
-
-Before we jump into React components, let's do some functions and class refreshers.
+Entonces, cambiemos todo el JSX a componentes. Los componentes en React son funciones o clases de JavaScript que devuelven un JSX. El nombre del componente debe comenzar con mayúscula, y si el nombre tiene dos palabras, debe usar CamelCase (un camello con dos jorobas).
 
 
 ---
 
-## JavaScript function
+## Visión general de los componentes
 
-A JavaScript function could be either a regular function or an arrow function. These functions are not exactly the same there is a slight difference between them.
+En la sección anterior acordamos que un sitio web o una aplicación está compuesto por botones, formularios, textos, objetos multimedia, encabezado, sección, artículo y pie de página. Si tenemos un botón de un millón de dólares, podemos usar este botón todo el tiempo, en lugar de volver a crearlo una y otra vez cada vez que necesitemos un botón. Lo mismo ocurre con los campos de entrada, formularios, encabezados o pies de página. Ahí es donde reside el poder de los componentes. En el siguiente diagrama, el encabezado (header), el principal (main) y el pie de página (footer) son componentes. Dentro de main también hay un componente de tarjeta de usuario y un componente de sección de texto. Todos los colores diferentes representan componentes diferentes. ¿Cuántos colores ves? Cada color representa un solo componente. Tenemos cinco componentes en este diagrama.
+
+![Components](/images/components_example.png)
+
+Antes de sumergirnos en los componentes de React, hagamos un repaso sobre funciones y clases.
+
+
+---
+
+## Función de JavaScript
+
+Una función de JavaScript puede ser una función regular o una función flecha. Estas funciones no son exactamente iguales, existe una ligera diferencia entre ellas.
 
 ```js
 const getUserInfo = (firstName, lastName, country, title, skills) => {
@@ -47,9 +47,9 @@ console.log(
 
 ---
 
-## JavaScript Class
+## Clase de JavaScript
 
-A class is a blueprint of an object. We instantiate a class to create different objects. In addition, we can create children, by inheriting all the methods and properties of the parent.
+Una clase es el plano (blueprint) de un objeto. Instanciamos una clase para crear diferentes objetos. Además, podemos crear hijos, heredando todos los métodos y propiedades del padre.
 
 ```js
 class Parent {
@@ -96,16 +96,16 @@ const child = new Child(
 )
 ```
 
-We just briefly covered function and class. React component is made of JavaScript functions or classes, so let's make a React component now.
+Acabamos de cubrir brevemente funciones y clases. Los componentes de React están hechos de funciones o clases de JavaScript, así que vamos a crear un componente de React ahora.
 
 
 ---
 
-## Creating React Component
+## Creando un Componente de React
 
-### Functional Component
+### Componente Funcional
 
-Using a JavaScript function, we can make a functional React component.
+Usando una función de JavaScript, podemos crear un componente funcional de React.
 
 ```js
 // React component syntax
@@ -116,7 +116,7 @@ const ComponentName = () => {
 }
 ```
 
-The following expression is a JSX element.
+La siguiente expresión es un elemento JSX.
 
 ```js
 // JSX element, header
@@ -168,11 +168,11 @@ const Header = () => (
 )
 ```
 
-### Rendering components
+### Renderizado de componentes
 
-Now, lets change all the JSX elements we had to components. When we call JSX element we use curly brackets and when we call components we do as follows <ComponentName />. If we pass an attribute, when we call the component name, we call it props(<ComponentName propsName = {'data-type'} />). We will talk about props in another section.[Live on code pen](https://codepen.io/Asabeneh/full/wvaKKEM)
+Ahora, cambiemos todos los elementos JSX que teníamos a componentes. Cuando llamamos a un elemento JSX usamos llaves, y cuando llamamos componentes lo hacemos de la siguiente manera `<NombreComponente />`. Si pasamos un atributo al llamar al nombre del componente, lo llamamos props (`<NombreComponente nombreProp={'tipo-de-dato'} />`). Hablaremos sobre los props en otra sección. [En vivo en CodePen](https://codepen.io/Asabeneh/full/wvaKKEM)
 
-Let's render first the _Header_ component.
+Rendericemos primero el componente _Header_.
 
 ```js
 // index.js
@@ -197,7 +197,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<Header />, rootElement)
 ```
 
-Now, let's create an App component , that will wrap the Header, Main and Footer. Then the App component will be render on the DOM.
+Ahora, vamos a crear un componente App que envolverá a Header, Main y Footer. Luego, el componente App se renderizará en el DOM.
 
 ```js
 // index.js
@@ -269,13 +269,13 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-![Rendering Components](../images/rendering_componnets.png)
+![Rendering Components](/images/rendering_componnets.png)
 
-### Injecting data to JSX in React Component
+### Inyectando datos en JSX dentro de un Componente de React
 
-So far, we used static data on the JSX elements. Now let's pass different data types as dynamic data. The dynamic data could be strings, numbers, booleans, arrays or objects. Let us see each of the data types step by step. To inject data to a JSX we use the {} bracket.
+Hasta ahora, usamos datos estáticos en los elementos JSX. Ahora pasemos diferentes tipos de datos como datos dinámicos. Los datos dinámicos pueden ser cadenas, números, booleanos, arreglos u objetos. Veamos cada uno de los tipos de datos paso a paso. Para inyectar datos en JSX usamos las llaves `{}`.
 
-In this section we inject only strings
+En esta sección inyectamos solo cadenas.
 
 ```js
 import React from 'react'
@@ -309,7 +309,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<Header />, rootElement)
 ```
 
-Similar to the Header component we can implement to Main and Footer component.
+De forma similar al componente Header, podemos implementarlo en los componentes Main y Footer.
 
 ```js
 // To get the root element from the HTML document
@@ -417,16 +417,16 @@ const app = () => (
 ReactDOM.render(<App />, rootElement)
 ```
 
-### Further on Functional components
+### Más sobre componentes funcionales
 
-We have transformed all the JSX elements of Day 2 to functional components, and by now you are very familiar with components. Let's create more components. What is the smallest size of a component? A component that returns only a single HTML as JSX is considered as a small component. A button component or an alert box component, or just an input field component.
+Hemos transformado todos los elementos JSX del Día 2 en componentes funcionales, y a estas alturas ya estás muy familiarizado con los componentes. Creemos más componentes. ¿Cuál es el tamaño más pequeño de un componente? Un componente que devuelve solo un único elemento HTML como JSX se considera un componente pequeño. Un componente de botón, un cuadro de alerta o simplemente un campo de entrada (input).
 
 ```js
 const Button = () => <button>action</button>
 ```
 
-The _Button_ component is made of a single HTML button element.
-Let's style this button using JavaScript style object. All CSS properties should be camelCase to make a JavaScript CSS object. If we pass a number without unit as CSS value, it is considered as px. See the example below.
+El componente _Button_ está hecho de un solo elemento botón en HTML.
+Démosle estilo a este botón usando un objeto de estilo de JavaScript. Todas las propiedades CSS deben estar en camelCase para formar un objeto CSS en JavaScript. Si pasamos un número sin unidad como valor CSS, se considera en píxeles (px). Mira el ejemplo a continuación.
 
 ```js
 const buttonStyles = {
@@ -438,7 +438,7 @@ const buttonStyles = {
 const Button = () => <button style={buttonStyles}> action </button>
 ```
 
-The Button component is a dumb component, because it does not take any parameters and we cannot change the action text dynamically. We need to pass props to the button, to change the value dynamically. We will see props in the next section. Before we close today's lesson let's make another, more functional component, which displays a random hexadecimal number.
+El componente Button es un componente "tonto" (dumb component) porque no recibe ningún parámetro y no podemos cambiar el texto de la acción dinámicamente. Necesitamos pasar props al botón para cambiar su valor de forma dinámica. Veremos los props en la próxima sección. Antes de cerrar la lección de hoy, hagamos otro componente más funcional, el cual muestra un número hexadecimal aleatorio.
 
 ```js
 import React from 'react'
@@ -462,7 +462,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<HexaColor />, rootElement)
 ```
 
-# Exercises: Components
+# Ejercicios: Componentes
 
 
 ---
@@ -471,11 +471,11 @@ ReactDOM.render(<HexaColor />, rootElement)
 
 *Nota: Los Class Components son la forma antigua de escribir React. Hoy en día han sido reemplazados por Componentes Funcionales (Hooks), pero es crucial entenderlos para leer código legado.*
 
-# Class Components
+# Componentes de Clase (Class Components)
 
-In the previous sections, we have covered JSX, functional component and props. In this section, we will cover class components or stateful component. Only class based components used to have state and life cycle methods. However, after React version 16.8.0 functional components can have state and life cycle using React Hooks. In 30 Days Of React challenge, we will cover React before 16.8.0 and after, that mean both old and newest version. There are lots of codes written in older version and at some point it may need migration. In addition, to understand React very well someone has to understand class based component too.
+En las secciones anteriores hemos cubierto JSX, componentes funcionales y props. En esta sección cubriremos los componentes de clase o componentes con estado (stateful). Anteriormente, solo los componentes basados en clases tenían estado y métodos del ciclo de vida. Sin embargo, después de la versión 16.8.0 de React, los componentes funcionales pueden tener estado y ciclo de vida utilizando React Hooks. En el reto "30 Días de React", cubriremos React tanto antes de 16.8.0 como después, lo que significa tanto la versión antigua como la más reciente. Hay mucho código escrito en versiones anteriores y en algún punto podría necesitar migración. Además, para entender React muy bien, uno también debe entender los componentes basados en clases.
 
-All the previous components are functional components. Let us make also class based component. Class based component is made using JavaScript class and it inherits from react Component. Let us learn how to make a class based component by converting all the functional components we made previously. It is not important to convert all but we are converting them for the sake of learning how to change functional components to class components.
+Todos los componentes anteriores son componentes funcionales. Vamos a crear también un componente basado en clase. Un componente de clase se crea usando clases de JavaScript y hereda de la clase Component de React. Aprendamos cómo crear un componente basado en clase convirtiendo todos los componentes funcionales que hicimos previamente. No es importante convertirlos todos, pero los estamos convirtiendo con el propósito de aprender cómo cambiar de componentes funcionales a componentes de clase.
 
 ```js
 // Pure JavaScript class and child
@@ -792,9 +792,9 @@ ReactDOM.render(<App />, rootElement)
 
 ---
 
-## Accessing props in Class components
+## Accediendo a props en componentes de Clase
 
-We stated that props is a means to send data from on component to another or we can call it that props is a data carrier. Therefore, we should handle props in class based component too. We can access props of a class based component using the keyword _this_. See the example below.
+Dijimos que los props son un medio para enviar datos de un componente a otro, o podemos llamarlos portadores de datos. Por lo tanto, también deberíamos manejar props en los componentes basados en clases. Podemos acceder a los props de un componente basado en clase utilizando la palabra clave _this_. Mira el ejemplo a continuación.
 
 ```js
 // index.js
@@ -846,7 +846,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-As you can see in the above example, to get the data out from props we have write _props.data_ every time. We can avoid this repetition using destructuring.
+Como puedes ver en el ejemplo anterior, para obtener los datos de los props tenemos que escribir _props.data_ cada vez. Podemos evitar esta repetición usando la desestructuración (destructuring).
 
 ```js
 // index.js
@@ -908,7 +908,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-As you can see, the above code cleaner than the previous. Now, let's clean all the components we have and put all together.
+Como puedes ver, el código anterior es más limpio que el primero. Ahora, limpiemos todos los componentes que tenemos y pongámoslos todos juntos.
 
 ```js
 // index.js
@@ -1029,11 +1029,11 @@ ReactDOM.render(<App />, rootElement)
 
 ---
 
-## Methods in Class based component
+## Métodos en componentes basados en clases
 
-We access methods in class based component. Most of the time, we write different methods on the parent component and we pass them to child components. Let's see the implementation.
+Accedemos a los métodos en los componentes basados en clases. La mayoría de las veces, escribimos diferentes métodos en el componente padre y los pasamos a los componentes hijos. Veamos la implementación.
 
-Let's add a method on this component.
+Agreguemos un método en este componente.
 
 ```js
 //index.js
@@ -1066,9 +1066,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<Header />, rootElement)
 ```
 
-The invoking or calling of the method triggers when the event occurs. Therefore, whenever you pass a method to an event listener do not invoke the method.
+La invocación o llamada del método se activa cuando ocurre el evento. Por lo tanto, cada vez que pases un método a un listener de eventos (event listener), no lo invoques directamente.
 
-Now, let's the code we had add all the necessary methods.
+Ahora, agreguemos todos los métodos necesarios al código que teníamos.
 
 ```js
 // index.js
@@ -1266,17 +1266,6 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Most of the time the container or the parent component can be written as class component and others as functional or presentational components. Data usually flows from parent components to child component and it is unidirectional. However, the latest version of react can allow us to write every component in our application only with functional components. This was impossible in previous versions.
-In next section, we will cover state which is the heart of React. State allows React component to rerender when whenever there is a change in state.
+La mayor parte del tiempo, el contenedor o componente padre puede escribirse como un componente de clase y los demás como componentes funcionales o de presentación. Los datos generalmente fluyen desde los componentes padres hacia los componentes hijos de forma unidireccional. Sin embargo, la última versión de React nos permite escribir cada componente de nuestra aplicación únicamente con componentes funcionales. Esto era imposible en versiones anteriores.
+En la siguiente sección, cubriremos el estado (state), que es el corazón de React. El estado permite que un componente de React se vuelva a renderizar cuando ocurre un cambio en su estado.
 
-# Exercises
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.
