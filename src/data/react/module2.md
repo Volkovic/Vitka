@@ -5,18 +5,18 @@
 
 ---
 
-## Props in Functional Component
+## Props en Componentes Funcionales
 
-In the previous day, we saw how to inject different data types to React component JSX. Now, let us see how we use it in component and also how to pass different data as props.
+En el día anterior, vimos cómo inyectar diferentes tipos de datos en el JSX de los componentes de React. Ahora, veamos cómo lo usamos dentro de un componente y también cómo pasar diferentes datos como props.
 
 
 ---
 
-## What is props?
+## ¿Qué son los props?
 
-Props is a special keyword in React that stands for properties and is being used to pass data from one component to another and mostly from parent component to child component. We can say props is a data carrier or a means to transport data.
+`props` es una palabra clave especial en React que significa propiedades (properties) y se usa para pasar datos de un componente a otro, la mayoría de las veces desde el componente padre hacia el componente hijo. Podemos decir que los props son portadores de datos o un medio para transportar información.
 
-I hope you are familiar with the JavaScript function. Most of the time, functions with parameters are smart and they can take dynamic data likewise props is a way we pass data or parameter to a component. Let's see the difference between a function and a component.
+Espero que estés familiarizado con las funciones de JavaScript. La mayoría de las veces, las funciones con parámetros son inteligentes y pueden tomar datos dinámicos; de la misma manera, los props son la forma en la que pasamos datos o parámetros a un componente. Veamos la diferencia entre una función y un componente.
 
 ```js
 // function syntax
@@ -47,7 +47,7 @@ const User = (props) => {
 <User firstName = 'Asabeneh', lastName='Yetayeh' country = 'Finland' />
 ```
 
-In the previous section, we injected data as follows and today we will change these data to props.
+En la sección anterior, inyectamos datos de la siguiente manera, y hoy cambiaremos esos datos a props.
 
 ```js
 const welcome = 'Welcome to 30 Days Of React'
@@ -75,14 +75,14 @@ const Header = () => (
 )
 ```
 
-Instead of injecting data we can also pass the data as props. React props are similar to parameters in functions.
+En lugar de inyectar los datos, también podemos pasar los datos como props. Los props de React son similares a los parámetros en las funciones.
 
 
 ---
 
-## Props object
+## El objeto props
 
-React props is an object which you get instantly when you create a React component. Before we pass properties to the component, let's check what do we get in the props object.
+Los props de React son un objeto que obtienes instantáneamente cuando creas un componente de React. Antes de pasar propiedades al componente, verifiquemos qué obtenemos en el objeto props.
 
 ```js
 import React from 'react'
@@ -121,9 +121,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-In the above console.log(props), you would get an empty object({}). That means if you do not pass any attributes or properties when you instantiate the component, the props will be empty otherwise it will be populated with the data you passed as attributes and the proper name of these attributes are props.
+En el `console.log(props)` anterior, obtendrías un objeto vacío (`{}`). Eso significa que si no pasas ningún atributo o propiedad cuando instancias el componente, los props estarán vacíos. De lo contrario, se poblarán con los datos que pases como atributos, y el nombre correcto de estos atributos es props.
 
-Let's start with a simple example. In the example below, the welcome string has been passed as props in the Header components.
+Comencemos con un ejemplo simple. En el ejemplo a continuación, la cadena `welcome` se ha pasado como prop en el componente Header.
 
 ```js
 import React from 'react'
@@ -156,7 +156,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Now, when you do console.log(props) you should get the following object, that means the welcome property we passed to the Header component can be found inside the props object.
+Ahora, cuando hagas `console.log(props)` deberías obtener el siguiente objeto, lo que significa que la propiedad `welcome` que pasamos al componente Header se puede encontrar dentro del objeto props.
 
 ```js
 {
@@ -164,13 +164,13 @@ Now, when you do console.log(props) you should get the following object, that me
 }
 ```
 
-As you can see in the above code, we passed only single props to Header component, the welcome props. A component can have one or many props. Props could be different data types. It could be a string, number, boolean, array, object or a function. We will cover different kind of props in the next sections.
+Como puedes ver en el código anterior, pasamos un solo prop al componente Header, el prop `welcome`. Un componente puede tener uno o muchos props. Los props pueden ser de diferentes tipos de datos. Pueden ser cadenas (string), números (number), booleanos (boolean), arreglos (array), objetos (object) o una función. Cubriremos los diferentes tipos de props en las siguientes secciones.
 
-### Different data type props
+### Diferentes tipos de datos para los props
 
-### String props type
+### Props de tipo cadena (String)
 
-The data type of the props we pass an attribute to the component is a string.
+El tipo de dato de los props que pasamos como atributo al componente es una cadena.
 
 ```js
 import React from 'react'
@@ -213,7 +213,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-If you check on the browser console, you will get the following object.
+Si revisas en la consola del navegador, obtendrás el siguiente objeto.
 
 ```js
 {
@@ -226,9 +226,9 @@ welcome: "Welcome to 30 Days Of React"
 }
 ```
 
-Since you are a JavaScript ninja by now, you know what do do with this object.
+Puesto que a estas alturas ya eres un ninja de JavaScript, sabes qué hacer con este objeto.
 
-As you can see from the above example, the value of the props are written statically. However, if we want to apply some logic it is hard to implement with statically written data, so it will be better to use a variable as props. Let's see the following example:
+Como puedes ver en el ejemplo anterior, el valor de los props se escribe de forma estática. Sin embargo, si queremos aplicar alguna lógica es difícil implementarla con datos escritos de forma estática, por lo que será mejor usar una variable como prop. Veamos el siguiente ejemplo:
 
 ```js
 import React from 'react'
@@ -276,9 +276,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-### Number props type
+### Props de tipo número (Number)
 
-Let's use a number props to a component
+Usemos un prop de número en un componente:
 
 ```js
 import React from 'react'
@@ -309,9 +309,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-### Boolean props type
+### Props de tipo booleano (Boolean)
 
-We can pass boolean data types to a React component.
+Podemos pasar tipos de datos booleanos a un componente de React.
 
 ```js
 import React from 'react'
@@ -342,9 +342,9 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-### Array props type
+### Props de tipo arreglo (Array)
 
-In programming arrays and objects are the most frequently used data structure to solve different problems and store data in a more structured way. Therefore, we encounter data in the form of an array quite often. Let's pass an array as props to a component
+En la programación, los arreglos (arrays) y los objetos (objects) son las estructuras de datos que se usan con mayor frecuencia para resolver diferentes problemas y almacenar información de una manera más estructurada. Por lo tanto, nos encontramos con datos en forma de arreglo muy a menudo. Pasemos un arreglo como prop a un componente:
 
 ```js
 import React from 'react'
@@ -362,7 +362,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-If you see the result on the browser, the skills elements needs formatting. Therefore before we render, it should have some elements between each skill. To modify the array and to add a li element we can use map method. You should be very familiar with the functional programming map, filter and reduce to feel good at React if not please go back to day 1 JavaScript refresher. Let's apply map to modify the array.
+Si ves el resultado en el navegador, los elementos de habilidades (skills) necesitan formato. Por lo tanto, antes de renderizar, deberían tener algunos elementos entre cada habilidad. Para modificar el arreglo y agregar un elemento `li` podemos usar el método `map`. Deberías estar muy familiarizado con los métodos de programación funcional `map`, `filter` y `reduce` para sentirte cómodo con React; si no es así, por favor vuelve al repaso de JavaScript del día 1. Apliquemos `map` para modificar el arreglo.
 
 ```js
 import React from 'react'
@@ -385,12 +385,12 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-We will go in-depth about list and map in other sections. Now, let's see an object as a props.
+Hablaremos en profundidad sobre listas y `map` en otras secciones. Ahora, veamos un objeto como prop.
 
-### Object props type
+### Props de tipo objeto (Object)
 
-We may pass an object as props to a React component. Let's see an example.
-We can change the previous Header props to object. For the time being let's change a few properties for better understanding.
+Podemos pasar un objeto como tipo de prop a un componente de React. Veamos un ejemplo.
+Podemos cambiar los props del Header anterior a un objeto. Por ahora, cambiemos algunas propiedades para una mejor comprensión.
 
 ```js
 import React from 'react'
@@ -429,7 +429,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Now, let's change all the previous Header properties to an object.
+Ahora, cambiemos todas las propiedades anteriores del Header a un objeto.
 
 ```js
 import React from 'react'
@@ -497,11 +497,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-When we use an object as props we usually destructure the data to access the values. Destructuring makes our code easy to read. We will soon see the destructuring of props but before that let's see function as props for a React component.
+Cuando usamos un objeto como props, usualmente desestructuramos los datos para acceder a los valores. La desestructuración hace que nuestro código sea fácil de leer. Pronto veremos la desestructuración de props, pero antes de eso, veamos cómo pasar una función como prop para un componente de React.
 
-### Function prop types
+### Props de tipo función (Function)
 
-We can pass a function as props type to a React component. Let's see some examples
+Podemos pasar una función como tipo de prop a un componente de React. Veamos algunos ejemplos:
 
 ```js
 import React from 'react'
@@ -529,7 +529,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Even we can write a function inside the curly bracket
+Incluso podemos escribir una función dentro de las llaves:
 
 ```js
 import React from 'react'
@@ -553,7 +553,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Now, lets implement different functions as props
+Ahora, implementemos diferentes funciones como props
 
 ```js
 import React from 'react'
@@ -581,11 +581,11 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-In the above example, onClick is a props to hold the greetPeople function. HTML has onclick, onmouseover, onhover, onkeypress and etc event handlers. In React, these handlers are in camelCase. For instance onClick, onMouseOver, onKeyPress etc. We will cover events in React in detail in other section.
+En el ejemplo anterior, `onClick` es un prop que contiene la función `greetPeople`. HTML tiene manejadores de eventos como `onclick`, `onmouseover`, `onhover`, `onkeypress`, etc. En React, estos manejadores están en camelCase. Por ejemplo: `onClick`, `onMouseOver`, `onKeyPress`, etc. Cubriremos los eventos de React en detalle en otra sección.
 
-Let's see some more functions as props to give a clear understanding how to handle function as props in a React component.
+Veamos algunas funciones más como props para tener una comprensión clara de cómo manejar funciones como props en un componente de React.
 
-This component shows month, date and year as an alert box.
+Este componente muestra el mes, día y año en un cuadro de alerta.
 
 ```js
 import React from 'react'
@@ -641,11 +641,11 @@ ReactDOM.render(<App />, rootElement)
 
 ---
 
-## Destructuring props
+## Desestructurando props
 
-By now, I believe you are a JavaScript ninja and you know about destructing arrays and objects. Destructuring code to some extent makes easy to read. Let us destructure the props in Header component. Everything we passed as props is stored in props object. Therefore, props is an object and we can destructure the properties. Let's destructure some of the props we wrote in object props example. We can destructure in many ways:
+A estas alturas, creo que ya eres un ninja de JavaScript y sabes sobre la desestructuración de arreglos y objetos. Desestructurar el código, en cierta medida, lo hace más fácil de leer. Vamos a desestructurar los props en el componente Header. Todo lo que pasamos como props se almacena en el objeto props. Por lo tanto, `props` es un objeto y podemos desestructurar sus propiedades. Vamos a desestructurar algunos de los props que escribimos en el ejemplo del objeto de props. Podemos desestructurar de varias maneras:
 
-1. Step by step destructuring
+1. Desestructuración paso a paso
 
 ```js
 import React from 'react'
@@ -717,7 +717,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-2. Destructuring in one line
+2. Desestructuración en una sola línea
 
 ```js
 import React from 'react'
@@ -794,7 +794,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-3. Destructuring the props inside the parenthesis
+3. Desestructurando los props dentro de los paréntesis
 
 ```js
 import React from 'react'
@@ -870,8 +870,8 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-Now, let's destructure all the components we had and assemble them together. We pass props from one component to another typically from parent to a child component.
-For instance in the Main component techs, user, greetPeople and handleTime props have been passed from the parent component Main to child components TechList and UserCard. Below, you will get all the codes destructured and cleaned.
+Ahora, desestructuremos todos los componentes que teníamos y ensamblémoslos. Pasamos props de un componente a otro, típicamente de un componente padre a un componente hijo.
+Por ejemplo, en el componente Main, los props `techs`, `user`, `greetPeople` y `handleTime` se han pasado del componente padre Main a los componentes hijos TechList y UserCard. A continuación, tendrás todo el código desestructurado y limpio.
 
 ```js
 import React from 'react'
@@ -1035,25 +1035,14 @@ ReactDOM.render(<App />, rootElement)
 
 ## propTypes
 
-The propTypes package helps us to assign the data types of the props we passed to a component.
+El paquete `propTypes` nos ayuda a asignar los tipos de datos de los props que pasamos a un componente.
 
 
 ---
 
 ## defaultProps
 
-The defaultProps can be used when we want to have some default prop types for a component.
+`defaultProps` se puede usar cuando queremos tener algunos tipos de props predeterminados para un componente.
 
-We will cover propTypes in detail in other sections.
+Cubriremos `propTypes` en detalle en otras secciones.
 
-# Exercises: Components and Props
-
-
----
-
-## 🛠️ Ejercicio In-line de Análisis
-
-**Pregunta:** Basado en la lectura de este módulo, ¿por qué React fomenta este patrón arquitectónico en lugar de mutar el DOM de forma imperativa?
-
-**Respuesta y Justificación:**
-React abstrae la manipulación manual del DOM para que el desarrollador pueda centrarse en la lógica de estado (declarativo), reduciendo drásticamente los bugs de sincronización entre los datos y la vista.
