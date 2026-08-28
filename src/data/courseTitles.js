@@ -47,11 +47,23 @@ export const nodeTitles = [
 ];
 
 export const reactTitles = [
-  'Components & Class Legacy', 'Props', 'Map, List & Keys', 'States',
-  'Conditional Rendering', 'Events', 'Forms', 'Controlled vs Uncontrolled Input',
-  'Higher Order Component', 'React Router', 'Fetch And Axios',
-  'Introducing Hooks & Life Cycles', 'Form Using Hooks', 'Fetching Data Using Hooks',
-  'Custom Hooks', 'Context', 'Ref (useRef)'
+  'Componentes y Clases',
+  'Props',
+  'Map, Listas y Keys',
+  'Estados (useState)',
+  'Renderizado Condicional',
+  'Eventos',
+  'Formularios',
+  'Inputs Controlados vs No Controlados',
+  'Higher Order Components (HOC)',
+  'React Router',
+  'Fetch y Axios',
+  'Hooks y Ciclo de Vida',
+  'Formularios con Hooks',
+  'Fetching con Hooks',
+  'Custom Hooks',
+  'Context API',
+  'useRef'
 ];
 
 export const tailwindTitles = [

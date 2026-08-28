@@ -1,3 +1,5 @@
+> **Roadmap:** Fase 8: Arquitectura y 'El Estándar Programador' -> Patrones de Diseño (HOC)
+
 # Componente de orden superior
 
 # Componente de orden superior

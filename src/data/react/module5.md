@@ -1,3 +1,5 @@
+> **Roadmap:** Fase 3: Desarrollo Web Moderno con React -> React Core & Hooks (Renderizado Condicional)
+
 # Representación condicional
 
 # Representación condicional

@@ -1,3 +1,5 @@
+> **Roadmap:** Fase 4: Gestión de Datos y Estado -> Estado Global (Context API)
+
 # Contexto
 
 # Contexto

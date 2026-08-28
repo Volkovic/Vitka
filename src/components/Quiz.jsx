@@ -1,9 +1,30 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, XCircle, Clock, X, AlertTriangle } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { getCourseTotalModules } from '../data/courseTitles';
+
+function preprocessQuestion(text) {
+  if (!text) return '';
+  
+  // Detectar prefijos como "Concepto profundo:", "Detección de Error:", etc.
+  const prefixMatch = text.match(/^([A-ZÁÉÍÓÚÑ][\w\sáéíóúñÁÉÍÓÚÑ]{2,40}):\s+([\s\S]*)$/);
+  if (prefixMatch) {
+    return `### ${prefixMatch[1]}\n\n${prefixMatch[2]}`;
+  }
+
+  // Si no hay prefijo, hacer que la primera linea sea un título (H3) 
+  // para separarlo del código o explicaciones posteriores
+  const lines = text.split('\n');
+  if (lines.length > 0 && lines[0].trim() !== '' && !lines[0].startsWith('```') && !lines[0].startsWith('#')) {
+    lines[0] = `### ${lines[0]}`;
+  }
+  
+  return lines.join('\n');
+}
 
 export default function Quiz({ questions, moduleId, courseId }) {
   const { user } = useAuth();
@@ -61,7 +82,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
             module_id: parseInt(moduleId),
             score: score
           }, { onConflict: 'user_id, course_id, module_id' });
-          
+
         if (error) {
           console.error("Error saving progress to Supabase:", error.message);
         }
@@ -93,7 +114,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
     if (isAnswered) return;
     setSelectedOption(index);
     setIsAnswered(true);
-    
+
     let newScore = score;
     let newErrors = errors;
 
@@ -138,10 +159,10 @@ export default function Quiz({ questions, moduleId, courseId }) {
       <div className="p-8 rounded-2xl bg-gray-900 border border-gray-800 text-center space-y-6">
         <h3 className="text-2xl font-bold">Evaluación del Módulo {moduleId}</h3>
         <p className="text-gray-400">
-          Demuestra lo que has aprendido. Tienes <strong className="text-white">{Math.floor(initialTime / 60)} minutos</strong> para completar {actualTotalQuestions} preguntas. 
+          Demuestra lo que has aprendido. Tienes <strong className="text-white">{Math.floor(initialTime / 60)} minutos</strong> para completar {actualTotalQuestions} preguntas.
           Una vez iniciado, no podrás volver atrás sin perder tu progreso.
         </p>
-        <button 
+        <button
           onClick={() => setIsStarted(true)}
           className="px-8 py-3 bg-primary text-background-dark font-bold rounded-lg hover:scale-105 transition-transform"
         >
@@ -153,7 +174,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
 
   return (
     <div className="fixed inset-0 z-[100] bg-background-dark/95 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6 animate-in fade-in duration-300 overflow-hidden">
-      
+
       {/* Modal de Confirmación de Salida */}
       {showExitConfirm && (
         <div className="fixed inset-0 z-[200] bg-black/80 flex items-center justify-center p-4 animate-in fade-in">
@@ -166,13 +187,13 @@ export default function Quiz({ questions, moduleId, courseId }) {
               <p className="text-gray-400">Perderás todo tu progreso actual en la evaluación y tendrás que empezar de nuevo.</p>
             </div>
             <div className="flex gap-4 pt-4">
-              <button 
+              <button
                 onClick={() => setShowExitConfirm(false)}
                 className="flex-1 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors"
               >
                 Cancelar
               </button>
-              <button 
+              <button
                 onClick={() => {
                   setShowExitConfirm(false);
                   resetQuiz();
@@ -188,7 +209,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
       )}
 
       {/* Botón Cerrar Absolute */}
-      <button 
+      <button
         onClick={() => setShowExitConfirm(true)}
         className="absolute top-4 right-4 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition-colors z-10"
       >
@@ -198,7 +219,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
       {isFinished ? (
         <div className="w-full max-w-2xl p-10 rounded-2xl bg-gray-900 border border-gray-800 text-center space-y-6 shadow-2xl animate-in zoom-in-95">
           <h3 className="text-3xl font-bold">Resultados del Módulo {moduleId}</h3>
-          
+
           {timeLeft === 0 && (
             <div className="flex items-center justify-center gap-2 text-yellow-500 bg-yellow-500/10 p-3 rounded-lg border border-yellow-500/20 mx-auto max-w-sm mb-4">
               <AlertTriangle size={20} /> ¡El tiempo se ha agotado!
@@ -207,21 +228,21 @@ export default function Quiz({ questions, moduleId, courseId }) {
 
           <p className="text-7xl font-black text-primary">{score} / {shuffledQuestions.length}</p>
           <div className={`p-4 rounded-xl font-medium ${score >= passingScore ? 'bg-green-900/30 text-green-400 border border-green-800' : 'bg-red-900/30 text-red-400 border border-red-800'}`}>
-            {score >= passingScore 
-              ? `¡Felicidades! Has superado el puntaje mínimo del 80% (${passingScore}/${actualTotalQuestions}) y completaste este desafío con éxito.` 
+            {score >= passingScore
+              ? `¡Felicidades! Has superado el puntaje mínimo del 80% (${passingScore}/${actualTotalQuestions}) y completaste este desafío con éxito.`
               : `No has alcanzado el puntaje mínimo del 80% (${passingScore}/${actualTotalQuestions}). Repasa la teoría e inténtalo de nuevo.`}
           </div>
-          
+
           <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
             {score < passingScore ? (
               <>
-                <button 
+                <button
                   onClick={resetQuiz}
                   className="px-6 py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors"
                 >
                   Reintentar Quiz
                 </button>
-                <button 
+                <button
                   onClick={() => { resetQuiz(); navigate(`/${courseId}`); }}
                   className="px-6 py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors"
                 >
@@ -230,13 +251,13 @@ export default function Quiz({ questions, moduleId, courseId }) {
               </>
             ) : (
               <>
-                <button 
+                <button
                   onClick={() => { resetQuiz(); navigate(`/${courseId}`); }}
                   className="px-6 py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors"
                 >
                   Volver a la Ruta
                 </button>
-                <button 
+                <button
                   onClick={() => { resetQuiz(); navigate(isLastModule ? `/${courseId}` : `/${courseId}/module/${parseInt(moduleId) + 1}`); }}
                   className="px-6 py-2.5 bg-primary text-background-dark font-bold rounded-lg hover:bg-primary/90 transition-colors"
                 >
@@ -248,7 +269,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
         </div>
       ) : (
         <div className="w-full max-w-5xl flex flex-col bg-gray-900 border border-gray-800 shadow-2xl rounded-2xl overflow-hidden max-h-[90vh]">
-          
+
           {/* Header Compacto */}
           <div className="flex justify-between items-center bg-gray-800/50 px-6 py-4 border-b border-gray-800 flex-shrink-0">
             <div className="flex flex-col gap-1.5 w-1/2">
@@ -264,13 +285,19 @@ export default function Quiz({ questions, moduleId, courseId }) {
 
           {/* Scrollable Body */}
           <div className="p-6 flex flex-col gap-6 overflow-y-auto flex-1">
-            <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">{currentQuestion.question}</h3>
+            <div className="prose prose-invert prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:font-bold prose-h3:text-white prose-h3:m-0 prose-h3:mb-3 prose-p:text-lg sm:prose-p:text-xl prose-p:text-gray-300 prose-p:leading-relaxed prose-p:m-0 prose-pre:bg-gray-950 prose-pre:border prose-pre:border-gray-800 prose-pre:mt-4 prose-pre:p-4 prose-pre:text-sm prose-code:text-primary prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md max-w-none">
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                {preprocessQuestion(currentQuestion.question)}
+              </ReactMarkdown>
+            </div>
             
+            <hr className="border-gray-800" />
+
             {/* Grid 2x2 para las opciones */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {currentQuestion.options.map((option, index) => {
                 let buttonStateClass = "border-gray-700 hover:border-gray-500 hover:bg-gray-800";
-                
+
                 if (isAnswered) {
                   if (index === currentQuestion.correctAnswer) {
                     buttonStateClass = "border-green-500 bg-green-500/10 text-green-400";
@@ -306,9 +333,9 @@ export default function Quiz({ questions, moduleId, courseId }) {
               <div className="p-4 rounded-xl bg-background-card border border-gray-800 animate-in fade-in slide-in-from-bottom-4">
                 <div className="flex items-center gap-2 mb-1.5">
                   {selectedOption === currentQuestion.correctAnswer ? (
-                    <span className="text-green-400 font-bold flex items-center gap-1.5"><CheckCircle size={16}/> ¡Correcto!</span>
+                    <span className="text-green-400 font-bold flex items-center gap-1.5"><CheckCircle size={16} /> ¡Correcto!</span>
                   ) : (
-                    <span className="text-red-400 font-bold flex items-center gap-1.5"><XCircle size={16}/> Incorrecto</span>
+                    <span className="text-red-400 font-bold flex items-center gap-1.5"><XCircle size={16} /> Incorrecto</span>
                   )}
                 </div>
                 <p className="text-gray-300 text-sm sm:text-base"><strong className="text-white">Justificación:</strong> {currentQuestion.justification}</p>
@@ -319,7 +346,7 @@ export default function Quiz({ questions, moduleId, courseId }) {
           {/* Botón Siguiente - Siempre visible al fondo */}
           {isAnswered && (
             <div className="flex-shrink-0 border-t border-gray-800 bg-gray-900 px-6 py-4 animate-in fade-in slide-in-from-bottom-2">
-              <button 
+              <button
                 onClick={handleNext}
                 className="w-full py-3.5 px-6 bg-primary text-background-dark font-bold text-lg rounded-xl hover:bg-primary/90 transition-transform hover:scale-[1.01]"
               >
