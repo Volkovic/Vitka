@@ -19,13 +19,13 @@ export const javascriptTitles = [
 ];
 
 export const sqlTitles = [
-  'Introducción a SQL y SELECT', 'Filtrado Avanzado (WHERE, LIKE, IN)', 'Ordenamiento y Paginación (ORDER BY, LIMIT)',
-  'Diseño de Tablas (CREATE TABLE)', 'Tipos de Datos Principales', 'Llaves Primarias (PRIMARY KEY)',
-  'Relaciones y Llaves Foráneas (FOREIGN KEY)', 'Uniones Básicas (INNER JOIN)', 'Uniones Avanzadas (LEFT/RIGHT JOIN)',
-  'Insertar Datos (INSERT)', 'Consultas de Actualización (UPDATE)', 'Borrar Datos (DELETE)', 
-  'Constraints Avanzados', 'Funciones de Agregación', 'Subconsultas Básicas',
-  '¿Qué es un BaaS y Supabase?', 'El Cliente Supabase en React', 'CRUD sin escribir SQL',
-  'Autenticación (Auth)', 'Seguridad a Nivel de Fila (RLS)', 'Bases de Datos en Tiempo Real',
+  '¿Qué es SQL?', 'Filtrando Datos con WHERE (Parte 1)', 'Filtrando Datos con WHERE (Parte 2): Texto',
+  'Filtrando y Ordenando Resultados', 'Consultas Multi-tabla con JOINs', 'OUTER JOINs',
+  'Una Nota sobre NULLs', 'Consultas con Expresiones', 'Funciones de Agregación (Parte 1)',
+  'Agregación con GROUP BY (Parte 2)', 'Orden de Ejecución de una Consulta', 'Insertando Filas (INSERT INTO)',
+  'Actualizando y Eliminando Filas', 'Creando Tablas (CREATE TABLE)', 'Modificando y Eliminando Tablas',
+  'Fase Integración: Supabase y BaaS', 'El Cliente de Supabase en React', 'CRUD sin escribir SQL',
+  'Autenticación de Usuarios (Auth)', 'Row Level Security (RLS)', 'Bases de Datos en Tiempo Real',
   'Almacenamiento (Supabase Storage)'
 ];
 

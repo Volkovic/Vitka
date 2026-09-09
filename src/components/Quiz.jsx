@@ -50,7 +50,22 @@ export default function Quiz({ questions, moduleId, courseId }) {
   const failedEarlyRef = useRef(false);
 
   const shuffledQuestions = useMemo(() => {
-    return [...questions].sort(() => 0.5 - Math.random()).slice(0, actualTotalQuestions);
+    return [...questions]
+      .sort(() => 0.5 - Math.random())
+      .slice(0, actualTotalQuestions)
+      .map((q) => {
+        // Shuffle options and update correctAnswer to match new position
+        const indices = q.options.map((_, i) => i);
+        for (let i = indices.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [indices[i], indices[j]] = [indices[j], indices[i]];
+        }
+        return {
+          ...q,
+          options: indices.map((i) => q.options[i]),
+          correctAnswer: indices.indexOf(q.correctAnswer),
+        };
+      });
   }, [questions, quizKey, actualTotalQuestions]);
 
   const resetQuiz = useCallback(() => {
