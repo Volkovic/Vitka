@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { useState, useEffect } from 'react';
 
-import { pythonTitles, javascriptTitles, sqlTitles, gitTitles, typescriptTitles, nodeTitles, reactTitles, tailwindTitles } from '../data/courseTitles';
+import { pythonTitles, javascriptTitles, sqlTitles, gitTitles, typescriptTitles, nodeTitles, reactTitles, tailwindTitles, dockerTitles, cicdTitles, testingTitles, arquitecturaTitles, reactNativeTitles } from '../data/courseTitles';
 
 export default function CoursePath() {
   const { courseId } = useParams();
@@ -37,21 +37,62 @@ export default function CoursePath() {
     loadProgress();
   }, [user, courseId]);
 
-  if (courseId !== 'python' && courseId !== 'javascript' && courseId !== 'sql' && courseId !== 'git' && courseId !== 'typescript' && courseId !== 'node' && courseId !== 'react' && courseId !== 'tailwind') {
+  const validCourses = ['python', 'javascript', 'sql', 'git', 'typescript', 'node', 'react', 'tailwind', 'docker', 'ci-cd', 'testing', 'arquitectura', 'react-native'];
+  if (!validCourses.includes(courseId)) {
     return <Navigate to="/" />;
   }
-
-  const isPython = courseId === 'python';
-  const isSql = courseId === 'sql';
-  const isGit = courseId === 'git';
-  const isTypescript = courseId === 'typescript';
-  const isNode = courseId === 'node';
-  const isReact = courseId === 'react';
-  const isTailwind = courseId === 'tailwind';
   
-  const moduleTitles = isPython ? pythonTitles : (isSql ? sqlTitles : (isGit ? gitTitles : (isTypescript ? typescriptTitles : (isNode ? nodeTitles : (isReact ? reactTitles : (isTailwind ? tailwindTitles : javascriptTitles))))));
-  const courseName = isPython ? 'Python' : (isSql ? 'SQL + Supabase' : (isGit ? 'Git/GitHub' : (isTypescript ? 'TypeScript' : (isNode ? 'Node.js' : (isReact ? 'React' : (isTailwind ? 'Tailwind CSS' : 'JavaScript'))))));
-  const Icon = isPython ? Terminal : (isSql ? Database : (isGit ? GitBranch : (isTypescript ? FileCode2 : (isNode ? Server : (isReact ? Atom : (isTailwind ? Palette : Code2))))));
+  const titleMap = {
+    python: pythonTitles,
+    javascript: javascriptTitles,
+    sql: sqlTitles,
+    git: gitTitles,
+    typescript: typescriptTitles,
+    node: nodeTitles,
+    react: reactTitles,
+    tailwind: tailwindTitles,
+    docker: dockerTitles,
+    'ci-cd': cicdTitles,
+    testing: testingTitles,
+    arquitectura: arquitecturaTitles,
+    'react-native': reactNativeTitles
+  };
+  
+  const nameMap = {
+    python: 'Python',
+    javascript: 'JavaScript',
+    sql: 'SQL + Supabase',
+    git: 'Git/GitHub',
+    typescript: 'TypeScript',
+    node: 'Node.js',
+    react: 'React',
+    tailwind: 'Tailwind CSS',
+    docker: 'Docker',
+    'ci-cd': 'CI/CD & GitHub Actions',
+    testing: 'Testing',
+    arquitectura: 'Arquitectura & Clean Code',
+    'react-native': 'React Native + Expo'
+  };
+  
+  const iconMap = {
+    python: Terminal,
+    javascript: Code2,
+    sql: Database,
+    git: GitBranch,
+    typescript: FileCode2,
+    node: Server,
+    react: Atom,
+    tailwind: Palette,
+    docker: Terminal,
+    'ci-cd': GitBranch,
+    testing: FileCode2,
+    arquitectura: Server,
+    'react-native': Atom
+  };
+
+  const moduleTitles = titleMap[courseId] || javascriptTitles;
+  const courseName = nameMap[courseId] || 'JavaScript';
+  const Icon = iconMap[courseId] || Code2;
 
   if (authLoading || loading) {
     return <div className="flex items-center justify-center min-h-[50vh]"><Loader2 className="animate-spin text-primary" size={48}/></div>;

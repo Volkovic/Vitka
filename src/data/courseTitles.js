@@ -72,6 +72,31 @@ export const tailwindTitles = [
   'Arquitectura Headless y Accesibilidad'
 ];
 
+export const dockerTitles = [
+  'Fundamentos y Contenedores', 'Creación de Imágenes (Dockerfiles)',
+  'Orquestación Local (Docker Compose)', 'Persistencia y Volúmenes'
+];
+
+export const cicdTitles = [
+  'Conceptos de CI/CD y YAML', 'Pipelines de Integración Continua',
+  'Despliegue Continuo y Secretos'
+];
+
+export const testingTitles = [
+  'Fundamentos del Testing y Jest', 'Pruebas de Componentes (React Testing Library)',
+  'Pruebas End-to-End (Cypress)'
+];
+
+export const arquitecturaTitles = [
+  'Clean Code y Refactorización', 'Principios S.O.L.I.D.',
+  'Patrones de Diseño Comunes', 'Clean Architecture / Arquitectura Hexagonal'
+];
+
+export const reactNativeTitles = [
+  'Fundamentos Nativos y Expo', 'Navegación y UI Core',
+  'Interacción con el Hardware', 'Empaquetado y Publicación'
+];
+
 export function getModuleTitle(courseId, moduleId) {
   const index = parseInt(moduleId, 10) - 1;
   if (courseId === 'python') return pythonTitles[index] || `Módulo ${moduleId}`;
@@ -82,6 +107,11 @@ export function getModuleTitle(courseId, moduleId) {
   if (courseId === 'node') return nodeTitles[index] || `Módulo ${moduleId}`;
   if (courseId === 'react') return reactTitles[index] || `Módulo ${moduleId}`;
   if (courseId === 'tailwind') return tailwindTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'docker') return dockerTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'ci-cd') return cicdTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'testing') return testingTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'arquitectura') return arquitecturaTitles[index] || `Módulo ${moduleId}`;
+  if (courseId === 'react-native') return reactNativeTitles[index] || `Módulo ${moduleId}`;
   return `Módulo ${moduleId}`;
 }
 
@@ -94,5 +124,10 @@ export function getCourseTotalModules(courseId) {
   if (courseId === 'node') return nodeTitles.length;
   if (courseId === 'react') return reactTitles.length;
   if (courseId === 'tailwind') return tailwindTitles.length;
+  if (courseId === 'docker') return dockerTitles.length;
+  if (courseId === 'ci-cd') return cicdTitles.length;
+  if (courseId === 'testing') return testingTitles.length;
+  if (courseId === 'arquitectura') return arquitecturaTitles.length;
+  if (courseId === 'react-native') return reactNativeTitles.length;
   return 0;
 }

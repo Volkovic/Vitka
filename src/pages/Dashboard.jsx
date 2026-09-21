@@ -16,7 +16,12 @@ const TOTAL_MODULES = {
   typescript: 8,
   node: 4,
   react: 17,
-  tailwind: 5
+  tailwind: 5,
+  docker: 4,
+  'ci-cd': 3,
+  testing: 3,
+  arquitectura: 4,
+  'react-native': 4
 };
 
 export default function Dashboard() {
@@ -29,7 +34,12 @@ export default function Dashboard() {
     typescript: 0,
     node: 0,
     react: 0,
-    tailwind: 0
+    tailwind: 0,
+    docker: 0,
+    'ci-cd': 0,
+    testing: 0,
+    arquitectura: 0,
+    'react-native': 0
   });
 
   useEffect(() => {
@@ -50,7 +60,12 @@ export default function Dashboard() {
           typescript: 0,
           node: 0,
           react: 0,
-          tailwind: 0
+          tailwind: 0,
+          docker: 0,
+          'ci-cd': 0,
+          testing: 0,
+          arquitectura: 0,
+          'react-native': 0
         };
         
         data.forEach(row => {
@@ -67,7 +82,12 @@ export default function Dashboard() {
           typescript: Math.round((maxModules.typescript / TOTAL_MODULES.typescript) * 100),
           node: Math.round((maxModules.node / TOTAL_MODULES.node) * 100),
           react: Math.round((maxModules.react / TOTAL_MODULES.react) * 100),
-          tailwind: Math.round((maxModules.tailwind / TOTAL_MODULES.tailwind) * 100)
+          tailwind: Math.round((maxModules.tailwind / TOTAL_MODULES.tailwind) * 100),
+          docker: Math.round((maxModules.docker / TOTAL_MODULES.docker) * 100),
+          'ci-cd': Math.round((maxModules['ci-cd'] / TOTAL_MODULES['ci-cd']) * 100),
+          testing: Math.round((maxModules.testing / TOTAL_MODULES.testing) * 100),
+          arquitectura: Math.round((maxModules.arquitectura / TOTAL_MODULES.arquitectura) * 100),
+          'react-native': Math.round((maxModules['react-native'] / TOTAL_MODULES['react-native']) * 100)
         });
       }
     }
@@ -210,17 +230,21 @@ export default function Dashboard() {
       cards: [
         {
           title: "React Native + Expo",
+          badge: "4 Módulos",
           description: "La forma más rápida de crear aplicaciones nativas para iOS y Android con React.",
           icon: Smartphone,
           to: "/react-native",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "react-native"
         },
         {
           title: "Testing (Jest/Cypress)",
+          badge: "3 Módulos",
           description: "Aprende a escribir pruebas automatizadas para que tu código sea robusto.",
           icon: Bug,
           to: "/testing",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "testing"
         }
       ]
     },
@@ -231,24 +255,30 @@ export default function Dashboard() {
       cards: [
         {
           title: "Docker",
+          badge: "4 Módulos",
           description: "Contenerización. Empaqueta tu app para que funcione igual en cualquier servidor.",
           icon: Box,
           to: "/docker",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "docker"
         },
         {
           title: "CI/CD & GitHub Actions",
+          badge: "3 Módulos",
           description: "Automatiza el despliegue de tus aplicaciones cuando haces push al repositorio.",
           icon: Workflow,
-          to: "/cicd",
-          isAvailable: false
+          to: "/ci-cd",
+          isAvailable: true,
+          progressId: "ci-cd"
         },
         {
           title: "Arquitectura & Clean Code",
+          badge: "4 Módulos",
           description: "Aprende patrones de diseño, SOLID y cómo mantener tu código a largo plazo.",
           icon: Layers,
           to: "/arquitectura",
-          isAvailable: false
+          isAvailable: true,
+          progressId: "arquitectura"
         }
       ]
     },
